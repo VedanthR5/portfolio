@@ -32,6 +32,7 @@ import {
   tripguide,
   threejs,
   github,
+  nn,
 } from "../assets";
 
 export const navLinks = [
@@ -239,6 +240,33 @@ const projects = [
     source_code_link:
       "https://scienteer.com/project/display/ZWZlMjMzYzVlMWEwMDM1OWQ2M2ZiZjY0NmQzNmZlMzE5NTU4ZTQ3NTIuMTgyMzM0.dc797fd1eceb082093407db8c1548c71f841d897ec27efff847cee908901fa0c/",
   },
+  {
+    name: "Independent Study on Convolutional Neural Networks and Skin Disease Classification",
+    description:
+      "The primary aim of this independent study project is to foster a deep understanding of AI and machine learning concepts. Through 9 distinct units, the project seeks to equip participants with the knowledge and skills to identify handwritten digits and create efficient AI models using backpropagation algorithms. By bridging theory and practice, this project aims to empower individuals with the capability to harness AI for solving real-world problems and make meaningful contributions in the field of artificial intelligence.",
+    tags: [
+      {
+        name: "python",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "AI",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Neural networks",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "CS50",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: nn,
+    source_code_link:
+      "https://github.com/VedanthR5/Ind.-Study-AI-NeuralNets-2023-24",
+  },
+
   {
     name: "Austin Divided: Road to Recovery",
     description:
