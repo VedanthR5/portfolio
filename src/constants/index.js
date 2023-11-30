@@ -197,7 +197,7 @@ const projects = [
     ],
     image: carrent,
     source_code_link:
-      "https://pdfhost.io/v/SqOQwspIP_VedanthRamanathan_Resume_CommonApp",
+      "https://pdfhost.io/v/4u6z6RCjA_VedanthRamanathan_Resume_2",
   },
   {
     name: "Github Portfolio",
@@ -245,7 +245,7 @@ const projects = [
   {
     name: "FoodCycle Application",
     description:
-      "An app created by LASA HS Seniors for the Congressional App Challenge (TX-37) to change how food in supermarkets can be conserved and not wasted. Created using React Frontend, and AWS Amplify Backend.",
+      "WINNER of the the Congressional App Challenge (TX-37), made to change how food in supermarkets can be conserved and not wasted. Created using React Frontend, and AWS Amplify Backend.",
     tags: [
       {
         name: "ReactJS",
