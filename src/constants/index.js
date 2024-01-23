@@ -245,7 +245,7 @@ const projects = [
   {
     name: "FoodCycle Application",
     description:
-      "WINNER of the the Congressional App Challenge (TX-37), made to change how food in supermarkets can be conserved and not wasted. Created using React Frontend, and AWS Amplify Backend.",
+      "WINNER of the the Congressional App Challenge (TX-37), made to change how food in supermarkets can be conserved and not wasted. Recognized by KVUE, KXAN, and the Central Texas Food Bank.",
     tags: [
       {
         name: "ReactJS",
@@ -261,7 +261,7 @@ const projects = [
       },
     ],
     image: FoodCycle,
-    source_code_link: "https://github.com/VedanthR5/FoodCycle",
+    source_code_link: "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
   },
 
   {
