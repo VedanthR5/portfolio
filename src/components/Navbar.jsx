@@ -62,7 +62,7 @@ const Navbar = () => {
                   Computely
                 </a>
               ) : (
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                <Link to={nav.url || `#${nav.id}`}>{nav.title}</Link>
               )}
             </li>
           ))}

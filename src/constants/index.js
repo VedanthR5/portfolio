@@ -1,10 +1,7 @@
 import {
-  dart,
   divided,
   flutter,
   latex,
-  linux,
-  canva,
   mobile,
   backend,
   survey,
@@ -15,14 +12,6 @@ import {
   python,
   html,
   css,
-  reactjs,
-  redux,
-  tailwind,
-  nodejs,
-  mongodb,
-  git,
-  figma,
-  docker,
   meta,
   starbucks,
   tesla,
@@ -30,7 +19,6 @@ import {
   carrent,
   jobit,
   tripguide,
-  threejs,
   github,
   nn,
   FoodCycle,
@@ -48,6 +36,11 @@ export const navLinks = [
   {
     id: "contact",
     title: "Contact",
+  },
+  {
+    id: "resume",
+    title: "Resume",
+    url: "https://pdfhost.io/v/4u6z6RCjA_VedanthRamanathan_Resume_2",
   },
 ];
 
@@ -72,10 +65,6 @@ const services = [
 
 const technologies = [
   {
-    name: "Canva",
-    icon: canva,
-  },
-  {
     name: "CSS",
     icon: css,
   },
@@ -84,12 +73,9 @@ const technologies = [
     icon: flutter,
   },
   {
-    name: "Git",
-    icon: git,
-  },
-  {
     name: "Github",
     icon: github,
+    link: "https://github.com/VedanthR5",
   },
   {
     name: "HTML 5",
@@ -105,20 +91,8 @@ const technologies = [
     icon: javascript,
   },
   {
-    name: "Latex",
-    icon: latex,
-  },
-  {
-    name: "Linux",
-    icon: linux,
-  },
-  {
     name: "Python",
     icon: python,
-  },
-  {
-    name: "React JS",
-    icon: reactjs,
   },
 ];
 
@@ -241,7 +215,7 @@ const projects = [
     image: tripguide,
     source_code_link: "https://arxiv.org/abs/2309.05646",
   },
-  
+
   {
     name: "FoodCycle Application",
     description:
@@ -261,7 +235,8 @@ const projects = [
       },
     ],
     image: FoodCycle,
-    source_code_link: "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
+    source_code_link:
+      "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
   },
 
   {
