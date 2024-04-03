@@ -40,7 +40,7 @@ export const navLinks = [
   {
     id: "resume",
     title: "Resume",
-    url: "https://pdfhost.io/v/4u6z6RCjA_VedanthRamanathan_Resume_2",
+    url: "https://pdfhost.io/v/J~e4cJAT~_VedanthRamanathan_Resume_4",
   },
 ];
 
