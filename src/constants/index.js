@@ -283,28 +283,6 @@ const projects = [
     image: divided,
     source_code_link: "https://issuu.com/lasaezine/docs/austin_divided",
   },
-  {
-    name: "Survey App",
-    description:
-      "Using Microsoft Sharepoint and Powerapps, I created a basic survey to use to get data for innovative app ideas. -Used by Elementary Schools across AISD as an engagement tool.",
-    tags: [
-      {
-        name: "Microsoft",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Sharepoint",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Powerapps",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: survey,
-    source_code_link:
-      "https://apps.powerapps.com/play/b84bdf40-dd4a-4c42-9bbb-6dfb18fa85f0?tenantId=5f37781d-268b-465c-8cb5-c18270fb129c",
-  },
 ];
 
 export { services, technologies, experiences, projects };
