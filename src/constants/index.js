@@ -22,6 +22,7 @@ import {
   github,
   nn,
   FoodCycle,
+  antihack,
 } from "../assets";
 
 export const navLinks = [
@@ -195,7 +196,7 @@ const projects = [
     source_code_link: "https://github.com/VedanthR5",
   },
   {
-    name: "Detecting DDoS attacks using Neural Networks",
+    name: "Detecting DDoS attacks on Edge Devices using Neural Networks",
     description:
       "Science Fair Project made by Vedanth Ramanathan. Won US Army and Navy Excellence Awards. 3rd in Fair. Made using Python, LinuxMint, and Tensorflow. Achieved a Accuracy of 97.6% over 2000+ samples.",
     tags: [
@@ -217,7 +218,7 @@ const projects = [
   },
 
   {
-    name: "FoodCycle Application",
+    name: "FoodCycle App",
     description:
       "WINNER of the the Congressional App Challenge (TX-37), made to change how food in supermarkets can be conserved and not wasted. Recognized by KVUE, KXAN, and the Central Texas Food Bank.",
     tags: [
@@ -237,6 +238,28 @@ const projects = [
     image: FoodCycle,
     source_code_link:
       "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
+  },
+  {
+    name: "DOD Cybersecurity Aligned Scripts for Windows 10 Hardening",
+    description:
+      "Originally created for CyberPatriot XIV Competition. Run Scripts using: Set-ExecutionPolicy unrestricted. Use PrivateZilla for all Telemetry, Anti-Bloat Software related hardening",
+    tags: [
+      {
+        name: "Batchfile",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Windows",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Powershell",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: antihack,
+    source_code_link:
+      "https://github.com/VedanthR5/Clickbait-Cyberpatriot-2022-2023/tree/main",
   },
 
   {

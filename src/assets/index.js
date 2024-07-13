@@ -2,6 +2,7 @@ import logo from "./logo.png";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
+import antihack from "./antihack.jpg";
 import web from "./web.png";
 import survey from "./survey.png";
 import github from "./tech/github-original.svg";
@@ -82,4 +83,5 @@ export {
   tripguide,
   nn,
   FoodCycle,
+  antihack,
 };
