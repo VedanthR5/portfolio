@@ -20,11 +20,11 @@ const Hero = () => {
             Hi, I'm <span className="text-[#915EFF]">Vedanth</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I'm a senior at LASA High School in Austin, Texas{" "}
+            I'm a freshman at Carnegie Mellon{" "}
             <br className="sm:block hidden" />
             interested in{" "}
             <span style={{ color: "#915EFF" }}>cybersecurity</span>,{" "}
-            <span style={{ color: "#915EFF" }}>algorithms</span>, and{" "}
+            <span style={{ color: "#915EFF" }}>sustainability</span>, and{" "}
             <span style={{ color: "#915EFF" }}>volunteering</span>.
           </p>
         </div>

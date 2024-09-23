@@ -172,7 +172,7 @@ const projects = [
     ],
     image: carrent,
     source_code_link:
-      "https://pdfhost.io/v/4u6z6RCjA_VedanthRamanathan_Resume_2",
+      "https://pdfhost.io/v/.m8mKKM9h_Resume",
   },
   {
     name: "Github Portfolio",
