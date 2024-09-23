@@ -41,7 +41,7 @@ export const navLinks = [
   {
     id: "resume",
     title: "Resume",
-    url: "https://pdfhost.io/v/fQG1.u2J5_OnePageResume_VedanthRamanathan",
+    url: "https://pdfhost.io/v/.m8mKKM9h_Resume",
   },
 ];
 
@@ -171,8 +171,7 @@ const projects = [
       },
     ],
     image: carrent,
-    source_code_link:
-      "https://pdfhost.io/v/.m8mKKM9h_Resume",
+    source_code_link: "https://pdfhost.io/v/.m8mKKM9h_Resume",
   },
   {
     name: "Github Portfolio",
