@@ -38,11 +38,7 @@ export const navLinks = [
     id: "contact",
     title: "Contact",
   },
-  {
-    id: "resume",
-    title: "Resume",
-    url: "https://pdfhost.io/v/.m8mKKM9h_Resume",
-  },
+  // Removed the resume link
 ];
 
 const services = [

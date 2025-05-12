@@ -4,21 +4,23 @@ import { Decal, OrbitControls, Preload, useTexture } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
+// ... existing code ...
 const Ball = (props) => {
   const [decal] = useTexture([props.imgUrl]);
 
   return (
     <>
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={0.15} /> {/* Reduced intensity */}
       <directionalLight position={[0, 0, 0.05]} />
       <mesh castShadow receiveShadow scale={2.75}>
-        <icosahedronGeometry args={[1, 1]} />
+        <icosahedronGeometry args={[1, 0]} /> {/* Reduced detail level */}
         <meshStandardMaterial
           color="#fff8eb"
           polygonOffset
           polygonOffsetFactor={-5}
           flatShading
         />
+        {/* Consider removing or simplifying the Decal if not necessary */}
         <Decal
           position={[0, 0, 1]}
           rotation={[2 * Math.PI, 0, 6.25]}
@@ -30,6 +32,7 @@ const Ball = (props) => {
     </>
   );
 };
+// ... existing code ...
 
 const BallCanvas = ({ icon, link }) => {
   const handleClick = () => {
