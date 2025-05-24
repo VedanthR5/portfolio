@@ -8,7 +8,7 @@ import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 
 const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className="xs:w-[250px] w-full">
+  <Tilt className="xs:w-[250px] w-full ">
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
       className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
@@ -47,14 +47,28 @@ const About = () => {
         variants={fadeIn("", "", 0.1, 1)}
         className="mt-4 text-secondary text-[20px] max-w-3xl leading-[30px]"
       >
-        Hey there! Here's a quick intro to who I am! Besides coding, I play the
-        violin and basketball. Here is a link to my{" "}
+        <span className="text-white">
+          Hey there! Here's a quick intro to who I am! I'm the founder of{" "}
+          <a
+            href="https://www.computely.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white underline font-bold"
+          >
+            Computely
+          </a>
+          , a venture to streamline learning for students with learning disabilities.
+        </span>
+<br />
+        <br /> 
+        Besides coding, I play the
+        violin, basketball, and write for the school paper. I'm also a member of the CMU SCS Dean's Advisory Council.
+        <br /> Here is a link to my{" "}
         <a
           href="https://github.com/VedanthR5"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white underline githubLink"
-          class="link-active"
+          className="text-white underline font-bold githubLink"
         >
           GitHub
         </a>

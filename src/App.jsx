@@ -6,7 +6,6 @@ import {
   Experience,
   Hero,
   Navbar,
-  Tech,
   Works,
   StarsCanvas,
 } from "./components";
@@ -40,7 +39,7 @@ const App = () => {
           <meta property="twitter:title" content="Vedanth Ramanathan" />
           <meta
             property="twitter:description"
-            content="Coding Portfolio, Projects, and Activities of Vedanth Ramanathan! Senior at LASA High School in Austin, Texas"
+            content="My Portfolio, Projects, and Activities!"
           />
           <meta property="twitter:image" content="" />
         </Helmet>
@@ -51,7 +50,6 @@ const App = () => {
           </div>
           <About />
 
-          <Tech />
           <Works />
           <div className="relative z-0">
             <Contact />

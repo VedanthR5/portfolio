@@ -44,7 +44,7 @@ const Navbar = () => {
         >
           <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
           <p className="text-white text-[18px] font-bold cursor-pointer flex ">
-            Vedanth  <span className="sm:block hidden">Ramanathan</span>
+            Vedanth <span className="sm:block hidden">Ramanathan</span>
           </p>
         </Link>
 
@@ -57,13 +57,24 @@ const Navbar = () => {
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.title)}
             >
-              {nav.title === "Activities" ? (
+              { 
+                nav.title === "LinkedIn" ? (
+                  <a href="https://www.linkedin.com/in/vedanthramanathan/" target="_blank">
+                    LinkedIn
+                  </a>
+                ) : nav.title === "About" ? (
+                  <a href={`#${nav.id}`}>{nav.title}</a>
+              ) : nav.title === "Activities" ? (
                 <a href="https://www.computely.org" target="_blank">
                   Computely
                 </a>
+              ) : nav.title === "Contact" ? (
+                <a href={`#${nav.id}`}>{nav.title}</a>
               ) : (
                 <Link to={nav.url || `#${nav.id}`}>{nav.title}</Link>
-              )}
+              )
+              
+              }
             </li>
           ))}
         </ul>
@@ -93,7 +104,14 @@ const Navbar = () => {
                     setActive(nav.title);
                   }}
                 >
-                  {nav.title === "Activities" ? (
+                  {nav.title === "LinkedIn" ? (
+                    <a
+                      href="https://www.linkedin.com/in/vedanthramanathan/"
+                      target="_blank"
+                    >
+                      LinkedIn
+                    </a>
+                  ) : nav.title === "Activities" ? (
                     <a href="https://www.computely.org" target="_blank">
                       Computely
                     </a>
