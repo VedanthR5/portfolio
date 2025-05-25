@@ -18,7 +18,7 @@ const App = () => {
           <title>Vedanth Ramanathan</title>
           <meta
             name="description"
-            content="Coding Portfolio, Projects, and Activities of Vedanth Ramanathan! Senior at LASA High School in Austin, Texas"
+            content="Explore Vedanth's web and mobile projects, sustainability work, and equity-focused computer science endeavors- based in Austin, Texas"
           />
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
@@ -26,7 +26,7 @@ const App = () => {
           <meta property="og:title" content="Vedanth Ramanathan" />
           <meta
             property="og:description"
-            content="Coding Portfolio, Projects, and Activities of Vedanth Ramanathan! Senior at LASA High School in Austin, Texas"
+            content="Explore Vedanth's web and mobile projects, sustainability work, and equity-focused computer science endeavors- based in Austin, Texas"
           />
           <meta property="og:image" content="" />
 
