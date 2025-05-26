@@ -8,6 +8,7 @@ import {
   Navbar,
   Works,
   StarsCanvas,
+  ComputersCanvas,
 } from "./components";
 
 const App = () => {
@@ -48,7 +49,10 @@ const App = () => {
             <Navbar />
             <Hero />
           </div>
+          
+
           <About />
+
 
           <Works />
           <div className="relative z-0">

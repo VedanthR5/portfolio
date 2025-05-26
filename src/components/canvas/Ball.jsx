@@ -44,7 +44,7 @@ const BallCanvas = ({ icon, link }) => {
   if (!link) {
     return (
       <Canvas
-        frameloop="demand"
+        frameloop="always"
         dpr={[1, 2]}
         gl={{ preserveDrawingBuffer: true }}
       >
@@ -66,7 +66,7 @@ const BallCanvas = ({ icon, link }) => {
       onClick={handleClick}
     >
       <Canvas
-        frameloop="demand"
+        frameloop="always"
         dpr={[1, 2]}
         gl={{ preserveDrawingBuffer: true }}
       >
