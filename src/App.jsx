@@ -1,19 +1,13 @@
 import { BrowserRouter } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Suspense, lazy } from "react";
-import Loader from "./components/Loader";
-import ErrorBoundary from "./components/ErrorBoundary";
-
-// Lazy load heavy components
-const About = lazy(() => import("./components/About"));
-const Contact = lazy(() => import("./components/Contact"));
-const Experience = lazy(() => import("./components/Experience"));
-const Works = lazy(() => import("./components/Works"));
-const StarsCanvas = lazy(() => import("./components/canvas/Stars"));
 
 // Keep critical above-the-fold components loaded immediately - import directly to avoid canvas imports
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import About from "./components/About";
+import Works from "./components/Works";
+import Contact from "./components/Contact";
+import StarsCanvas from "./components/canvas/Stars";
 
 const App = () => {
   return (

@@ -1,10 +1,8 @@
 import {
   divided,
   flutter,
-  latex,
   mobile,
   backend,
-  survey,
   creator,
   web,
   javascript,
