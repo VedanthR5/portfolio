@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint:fix": "eslint src --ext js,jsx --fix",
+    "preview": "vite preview",
+    "test": "npm run lint && npm run build",
+    "audit:security": "npm audit --audit-level moderate",
+    "audit:deps": "npm outdated",
+    "prepare": "npm run test",
+    "analyze": "npx vite-bundle-analyzer dist/stats.html"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
