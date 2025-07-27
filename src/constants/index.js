@@ -154,8 +154,30 @@ const experiences = [
 
 const projects = [
   {
+    name: "Neural Network for Skin Cancer Detection",
+    description:
+      "Advanced deep learning model using Keras and PyTorch on the HAM10000 dataset to detect skin cancer with high accuracy. Features custom CNN architecture, data augmentation, and comprehensive evaluation metrics for melanoma classification.",
+    tags: [
+      {
+        name: "PyTorch",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Keras",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Deep Learning",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: nn,
+    source_code_link: "https://jumpshare.com/share/ENaTgDliEHGVtNfJuTNk",
+  },
+  {
     name: "Resume",
-    description: "My resume!",
+    description:
+      "My comprehensive resume showcasing academic achievements, technical projects, and professional experience at Carnegie Mellon University.",
     tags: [
       {
         name: "projects",
@@ -175,20 +197,20 @@ const projects = [
       "https://storage.googleapis.com/simplify-resumes/d575313d-5129-4c08-ae7c-e7be4c9c6910/41820c06-8274-4ff3-b9b7-e12d6f05aa93/1753232162.pdf?Expires=1753836963&GoogleAccessId=gcs-signing-service-account%40mifflin-backend.iam.gserviceaccount.com&Signature=0KIoCdN36MkNdO0hm6ceFI4C6UJne0CnjrZrkxOERPyk%2BaH2w0GH4ZDuVQK1mHmfFEZWhiobsQQKHmNx86stRaZDSpLCaqWILiHidgLd6rKAkNf0wQyL4xbTiWzC5tNAYAsNtg2qhO%2FVhIbIkvmKiQCslbkrRyjuJZqt92SaMHEs0OJqh9ubCDgu6hql1lQqV%2Fk90LjC97qgfUVHsNyOR4yrtv0lqnIRapBqUz8euG9v8pa5%2BqWWLX0N%2BNshK1%2FwADsSfTav3LppbXAGnijb7Nb5xEwIBOSGTNPLmzDjoKkzoBeXOnBBbhr7kgL2Wq7q8Dd%2F79dpZmRFPtdQWY7Nyg%3D%3D",
   },
   {
-    name: "Github Portfolio",
+    name: "GitHub Portfolio",
     description:
-      "Code for school, projects (including this website!), and all my scripts for the Cyberpatriot Competition",
+      "Complete collection of my code repositories including this website, academic projects, cybersecurity scripts for CyberPatriot competition, and various full-stack applications demonstrating my technical range.",
     tags: [
       {
-        name: "dashboard",
+        name: "Full-Stack",
         color: "blue-text-gradient",
       },
       {
-        name: "code",
+        name: "Open Source",
         color: "green-text-gradient",
       },
       {
-        name: "cybersecurity",
+        name: "Cybersecurity",
         color: "pink-text-gradient",
       },
     ],
@@ -196,20 +218,20 @@ const projects = [
     source_code_link: "https://github.com/VedanthR5",
   },
   {
-    name: "Detecting DDoS attacks on Edge Devices using Neural Networks",
+    name: "DDoS Attack Detection using Neural Networks",
     description:
-      "Science Fair Project made by Vedanth Ramanathan. Won US Army and Navy Excellence Awards. 3rd in Fair. Made using Python, LinuxMint, and Tensorflow. Achieved a Accuracy of 97.6% over 2000+ samples.",
+      "Award-winning science fair project detecting DDoS attacks on edge devices using machine learning. Won US Army and Navy Excellence Awards, placed 3rd overall. Achieved 97.6% accuracy using Python, TensorFlow, and custom neural network architecture.",
     tags: [
       {
-        name: "python",
+        name: "TensorFlow",
         color: "blue-text-gradient",
       },
       {
-        name: "science fair",
+        name: "Research",
         color: "pink-text-gradient",
       },
       {
-        name: "research",
+        name: "Cybersecurity",
         color: "green-text-gradient",
       },
     ],
@@ -220,18 +242,18 @@ const projects = [
   {
     name: "FoodCycle App",
     description:
-      "WINNER of the the Congressional App Challenge (TX-37), made to change how food in supermarkets can be conserved and not wasted. Recognized by ABC, NBC, and the Central Texas Food Bank.",
+      "🏆 WINNER of Congressional App Challenge (TX-37) - Revolutionary app reducing food waste in supermarkets through smart inventory management. Featured by ABC, NBC, and Central Texas Food Bank. Full-stack React Native app with AWS backend.",
     tags: [
       {
-        name: "ReactJS",
+        name: "React Native",
         color: "blue-text-gradient",
       },
       {
-        name: "ReactNative",
+        name: "AWS Amplify",
         color: "green-text-gradient",
       },
       {
-        name: "AWS Amplify",
+        name: "Social Impact",
         color: "pink-text-gradient",
       },
     ],
@@ -240,20 +262,20 @@ const projects = [
       "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
   },
   {
-    name: "DOD Cybersecurity Aligned Scripts for Windows 10 Hardening",
+    name: "DOD Cybersecurity Windows 10 Hardening Scripts",
     description:
-      "Originally created for CyberPatriot XIV Competition. Run Scripts using: Set-ExecutionPolicy unrestricted. Use PrivateZilla for all Telemetry, Anti-Bloat Software related hardening",
+      "Professional-grade PowerShell and Batch scripts for CyberPatriot XIV competition, aligned with Department of Defense cybersecurity standards. Automates Windows 10 security hardening, vulnerability patching, and system optimization.",
     tags: [
       {
-        name: "Batchfile",
+        name: "PowerShell",
         color: "blue-text-gradient",
       },
       {
-        name: "Windows",
+        name: "Windows Security",
         color: "green-text-gradient",
       },
       {
-        name: "Powershell",
+        name: "Automation",
         color: "pink-text-gradient",
       },
     ],
@@ -265,18 +287,18 @@ const projects = [
   {
     name: "Austin Divided: Road to Recovery",
     description:
-      "In this magazine, my fellow colleagues and I wanted to capture the less known history of Austin's racist past and how it had come to the forefront in city planning and gentrification. In Austin Divided: Road to Recovery, we analyzed 5 different lens (History, Economical, Geographical, and Education, and Police Brutality) of how Austin was shaped by racist processes and how that was affecting and could affect the city for years to come. Based on interviews done with professors, locals, and businessess",
+      "Investigative journalism magazine analyzing Austin's racist urban planning history and its modern impacts on gentrification. Multi-lens analysis covering historical, economic, geographical, educational, and social justice perspectives through community interviews.",
     tags: [
       {
-        name: "gentrification",
+        name: "Journalism",
         color: "blue-text-gradient",
       },
       {
-        name: "adobe",
+        name: "Social Justice",
         color: "green-text-gradient",
       },
       {
-        name: "Austin",
+        name: "Urban Planning",
         color: "pink-text-gradient",
       },
     ],

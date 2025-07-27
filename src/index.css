@@ -205,3 +205,63 @@ html{
       -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #ffffff;
   }
 }
+
+/* Performance optimizations and smooth interactions */
+.card-img_hover {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card-img_hover:hover {
+  opacity: 1;
+}
+
+/* Smooth transforms for better performance */
+* {
+  will-change: auto;
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+/* Improved link hover effects */
+a {
+  transition: color 0.3s ease;
+}
+
+/* Better scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize canvas rendering */
+canvas {
+  display: block;
+  outline: none;
+}
+
+/* Fade-in animation for annotations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+/* Custom navy blue color */
+.text-navy-900 {
+  color: #1e3a8a;
+}

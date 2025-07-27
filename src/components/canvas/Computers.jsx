@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
@@ -6,6 +6,15 @@ import CanvasLoader from "../Loader";
 
 const Computers = ({ isMobile }) => {
   const computer = useGLTF("./desktop_pc/scene.gltf");
+
+  // Memoize scale and position to prevent unnecessary re-renders
+  const { scale, position } = useMemo(
+    () => ({
+      scale: isMobile ? 0.4 : 1.0,
+      position: isMobile ? [0, -2.5, -2.2] : [0, -2.25, 1],
+    }),
+    [isMobile]
+  );
 
   return (
     <mesh>
@@ -16,14 +25,14 @@ const Computers = ({ isMobile }) => {
         penumbra={1}
         intensity={1}
         castShadow
-        shadow-mapSize={1024}
+        shadow-mapSize={256}
       />
-      <pointLight intensity={1} />
+      <pointLight intensity={0.8} />
       <primitive
         object={computer.scene}
-        scale={isMobile ? 0.55 : 1.25}
-        position={isMobile ? [0, -3, -2.5] : [5, -2.75, 1.5]}
-        rotation={[-0.01, -0.2, -0.1]}
+        scale={scale}
+        position={position}
+        rotation={[-0.01, -0.3, -0.1]}
       />
     </mesh>
   );
@@ -54,24 +63,38 @@ const ComputersCanvas = () => {
   }, []);
 
   return (
-    <Canvas
-      frameloop="always"
-      shadows
-      dpr={[1, 2]}
-      camera={{ position: [20, 3, 5], fov: 35 }}
-      gl={{ preserveDrawingBuffer: true }}
-    >
-      <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
-        <Computers isMobile={isMobile} />
-      </Suspense>
+    <div className="absolute top-16 right-0 w-1/2 h-[calc(100%-4rem)]">
+      <Canvas
+        frameloop="demand"
+        shadows
+        dpr={[1, 1.25]}
+        camera={{ position: [20, 3, 5], fov: 35 }}
+        gl={{
+          preserveDrawingBuffer: true,
+          antialias: false,
+          alpha: true,
+          powerPreference: "high-performance",
+          stencil: false,
+          depth: false,
+        }}
+        performance={{ min: 0.5 }}
+      >
+        <Suspense fallback={<CanvasLoader />}>
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 2}
+            autoRotate
+            autoRotateSpeed={0.3}
+            enableDamping={false}
+          />
+          <Computers isMobile={isMobile} />
+        </Suspense>
 
-      <Preload all />
-    </Canvas>
+        <Preload all />
+      </Canvas>
+    </div>
   );
 };
 

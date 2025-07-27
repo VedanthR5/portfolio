@@ -27,20 +27,27 @@ const EarthCanvas = () => {
   return (
     <Canvas
       shadows
-      frameloop="always"
-      dpr={[1, 2]}
-      gl={{ preserveDrawingBuffer: true }}
+      frameloop="demand"
+      dpr={[1, 1.5]}
+      gl={{
+        preserveDrawingBuffer: true,
+        antialias: false,
+        powerPreference: "high-performance",
+      }}
       camera={{
         fov: 45,
         near: 0.5,
         far: 200,
         position: [-4, 3, 6],
       }}
+      performance={{ min: 0.5 }}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           autoRotate
+          autoRotateSpeed={1}
           enableZoom={false}
+          enablePan={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
