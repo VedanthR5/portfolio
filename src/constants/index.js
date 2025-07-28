@@ -285,7 +285,7 @@ const projects = [
   {
     name: "Austin Divided: Road to Recovery",
     description:
-      "Investigative journalism magazine analyzing Austin's racist urban planning history and its modern impacts on gentrification. Multi-lens analysis covering historical, economic, geographical, educational, and social justice perspectives through community interviews.",
+      "Investigative journalism magazine analyzing Austin's urban planning history and its modern impacts on gentrification. Multi-lens analysis covering historical, economic, geographical, educational, and social justice perspectives through community interviews.",
     tags: [
       {
         name: "Journalism",

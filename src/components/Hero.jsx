@@ -194,7 +194,7 @@ const Hero = () => {
                       Carnegie Mellon
                     </a>
                     <br className="sm:block hidden" />
-                    interested in{" "}
+                     interested in{" "}
                     <span className="text-[#915EFF]">education</span>,{" "}
                     <span className="text-[#915EFF]">sustainability</span>, and{" "}
                     <span className="text-[#915EFF]">equity</span> through
