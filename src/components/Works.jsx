@@ -216,4 +216,7 @@ const Works = () => {
   );
 };
 
-export default SectionWrapper(Works, "");
+const WrappedWorks = SectionWrapper(Works, "");
+WrappedWorks.displayName = "Works";
+
+export default WrappedWorks;

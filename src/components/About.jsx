@@ -110,4 +110,7 @@ const About = () => {
   );
 };
 
-export default SectionWrapper(About, "about");
+const WrappedAbout = SectionWrapper(About, "about");
+WrappedAbout.displayName = "About";
+
+export default WrappedAbout;

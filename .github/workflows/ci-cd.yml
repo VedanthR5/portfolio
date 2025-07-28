@@ -22,10 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Code quality check
-        run: |
-          echo "Skipping linting for now - portfolio focus on functionality"
-          echo "✅ Code quality check passed"
+      - name: Code quality check - ESLint
+        run: npm run lint
 
       - name: Test build (verify it compiles)
         run: npm run build
