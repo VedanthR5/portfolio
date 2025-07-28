@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { styles } from "../styles";
@@ -57,24 +57,29 @@ const Navbar = () => {
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.title)}
             >
-              { 
-                nav.title === "LinkedIn" ? (
-                  <a href="https://www.linkedin.com/in/vedanthramanathan/" target="_blank">
-                    LinkedIn
-                  </a>
-                ) : nav.title === "About" ? (
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+              {nav.title === "LinkedIn" ? (
+                <a
+                  href="https://www.linkedin.com/in/vedanthramanathan/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+              ) : nav.title === "About" ? (
+                <a href={`#${nav.id}`}>{nav.title}</a>
               ) : nav.title === "Activities" ? (
-                <a href="https://www.computely.org" target="_blank">
+                <a
+                  href="https://www.computely.org"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Computely
                 </a>
               ) : nav.title === "Contact" ? (
                 <a href={`#${nav.id}`}>{nav.title}</a>
               ) : (
                 <Link to={nav.url || `#${nav.id}`}>{nav.title}</Link>
-              )
-              
-              }
+              )}
             </li>
           ))}
         </ul>
@@ -108,11 +113,16 @@ const Navbar = () => {
                     <a
                       href="https://www.linkedin.com/in/vedanthramanathan/"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       LinkedIn
                     </a>
                   ) : nav.title === "Activities" ? (
-                    <a href="https://www.computely.org" target="_blank">
+                    <a
+                      href="https://www.computely.org"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Computely
                     </a>
                   ) : (

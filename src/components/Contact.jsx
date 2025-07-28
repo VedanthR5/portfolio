@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -34,9 +34,9 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-//nhI9A00KxsAU273Rr
-//template_129z3c4
-// service_kz9delta
+    //nhI9A00KxsAU273Rr
+    //template_129z3c4
+    // service_kz9delta
     emailjs
       .send(
         "service_kz9delta",
@@ -66,7 +66,9 @@ const Contact = () => {
           setLoading(false);
           console.error(error);
 
-          alert("Uh oh, something went wrong. Please try again or email me directly at vedanth.ramanathan@gmail.com");
+          alert(
+            "Uh oh, something went wrong. Please try again or email me directly at vedanth.ramanathan@gmail.com"
+          );
         }
       );
   };

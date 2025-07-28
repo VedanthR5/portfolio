@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class ErrorBoundary extends React.Component {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
@@ -26,7 +27,7 @@ class ErrorBoundary extends React.Component {
               Something went wrong.
             </h2>
             <p className="text-secondary mb-4">
-              We're sorry, but something unexpected happened.
+              We&apos;re sorry, but something unexpected happened.
             </p>
             <button
               className="bg-[#915EFF] hover:bg-[#915EFF]/80 px-6 py-2 rounded-lg text-white font-medium transition-all duration-300"
@@ -42,5 +43,9 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default ErrorBoundary;

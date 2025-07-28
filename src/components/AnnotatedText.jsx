@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 
 const AnnotatedText = ({
   children,
@@ -108,6 +109,14 @@ const AnnotatedText = ({
       )}
     </span>
   );
+};
+
+AnnotatedText.propTypes = {
+  children: PropTypes.node.isRequired,
+  annotation: PropTypes.string.isRequired,
+  citationNumber: PropTypes.number,
+  citationUrl: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default AnnotatedText;

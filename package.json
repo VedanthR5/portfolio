@@ -22,6 +22,7 @@
     "@react-three/fiber": "^8.13.0",
     "framer-motion": "^10.12.16",
     "maath": "^0.6.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/three": "^0.178.1",
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.38.0",
@@ -41,6 +43,6 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "vite": "^4.3.9"
+    "vite": "^6.3.5"
   }
 }

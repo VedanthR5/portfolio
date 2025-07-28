@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
@@ -6,7 +6,7 @@ import CanvasLoader from "../Loader2";
 
 const Earth = () => {
   const earth = useGLTF("./a_windy_day/scene.gltf");
-  const earthRef = React.useRef();
+  const earthRef = useRef();
 
   useFrame(() => {
     earthRef.current.rotation.y += 0.01;
