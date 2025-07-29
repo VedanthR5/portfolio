@@ -36,7 +36,7 @@ export const getSecureUrl = (projectName, fallbackUrl) => {
  * @returns {Promise<string>} - Temporarily accessible URL
  */
 export const createTimeLimitedAccess = (url, timeoutMs = 30000) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     // Create a temporary, obfuscated reference
     const tempId = btoa(Date.now().toString() + Math.random().toString());
 
