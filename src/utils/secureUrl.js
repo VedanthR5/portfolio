@@ -63,8 +63,8 @@ export const isUrlSafe = (url) => {
   try {
     const parsedUrl = new URL(url);
 
-    // Only allow HTTPS URLs
-    if (parsedUrl.protocol !== "https:") {
+    // Only allow HTTP and HTTPS URLs (allow HTTP for localhost development)
+    if (!["https:", "http:"].includes(parsedUrl.protocol)) {
       return false;
     }
 
@@ -78,20 +78,20 @@ export const isUrlSafe = (url) => {
       return false;
     }
 
-    // Additional checks for known safe domains
-    const safeDomains = [
-      "storage.googleapis.com",
-      "drive.google.com",
-      "dropbox.com",
-      "onedrive.live.com",
-      "github.com",
-    ];
+    // Allow all HTTPS URLs and localhost HTTP URLs
+    if (parsedUrl.protocol === "https:") {
+      return true;
+    }
 
-    const isKnownSafeDomain = safeDomains.some((domain) =>
-      parsedUrl.hostname.includes(domain)
-    );
+    // For HTTP, only allow localhost (for development)
+    if (
+      parsedUrl.protocol === "http:" &&
+      (parsedUrl.hostname === "localhost" || parsedUrl.hostname === "127.0.0.1")
+    ) {
+      return true;
+    }
 
-    return isKnownSafeDomain;
+    return false;
   } catch {
     return false;
   }
@@ -103,8 +103,24 @@ export const isUrlSafe = (url) => {
  * @param {string} windowName - Window name (optional)
  */
 export const secureOpen = (url, windowName = "_blank") => {
-  if (!isUrlSafe(url)) {
-    console.error("Blocked potentially unsafe URL:", url);
+  // Only apply strict validation to Resume URLs that come from environment
+  const isResumeUrl =
+    url.includes("storage.googleapis.com") ||
+    url === import.meta.env.VITE_RESUME_URL;
+
+  if (isResumeUrl && !isUrlSafe(url)) {
+    console.error("Blocked potentially unsafe resume URL:", url);
+    return;
+  }
+
+  // For all other URLs, just block obviously dangerous protocols
+  const dangerousProtocols = ["javascript:", "data:", "vbscript:", "file:"];
+  if (
+    dangerousProtocols.some((protocol) =>
+      url.toLowerCase().startsWith(protocol)
+    )
+  ) {
+    console.error("Blocked dangerous protocol:", url);
     return;
   }
 
