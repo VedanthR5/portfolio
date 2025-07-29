@@ -1,6 +1,7 @@
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
 import { styles } from "../styles";
 import { click } from "../assets";
@@ -8,6 +9,13 @@ import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 import AnnotatedText from "./AnnotatedText";
+import PasswordModal from "./PasswordModal";
+import {
+  trackResumeClick,
+  trackResumeSuccess,
+  trackProjectClick,
+} from "../utils/analytics";
+import { getSecureUrl, secureOpen } from "../utils/secureUrl";
 
 const ProjectCard = ({
   index,
@@ -17,6 +25,61 @@ const ProjectCard = ({
   image,
   source_code_link,
 }) => {
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const isResumeProject = name === "Resume";
+
+  // Increment click counter for resume project
+  const incrementResumeClickCount = () => {
+    if (isResumeProject) {
+      const currentCount = parseInt(
+        localStorage.getItem("resumeClickCount") || "0",
+        10
+      );
+      const newCount = currentCount + 1;
+      localStorage.setItem("resumeClickCount", newCount.toString());
+
+      // Send to Google Analytics
+      trackResumeClick(newCount);
+
+      console.log(`Resume clicked ${newCount} times`);
+    }
+  };
+
+  const handleProjectClick = () => {
+    if (isResumeProject) {
+      incrementResumeClickCount();
+      setShowPasswordModal(true);
+    } else {
+      // Track regular project clicks
+      trackProjectClick(name);
+      const secureUrl = getSecureUrl(name, source_code_link);
+      secureOpen(secureUrl);
+    }
+  };
+
+  const handlePasswordSuccess = () => {
+    // Track successful password entries
+    if (isResumeProject) {
+      const currentSuccessCount = parseInt(
+        localStorage.getItem("resumeSuccessCount") || "0",
+        10
+      );
+      const newSuccessCount = currentSuccessCount + 1;
+      localStorage.setItem("resumeSuccessCount", newSuccessCount.toString());
+
+      // Send to Google Analytics
+      trackResumeSuccess(newSuccessCount);
+
+      // Securely resolve and open the resume URL
+      const secureUrl = getSecureUrl(name, source_code_link);
+      secureOpen(secureUrl);
+    } else {
+      // Fallback for non-resume projects
+      const secureUrl = getSecureUrl(name, source_code_link);
+      secureOpen(secureUrl);
+    }
+  };
+
   // Function to add annotations to specific project descriptions
   const renderDescription = (name, description) => {
     switch (name) {
@@ -113,17 +176,29 @@ const ProjectCard = ({
 
           <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
             <div
-              onClick={() => window.open(source_code_link, "_blank")}
+              onClick={handleProjectClick}
               className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer hover:scale-110 transition-transform duration-300"
             >
               <img
                 src={click}
-                alt="source code"
+                alt={isResumeProject ? "protected content" : "source code"}
                 className="w-1/2 h-1/2 object-contain"
               />
+              {isResumeProject && (
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span className="text-xs">🔒</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
+
+        <PasswordModal
+          isOpen={showPasswordModal}
+          onClose={() => setShowPasswordModal(false)}
+          onSuccess={handlePasswordSuccess}
+          itemName={name}
+        />
 
         <div className="mt-5">
           <h3 className="text-white font-bold text-[24px] hover:text-[#915EFF] transition-colors duration-300">

@@ -191,8 +191,7 @@ const projects = [
       },
     ],
     image: carrent,
-    source_code_link:
-      "https://storage.googleapis.com/simplify-resumes/d575313d-5129-4c08-ae7c-e7be4c9c6910/41820c06-8274-4ff3-b9b7-e12d6f05aa93/1753232162.pdf?Expires=1753836963&GoogleAccessId=gcs-signing-service-account%40mifflin-backend.iam.gserviceaccount.com&Signature=0KIoCdN36MkNdO0hm6ceFI4C6UJne0CnjrZrkxOERPyk%2BaH2w0GH4ZDuVQK1mHmfFEZWhiobsQQKHmNx86stRaZDSpLCaqWILiHidgLd6rKAkNf0wQyL4xbTiWzC5tNAYAsNtg2qhO%2FVhIbIkvmKiQCslbkrRyjuJZqt92SaMHEs0OJqh9ubCDgu6hql1lQqV%2Fk90LjC97qgfUVHsNyOR4yrtv0lqnIRapBqUz8euG9v8pa5%2BqWWLX0N%2BNshK1%2FwADsSfTav3LppbXAGnijb7Nb5xEwIBOSGTNPLmzDjoKkzoBeXOnBBbhr7kgL2Wq7q8Dd%2F79dpZmRFPtdQWY7Nyg%3D%3D",
+    source_code_link: "PROTECTED_RESUME_LINK", // URL loaded securely at runtime
   },
   {
     name: "GitHub Portfolio",
