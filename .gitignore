@@ -1,5 +1,13 @@
 node_modules
 dist
+server/**/*.log
+server/*.log
+
+# Local development knowledge and data (keep curated public files only)
+public/knowledge/**/*.tmp
+public/knowledge/**/*.bak
+public/knowledge/**/.DS_Store
+public/knowledge/**/Thumbs.db
 
 # Environment variables
 .env
@@ -7,6 +15,7 @@ dist
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*
 
 # Logs
 *.log

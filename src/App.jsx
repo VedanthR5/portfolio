@@ -8,6 +8,7 @@ import About from "./components/About";
 import Works from "./components/Works";
 import Contact from "./components/Contact";
 import StarsCanvas from "./components/canvas/Stars";
+import ChatWidget from "./components/chat/ChatWidget";
 
 const App = () => {
   return (
@@ -57,6 +58,8 @@ const App = () => {
           </div>
         </div>
       </BrowserRouter>
+      {/* Global Chat Widget */}
+      <ChatWidget />
     </HelmetProvider>
   );
 };

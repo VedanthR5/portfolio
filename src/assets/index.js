@@ -41,6 +41,7 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.jpg";
 import nn from "./nn.png";
 import FoodCycle from "./FoodCycle.png";
+import portfolioChatLogo from "./portfolioChatLogo-rB.png";
 
 export {
   java,
@@ -83,5 +84,6 @@ export {
   tripguide,
   nn,
   FoodCycle,
+  portfolioChatLogo,
   antihack,
 };

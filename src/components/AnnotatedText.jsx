@@ -47,7 +47,7 @@ const AnnotatedText = ({
 
       {shouldShowAnnotation && (
         <div
-          className="fixed bottom-8 right-8 z-50 animate-fade-in max-w-sm"
+          className="fixed bottom-24 right-8 z-[70] animate-fade-in max-w-sm"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

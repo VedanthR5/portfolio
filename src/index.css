@@ -1,5 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/* Chat widget utilities */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #4b3a7d transparent;
+}
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4b3a7d, #915EFF);
+  border-radius: 8px;
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
