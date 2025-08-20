@@ -92,6 +92,17 @@ export default function ChatWidget() {
     []
   );
 
+  const API_BASE = useMemo(() => {
+    // Prefer an explicit API base (e.g., Fly app URL) when provided at build time
+    const fromEnv =
+      (import.meta.env && import.meta.env.VITE_CHAT_API_BASE) || "";
+    if (typeof fromEnv === "string" && fromEnv.trim()) {
+      return fromEnv.replace(/\/$/, "");
+    }
+    // default to same-origin (works when server serves the client)
+    return "";
+  }, []);
+
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
     const userMsg = { id: Date.now(), role: "user", content: input.trim() };
@@ -106,7 +117,7 @@ export default function ChatWidget() {
           .filter((l) => l.toLowerCase().startsWith("#url:"))
           .map((l) => l.substring(5).trim()) || []
       ).slice(0, 3);
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

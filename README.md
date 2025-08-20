@@ -31,6 +31,18 @@ The Express server exposes:
 - `GET /api/health` — health probe
 - Serves static files from `dist/` (if present)
 
+## Deploy on Fly.io (server + static UI)
+
+Prereqs: install Fly CLI and log in.
+
+- One-time: create app and set secret
+  - `fly launch --no-deploy` (accept Dockerfile)
+  - `fly secrets set OPENAI_API_KEY=YOUR_KEY`
+- Build and deploy
+  - `fly deploy`
+
+The app listens on `PORT=8080` inside the VM, exposed via `[[services]]` in `fly.toml`. Health check is `/api/health`. Static client is served by the Node server from `dist/`.
+
 ## What to commit vs ignore
 
 Commit:
