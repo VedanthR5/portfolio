@@ -184,7 +184,7 @@ const Hero = () => {
                   <p
                     className={`${styles.heroSubText} text-white-100 mt-6 drop-shadow-md`}
                   >
-                    A sophomore at{" "}
+                    A student at{" "}
                     <a
                       href="https://www.cs.cmu.edu"
                       target="_blank"
