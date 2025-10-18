@@ -42,6 +42,7 @@ import tripguide from "./tripguide.jpg";
 import nn from "./nn.png";
 import FoodCycle from "./FoodCycle.png";
 import portfolioChatLogo from "./portfolioChatLogo-rB.png";
+import zetamac from "./zetamac.png";
 
 export {
   java,
@@ -86,4 +87,5 @@ export {
   FoodCycle,
   portfolioChatLogo,
   antihack,
+  zetamac,
 };

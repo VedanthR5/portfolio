@@ -114,6 +114,23 @@ const ProjectCard = ({
             Python, TensorFlow, and custom neural network architecture.
           </>
         );
+      case "v2v's zetamac":
+        return (
+          <>
+            🧠 Mental math trainer for{" "}
+            <AnnotatedText
+              annotation="Enhanced version of classic Zetamac with comprehensive analytics dashboard tracking response times and accuracy patterns."
+              citationUrl="https://vedanthr5.github.io/v2v-Zetamac/"
+            >
+              aspiring quants and trading interview prep
+            </AnnotatedText>{" "}
+            - Speed drill with post-game analysis identifying your slowest
+            operations and specific problem patterns. Features customizable
+            ranges, shareable configurations via URL encoding, and detailed
+            performance breakdowns. Pure JavaScript implementation with no
+            dependencies.
+          </>
+        );
       case "DOD Cybersecurity Windows 10 Hardening Scripts":
         return (
           <>

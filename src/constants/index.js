@@ -21,6 +21,7 @@ import {
   nn,
   FoodCycle,
   antihack,
+  zetamac,
 } from "../assets";
 
 export const navLinks = [
@@ -194,25 +195,25 @@ const projects = [
     source_code_link: "PROTECTED_RESUME_LINK", // URL loaded securely at runtime
   },
   {
-    name: "GitHub Portfolio",
+    name: "v2v's zetamac",
     description:
-      "Complete collection of my code repositories including this website, academic projects, cybersecurity scripts for CyberPatriot competition, and various full-stack applications demonstrating my technical range.",
+      "🧠 Mental math trainer for aspiring quants and trading interview prep - Speed drill with post-game analysis identifying your slowest operations and specific problem patterns. Features customizable ranges, shareable configurations via URL encoding, and detailed performance breakdowns. Pure JavaScript implementation with no dependencies.",
     tags: [
       {
-        name: "Full-Stack",
+        name: "JavaScript",
         color: "blue-text-gradient",
       },
       {
-        name: "Open Source",
+        name: "Analytics",
         color: "green-text-gradient",
       },
       {
-        name: "Cybersecurity",
+        name: "Education",
         color: "pink-text-gradient",
       },
     ],
-    image: jobit,
-    source_code_link: "https://github.com/VedanthR5",
+    image: zetamac,
+    source_code_link: "https://vedanthr5.github.io/v2v-Zetamac/",
   },
   {
     name: "DDoS Attack Detection using Neural Networks",
@@ -280,7 +281,27 @@ const projects = [
     source_code_link:
       "https://github.com/VedanthR5/Clickbait-Cyberpatriot-2022-2023/tree/main",
   },
-
+  {
+    name: "GitHub Portfolio",
+    description:
+      "Complete collection of my code repositories including this website, academic projects, cybersecurity scripts for CyberPatriot competition, and various full-stack applications demonstrating my technical range.",
+    tags: [
+      {
+        name: "Full-Stack",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Open Source",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Cybersecurity",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: jobit,
+    source_code_link: "https://github.com/VedanthR5",
+  },
   {
     name: "Austin Divided: Road to Recovery",
     description:
