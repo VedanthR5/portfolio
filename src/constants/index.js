@@ -14,7 +14,6 @@ import {
   starbucks,
   tesla,
   shopify,
-  carrent,
   jobit,
   tripguide,
   github,

@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+/* eslint-disable react/no-unknown-property */
+import { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -81,6 +83,11 @@ const TypewriterText = ({ text, delay = 0 }) => {
       />
     </span>
   );
+};
+
+TypewriterText.propTypes = {
+  text: PropTypes.string.isRequired,
+  delay: PropTypes.number,
 };
 
 const CurrentWork = () => {
