@@ -91,7 +91,7 @@ const CurrentWork = () => {
   const workItems = [
     "portal - think. type. transform. change how you browse.",
     "llm research and watermarking",
-    "political data aggregation startup"
+    "startup for localized political data aggregation"
   ];
 
   const toggleItem = (index) => {
