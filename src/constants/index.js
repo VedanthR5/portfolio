@@ -46,7 +46,7 @@ export const navLinks = [
 
 const services = [
   {
-    title: "Web/Mobile Development",
+    title: "Deep Learning Systems",
     icon: web,
   },
   {
@@ -174,30 +174,9 @@ const projects = [
     source_code_link: "https://jumpshare.com/share/ENaTgDliEHGVtNfJuTNk",
   },
   {
-    name: "Resume",
-    description:
-      "My comprehensive resume showcasing academic achievements, technical projects, and professional experience at Carnegie Mellon University.",
-    tags: [
-      {
-        name: "projects",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "achievements",
-        color: "green-text-gradient",
-      },
-      {
-        name: "academic",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: carrent,
-    source_code_link: "PROTECTED_RESUME_LINK", // URL loaded securely at runtime
-  },
-  {
     name: "v2v's zetamac",
     description:
-      "🧠 Mental math trainer for aspiring quants and trading interview prep - Speed drill with post-game analysis identifying your slowest operations and specific problem patterns. Features customizable ranges, shareable configurations via URL encoding, and detailed performance breakdowns. Pure JavaScript implementation with no dependencies.",
+      "Mental math trainer for aspiring quants and trading interview prep - Speed drill with post-game analysis identifying your slowest operations and specific problem patterns. Features customizable ranges, shareable configurations via URL encoding, and detailed performance breakdowns. Pure JavaScript implementation with no dependencies.",
     tags: [
       {
         name: "JavaScript",

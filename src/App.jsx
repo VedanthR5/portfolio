@@ -5,10 +5,27 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
+import CurrentWork from "./components/CurrentWork";
 import Works from "./components/Works";
 import Contact from "./components/Contact";
 import StarsCanvas from "./components/canvas/Stars";
-import ChatWidget from "./components/chat/ChatWidget";
+import { motion, useScroll, useSpring } from "framer-motion";
+
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-1 bg-[#2e1065] origin-left z-50"
+      style={{ scaleX }}
+    />
+  );
+};
 
 const App = () => {
   return (
@@ -43,6 +60,7 @@ const App = () => {
           />
           <meta property="twitter:image" content="" />
         </Helmet>
+        <ScrollProgress />
         <div className="relative z-0 bg-primary">
           <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
             <Navbar />
@@ -50,6 +68,7 @@ const App = () => {
           </div>
 
           <About />
+          <CurrentWork />
 
           <Works />
           <div className="relative z-0">
@@ -58,8 +77,6 @@ const App = () => {
           </div>
         </div>
       </BrowserRouter>
-      {/* Global Chat Widget */}
-      <ChatWidget />
     </HelmetProvider>
   );
 };

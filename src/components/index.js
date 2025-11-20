@@ -6,6 +6,7 @@ import Tech from "./Tech";
 import Works from "./Works";
 import Contact from "./Contact";
 import PasswordModal from "./PasswordModal";
+import CurrentWork from "./CurrentWork";
 
 export {
   Hero,
@@ -16,4 +17,5 @@ export {
   Contact,
   StarsCanvas,
   PasswordModal,
+  CurrentWork,
 };
