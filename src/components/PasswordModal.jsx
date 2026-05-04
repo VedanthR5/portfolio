@@ -66,7 +66,7 @@ const PasswordModal = ({ isOpen, onClose, onSuccess, itemName }) => {
       <div className="bg-tertiary rounded-2xl p-8 max-w-md w-full mx-4 border border-white/10">
         <div className="text-center mb-6">
           <h3 className="text-white text-xl font-bold mb-2">
-            🔒 Protected Content
+            Protected Content
           </h3>
           <p className="text-secondary text-sm">
             Access to {itemName} requires authorization

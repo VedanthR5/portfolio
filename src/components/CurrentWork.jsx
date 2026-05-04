@@ -45,7 +45,6 @@ const WavyBackground = () => {
 
 const TypewriterText = ({ text, delay = 0 }) => {
   const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
   
   // Use intersection observer to start typing when in view
   const ref = useRef(null);
@@ -55,32 +54,35 @@ const TypewriterText = ({ text, delay = 0 }) => {
     if (!isInView) return;
 
     let currentIndex = 0;
-    const timeout = setTimeout(() => {
-      const interval = setInterval(() => {
+    setDisplayText('');
+    let intervalId;
+    const timeoutId = setTimeout(() => {
+      intervalId = setInterval(() => {
         if (currentIndex <= text.length) {
           setDisplayText(text.slice(0, currentIndex));
           currentIndex++;
         } else {
-          setIsTyping(false);
-          clearInterval(interval);
+          clearInterval(intervalId);
         }
       }, 100); // Typing speed
-
-      return () => clearInterval(interval);
     }, delay);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeoutId);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, [text, delay, isInView]);
 
+  const visibleText = displayText.length > 0 ? displayText : '\u00A0';
+
   return (
-    <span ref={ref} className="font-mono">
-      {displayText}
-      <motion.span
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ repeat: Infinity, duration: 0.8 }}
-        className="inline-block w-[0.5em] h-[1em] bg-secondary ml-1 align-middle"
-        style={{ display: isTyping ? 'inline-block' : 'none' }}
-      />
+    <span
+      ref={ref}
+      className="inline-flex items-baseline font-mono big-text-futura whitespace-nowrap min-w-[1ch]"
+    >
+      {visibleText}
     </span>
   );
 };

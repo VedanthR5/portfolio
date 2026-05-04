@@ -86,7 +86,7 @@ const ProjectCard = ({
       case "FoodCycle App":
         return (
           <>
-            🏆 WINNER of{" "}
+            WINNER of{" "}
             <AnnotatedText
               annotation="Annual contest where students compete to create apps addressing community issues. Recognized by U.S. House of Representatives."
               citationNumber={7}
@@ -117,7 +117,7 @@ const ProjectCard = ({
       case "v2v's zetamac":
         return (
           <>
-            🧠 Mental math trainer for{" "}
+            Mental math trainer for{" "}
             <AnnotatedText
               annotation="Enhanced version of classic Zetamac with comprehensive analytics dashboard tracking response times and accuracy patterns."
               citationUrl="https://vedanthr5.github.io/v2v-Zetamac/"
@@ -182,7 +182,7 @@ const ProjectCard = ({
           scale: 1,
           speed: 450,
         }}
-        className="bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full hover:shadow-2xl transition-shadow duration-300"
+        className="bg-tertiary p-5 rounded-2xl w-full hover:shadow-2xl transition-shadow duration-300"
       >
         <div className="relative w-full h-[230px] group">
           <img
@@ -202,8 +202,8 @@ const ProjectCard = ({
                 className="w-1/2 h-1/2 object-contain"
               />
               {isResumeProject && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-500 rounded-full flex items-center justify-center">
-                  <span className="text-xs">🔒</span>
+                <div className="absolute -top-1 -right-1 px-1 py-[1px] bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span className="text-[9px] font-bold text-black">LOCK</span>
                 </div>
               )}
             </div>
@@ -299,7 +299,7 @@ const Works = () => {
         </motion.p>
       </div>
 
-      <div className="mt-20 flex flex-wrap gap-7">
+      <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
         {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}

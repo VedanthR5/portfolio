@@ -199,7 +199,7 @@ const Hero = () => {
                     <span className="text-[#915EFF]">education</span>,{" "}
                     <span className="text-[#915EFF]">sustainability</span>, and{" "}
                     <span className="text-[#915EFF]">equity</span> through
-                    computing and markets.
+                    computing, security and markets.
                   </p>
                 </div>
               </div>

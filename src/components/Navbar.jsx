@@ -65,6 +65,14 @@ const Navbar = () => {
                 >
                   LinkedIn
                 </a>
+              ) : nav.title === "GitHub" ? (
+                <a
+                  href="https://github.com/VedanthR5"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub
+                </a>
               ) : nav.title === "About" ? (
                 <a href={`#${nav.id}`}>{nav.title}</a>
               ) : nav.title === "Activities" ? (
@@ -116,6 +124,14 @@ const Navbar = () => {
                       rel="noreferrer"
                     >
                       LinkedIn
+                    </a>
+                  ) : nav.title === "GitHub" ? (
+                    <a
+                      href="https://github.com/VedanthR5"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      GitHub
                     </a>
                   ) : nav.title === "Activities" ? (
                     <a

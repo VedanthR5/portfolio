@@ -9,7 +9,7 @@ import { fadeIn, textVariant } from "../utils/motion";
 import AnnotatedText from "./AnnotatedText";
 
 const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className="xs:w-[250px] w-full">
+  <Tilt className="w-[220px] sm:w-[240px] lg:w-[260px] shrink-0">
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
       className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card hover:shadow-2xl transition-shadow duration-300"
@@ -64,15 +64,22 @@ const About = () => {
             </a>
           </AnnotatedText>
           , a venture democratizing learning for students with learning
-          disabilities through adaptive technology.
+          disabilities through adaptive technology. I&apos;m also a TA for{" "}
+          <AnnotatedText
+            annotation="16-385, or Computer Vision, is CMU's primary vision offering for undergraduates"
+            citationNumber={5}
+            citationUrl="https://16385.courses.cs.cmu.edu/"
+          >
+            Computer Vision (16-385)
+          </AnnotatedText>
+          .
         </span>
         <br />
         <br />
-        Beyond coding, I&apos;m passionate about music (violin 🎻), basketball
-        🏀, and writing news for{" "}
+        Beyond coding, I&apos;m passionate about music (violin), basketball, and writing news for{" "}
         <AnnotatedText
           annotation="The Tartan is Carnegie Mellon's oldest and most widely read student publication, covering campus news, arts, and opinion pieces"
-          citationNumber={5}
+          citationNumber={6}
           citationUrl="https://the-tartan.org/"
         >
           The Tartan
@@ -80,7 +87,7 @@ const About = () => {
         . I&apos;m honored to serve on the{" "}
         <AnnotatedText
           annotation="One of 12 students chosen to advise the Dean on curriculum, student life, and the future of CS education"
-          citationNumber={6}
+          citationNumber={7}
           citationUrl="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html"
         >
           Dean&apos;s Advisory Council
@@ -88,20 +95,9 @@ const About = () => {
         , working to shape the future of computer science education.
         <br />
         <br />
-        Check out my latest work on{" "}
-        <a
-          href="https://github.com/VedanthR5"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#915EFF] underline font-bold hover:text-white transition-colors duration-300 githubLink"
-        >
-          GitHub
-        </a>{" "}
-        where I share everything from neural networks to full-stack
-        applications.
       </motion.p>
 
-      <div className="mt-20 flex flex-wrap gap-10">
+      <div className="mt-20 flex flex-nowrap gap-6 overflow-x-auto pb-4 custom-scroll">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap");
 
 /* Chat widget utilities */
 .custom-scroll {
@@ -281,4 +281,37 @@ canvas {
 /* Custom navy blue color */
 .text-navy-900 {
   color: #1e3a8a;
+}
+
+/* Futuristic typewriter styling for big text only */
+.big-text-futura {
+  font-family: "Space Mono", "Courier New", monospace;
+  letter-spacing: 0.02em;
+  position: relative;
+  padding-right: 0.1em;
+}
+
+.big-text-futura::after {
+  content: "|";
+  margin-left: 0.08em;
+  color: #915EFF;
+  animation: caret-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .big-text-futura::after {
+    animation: none;
+    opacity: 1;
+  }
 }

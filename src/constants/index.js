@@ -14,7 +14,6 @@ import {
   starbucks,
   tesla,
   shopify,
-  jobit,
   tripguide,
   github,
   nn,
@@ -27,6 +26,10 @@ export const navLinks = [
   {
     id: "linkedin",
     title: "LinkedIn",
+  },
+  {
+    id: "github",
+    title: "GitHub",
   },
   {
     id: "about",
@@ -218,7 +221,7 @@ const projects = [
   {
     name: "FoodCycle App",
     description:
-      "🏆 WINNER of Congressional App Challenge (TX-37) - Revolutionary app reducing food waste in supermarkets through smart inventory management. Featured by ABC, NBC, and Central Texas Food Bank. Full-stack React Native app with AWS backend.",
+      "WINNER of Congressional App Challenge (TX-37) - Revolutionary app reducing food waste in supermarkets through smart inventory management. Featured by ABC, NBC, and Central Texas Food Bank. Full-stack React Native app with AWS backend.",
     tags: [
       {
         name: "React Native",
@@ -258,27 +261,6 @@ const projects = [
     image: antihack,
     source_code_link:
       "https://github.com/VedanthR5/Clickbait-Cyberpatriot-2022-2023/tree/main",
-  },
-  {
-    name: "GitHub Portfolio",
-    description:
-      "Complete collection of my code repositories including this website, academic projects, cybersecurity scripts for CyberPatriot competition, and various full-stack applications demonstrating my technical range.",
-    tags: [
-      {
-        name: "Full-Stack",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Open Source",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Cybersecurity",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: jobit,
-    source_code_link: "https://github.com/VedanthR5",
   },
   {
     name: "Austin Divided: Road to Recovery",
