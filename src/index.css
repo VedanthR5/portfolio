@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Mono:wght@400;700&display=swap");
 
 /* Chat widget utilities */
 .custom-scroll {
@@ -25,7 +25,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Geist", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
 }
@@ -285,7 +285,7 @@ canvas {
 
 /* Futuristic typewriter styling for big text only */
 .big-text-futura {
-  font-family: "Space Mono", "Courier New", monospace;
+  font-family: "Geist", sans-serif;
   letter-spacing: 0.02em;
   position: relative;
   padding-right: 0.1em;

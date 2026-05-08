@@ -15,6 +15,11 @@ module.exports = {
       boxShadow: {
         card: "0px 35px 120px -15px #211e35",
       },
+      fontFamily: {
+        sans: ["Geist", "sans-serif"],
+        poppins: ["Geist", "sans-serif"],
+        mono: ["Space Mono", "Courier New", "monospace"],
+      },
       screens: {
         xs: "450px",
       },
