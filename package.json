@@ -16,6 +16,7 @@
     "analyze": "npx vite-bundle-analyzer dist/stats.html"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.12.1",
     "@react-three/drei": "^9.70.1",
     "@react-three/fiber": "^8.13.0",
     "maath": "^0.6.0",
