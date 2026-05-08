@@ -6,6 +6,7 @@ import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 import AnnotatedText from "./AnnotatedText";
+import TypewriterHeading from "./TypewriterHeading";
 
 const ServiceCard = ({ index, title, icon }) => (
   <div className="w-[220px] sm:w-[240px] lg:w-[260px] shrink-0">
@@ -39,12 +40,12 @@ const About = () => {
     <>
       <motion.div variants={textVariant()}>
         <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>Overview.</h2>
+        <TypewriterHeading text="Overview." className={styles.sectionHeadText} />
       </motion.div>
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className="mt-4 text-secondary text-[20px] max-w-3xl leading-[30px]"
+        className="mt-4 max-w-3xl text-[17px] leading-8 text-secondary sm:text-[20px] sm:leading-[30px]"
       >
         <span className="text-white">
           Hey there! I&apos;m the founder of{" "}
@@ -96,7 +97,7 @@ const About = () => {
         <br />
       </motion.p>
 
-      <div className="mt-20 flex flex-nowrap gap-6 overflow-x-auto pb-4 custom-scroll">
+      <div className="custom-scroll mt-12 flex flex-nowrap gap-6 overflow-x-auto pb-4 sm:mt-20">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}

@@ -27,6 +27,7 @@ const Navbar = () => {
 
   return (
     <nav
+      aria-label="Primary navigation"
       className={`${
         styles.paddingX
       } w-full flex items-center py-5 fixed top-0 z-20 ${
@@ -42,7 +43,11 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
+          <img
+            src={logo}
+            alt="Vedanth Ramanathan logo"
+            className="w-9 h-9 object-contain"
+          />
           <p className="text-white text-[18px] font-bold cursor-pointer flex ">
             Vedanth<span className="sm:block hidden ml-1">Ramanathan</span>
           </p>
@@ -63,17 +68,27 @@ const Navbar = () => {
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
-          <img
-            src={toggle ? close : menu}
-            alt="menu"
-            className="w-[28px] h-[28px] object-contain"
+          <button
+            type="button"
+            aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={toggle}
+            aria-controls="mobile-nav"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-black/20"
             onClick={() => setToggle(!toggle)}
-          />
+          >
+            <img
+              src={toggle ? close : menu}
+              alt=""
+              className="h-[24px] w-[24px] object-contain"
+              aria-hidden="true"
+            />
+          </button>
 
           <div
+            id="mobile-nav"
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 black-gradient absolute top-20 left-5 right-5 my-2 z-10 rounded-xl`}
           >
             <ul className="list-none flex justify-end items-start flex-1 flex-col gap-4">
               {navLinks.map((nav) => (

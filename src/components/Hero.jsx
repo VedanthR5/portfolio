@@ -40,28 +40,29 @@ const useTypingCycle = (words) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion) return undefined;
     const current = words[wordIndex];
 
     if (!isDeleting && displayText === current) {
-      const t = setTimeout(() => setIsDeleting(true), 2200);
-      return () => clearTimeout(t);
+      const timeout = setTimeout(() => setIsDeleting(true), 2200);
+      return () => clearTimeout(timeout);
     }
     if (isDeleting && displayText === "") {
       setIsDeleting(false);
-      setWordIndex((i) => (i + 1) % words.length);
-      return;
+      setWordIndex((index) => (index + 1) % words.length);
+      return undefined;
     }
-    const t = setTimeout(
+
+    const timeout = setTimeout(
       () =>
         setDisplayText(
           isDeleting
             ? current.slice(0, displayText.length - 1)
-            : current.slice(0, displayText.length + 1),
+            : current.slice(0, displayText.length + 1)
         ),
-      isDeleting ? 50 : 90,
+      isDeleting ? 50 : 90
     );
-    return () => clearTimeout(t);
+    return () => clearTimeout(timeout);
   }, [displayText, isDeleting, wordIndex, words, shouldReduceMotion]);
 
   return shouldReduceMotion ? null : displayText;
@@ -73,23 +74,22 @@ const Hero = () => {
   const typingText = useTypingCycle(domains);
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-      {/* Radial gradient glow — dark indigo/purple behind text */}
+    <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden">
       <div
         aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
             "radial-gradient(ellipse 70% 55% at 28% 52%, rgba(99,102,241,0.13) 0%, rgba(88,28,135,0.07) 45%, transparent 70%)",
         }}
       />
 
-      <div className="relative max-w-2xl w-full px-6 sm:px-16">
+      <div className="relative w-full max-w-2xl px-5 sm:px-10 lg:px-16">
         <motion.h1
           variants={fadeVariants({ delay: 0.1 })}
           initial="hidden"
           animate="show"
-          className="text-4xl font-semibold text-vr-text-primary tracking-tight"
+          className="text-4xl font-semibold tracking-tight text-vr-text-primary"
         >
           Vedanth Ramanathan
         </motion.h1>
@@ -98,32 +98,32 @@ const Hero = () => {
           variants={fadeVariants({ delay: 0.2 })}
           initial="hidden"
           animate="show"
-          className="mt-4 text-xl font-normal text-vr-text-primary/80"
+          className="mt-4 max-w-xl text-lg font-normal leading-8 text-vr-text-primary/80 sm:text-xl"
         >
-          Engineering resilient platforms — from finance to civic tech.
+          Engineering resilient platforms - from finance to civic tech.
         </motion.p>
 
         <motion.div
           variants={fadeVariants({ delay: 0.3 })}
           initial="hidden"
           animate="show"
-          className="mt-3 h-6 flex items-center text-sm"
+          className="mt-3 flex min-h-6 items-center text-sm"
         >
           {typingText !== null ? (
             <span className="flex items-center gap-0.5 font-mono text-vr-text-muted">
               <span className="text-vr-text-secondary">
                 {typingText} @ carnegie mellon
               </span>
-              <span className="text-vr-accent motion-safe:animate-pulse select-none">
+              <span className="select-none text-vr-accent motion-safe:animate-pulse">
                 |
               </span>
             </span>
           ) : (
-            <span className="flex items-center flex-wrap gap-1 text-vr-text-muted">
-              {domains.map((d, i) => (
-                <span key={d} className="flex items-center gap-1">
-                  {d}
-                  {i < domains.length - 1 && (
+            <span className="flex flex-wrap items-center gap-1 text-vr-text-muted">
+              {domains.map((domain, index) => (
+                <span key={domain} className="flex items-center gap-1">
+                  {domain}
+                  {index < domains.length - 1 && (
                     <span className="text-vr-accent">/</span>
                   )}
                 </span>
@@ -136,14 +136,14 @@ const Hero = () => {
           variants={fadeVariants({ delay: 0.5 })}
           initial="hidden"
           animate="show"
-          className="mt-8 flex gap-3 items-center"
+          className="mt-8 flex items-center gap-3"
         >
           <a
             href="https://github.com/VedanthR5"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub profile"
-            className="p-2 text-vr-text-muted hover:text-vr-text-primary transition-colors duration-200"
+            className="p-2 text-vr-text-muted transition-colors duration-200 hover:text-vr-text-primary"
           >
             <GithubIcon />
           </a>
@@ -152,7 +152,7 @@ const Hero = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn profile"
-            className="p-2 text-vr-text-muted hover:text-vr-text-primary transition-colors duration-200"
+            className="p-2 text-vr-text-muted transition-colors duration-200 hover:text-vr-text-primary"
           >
             <LinkedinIcon />
           </a>
@@ -162,7 +162,7 @@ const Hero = () => {
       <motion.div
         aria-hidden="true"
         style={{ opacity: indicatorOpacity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-px h-10 bg-vr-accent"
+        className="absolute bottom-8 left-1/2 h-10 w-px -translate-x-1/2 bg-vr-accent"
       />
     </section>
   );

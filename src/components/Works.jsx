@@ -7,6 +7,7 @@ import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 import { trackProjectClick } from "../utils/analytics";
 import { getSecureUrl, secureOpen } from "../utils/secureUrl";
+import TypewriterHeading from "./TypewriterHeading";
 
 const ArrowIcon = () => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
@@ -53,14 +54,14 @@ const ProjectEntry = ({ index, project }) => {
   return (
     <motion.article
       variants={fadeIn("up", "spring", index * 0.12, 0.75)}
-      className="group flex min-h-[360px] flex-col justify-between border-t border-white/10 py-9 lg:border-t lg:border-white/10 lg:px-0"
+      className="group flex min-h-[300px] flex-col justify-between border-t border-white/10 py-8 sm:min-h-[340px] sm:py-9 lg:border-t lg:border-white/10 lg:px-0"
     >
       <div>
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-secondary">
             {String(index + 1).padStart(2, "0")} / Selected Work
           </p>
-          <h3 className="mt-4 text-[28px] font-semibold leading-tight text-white transition-colors duration-200 group-hover:text-[#dfd9ff] sm:text-[34px]">
+          <h3 className="mt-4 text-[24px] font-semibold leading-tight text-white transition-colors duration-200 group-hover:text-[#dfd9ff] sm:text-[30px] lg:text-[34px]">
             {project.name}
           </h3>
           <p
@@ -119,26 +120,29 @@ ProjectEntry.propTypes = {
     source_code_link: PropTypes.string,
     demo_link: PropTypes.string,
     private: PropTypes.bool,
+    hidden: PropTypes.bool,
   }).isRequired,
 };
 
 const Works = () => {
+  const visibleProjects = projects.filter((project) => !project.hidden);
+
   return (
     <>
       <motion.div variants={textVariant()}>
         <p className={`${styles.sectionSubText}`}>Selected Work</p>
-        <h2 className={`${styles.sectionHeadText}`}>Projects.</h2>
+        <TypewriterHeading text="Projects." className={styles.sectionHeadText} />
       </motion.div>
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className="mt-5 text-secondary text-[17px] max-w-3xl leading-[30px]"
+        className="mt-5 max-w-3xl text-[16px] leading-8 text-secondary sm:text-[17px] sm:leading-[30px]"
       >
         What I&apos;ve worked on!
       </motion.p>
 
       <div className="mt-16 grid gap-x-12 gap-y-2 lg:grid-cols-2">
-        {projects.map((project, index) => (
+        {visibleProjects.map((project, index) => (
           <ProjectEntry key={project.name} index={index} project={project} />
         ))}
       </div>

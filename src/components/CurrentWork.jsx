@@ -116,7 +116,7 @@ const CurrentWork = () => {
 
       {/* Trigger Element */}
       <motion.div 
-        className="cursor-pointer z-20 flex items-center gap-4 group relative"
+        className="group relative z-20 flex cursor-pointer items-center gap-3 px-5 text-center sm:gap-4"
         onClick={() => setIsOpen(true)}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
@@ -124,13 +124,13 @@ const CurrentWork = () => {
         whileTap={{ scale: 0.95 }}
       >
         <motion.span 
-          className={`text-4xl md:text-6xl font-bold font-mono transition-colors duration-300 ${hovered ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]' : 'text-secondary'}`}
+          className={`font-mono text-3xl font-bold transition-colors duration-300 sm:text-4xl md:text-6xl ${hovered ? 'text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]' : 'text-secondary'}`}
           animate={{ x: hovered ? [0, 10, 0] : 0 }}
           transition={{ repeat: Infinity, duration: 1 }}
         >
           &gt;
         </motion.span>
-        <h2 className={`text-2xl md:text-4xl font-mono tracking-tighter transition-colors duration-300 ${hovered ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-secondary'}`}>
+        <h2 className={`font-mono text-xl tracking-tighter transition-colors duration-300 sm:text-2xl md:text-4xl ${hovered ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-secondary'}`}>
           <TypewriterText text="what i'm working on" delay={500} />
         </h2>
       </motion.div>
@@ -155,9 +155,9 @@ const CurrentWork = () => {
             </div>
 
             {/* Content */}
-            <div className="z-10 flex flex-col gap-8 items-start max-w-5xl w-full px-10">
+            <div className="z-10 flex w-full max-w-5xl flex-col items-start gap-8 px-5 sm:px-10">
               <motion.button
-                className="absolute top-10 right-10 text-white/50 hover:text-white font-mono text-xl"
+                className="absolute right-5 top-5 font-mono text-xl text-white/50 hover:text-white sm:right-10 sm:top-10"
                 onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -180,11 +180,11 @@ const CurrentWork = () => {
                     className="flex flex-col w-full"
                   >
                     <div 
-                      className="flex items-center gap-4 cursor-pointer group"
+                      className="group flex cursor-pointer items-start gap-3 sm:items-center sm:gap-4"
                       onClick={() => toggleItem(index)}
                     >
                       <span className="text-purple-500 font-mono text-xl shrink-0">{`0${index + 1} //`}</span>
-                      <h3 className={`text-3xl md:text-5xl font-bold font-sans tracking-tight lowercase transition-all duration-300 ${isExpanded ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>
+                      <h3 className={`font-sans text-2xl font-bold lowercase tracking-tight transition-all duration-300 sm:text-3xl md:text-5xl ${isExpanded ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>
                         {firstWord}
                       </h3>
                       <motion.span
@@ -202,9 +202,9 @@ const CurrentWork = () => {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="overflow-hidden ml-[4.5rem]"
+                          className="ml-10 overflow-hidden sm:ml-[4.5rem]"
                         >
-                          <p className="text-xl text-white/80 font-light mt-2 font-mono">
+                          <p className="mt-2 font-mono text-base font-light text-white/80 sm:text-xl">
                             {restOfText}
                           </p>
                         </motion.div>

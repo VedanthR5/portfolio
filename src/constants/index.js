@@ -60,6 +60,15 @@ const experiences = [
     logo: companyLogos.google,
   },
   {
+    title: "Teaching Assistant - Computer Vision",
+    company_name: "Carnegie Mellon University",
+    website: "https://16385.courses.cs.cmu.edu/",
+    date: "Jan 2026 - Present",
+    summary:
+      "Supporting students in computer vision and deep learning through office hours, grading, and mentoring.",
+    logo: companyLogos.cmu,
+  },
+  {
     title: "Founding Engineer",
     company_name: "CivicDuty",
     website: "https://civicduty.app",
@@ -69,11 +78,12 @@ const experiences = [
     logo: companyLogos.civicduty,
   },
   {
-    title: "Undergraduate AI Research Assistant",
+    title: "LLM Security Research Assistant",
     company_name: "Carnegie Mellon University",
+    website: "https://leililab.github.io/",
     date: "May 2025 - Present",
     summary:
-      "Researching applied AI systems with an emphasis on reliable models and real-world deployment.",
+      "Researching applied AI systems with an emphasis on reliable models and anti jailbreaking in the Lei Li Lab.",
     logo: companyLogos.cmu,
   },
   {
@@ -83,14 +93,6 @@ const experiences = [
     summary:
       "Built security and AI tooling across incident response, threat-log retrieval, and DDoS detection workflows.",
     logo: companyLogos.sandia,
-  },
-  {
-    title: "Teaching Assistant - Computer Vision & Database Systems",
-    company_name: "Carnegie Mellon University",
-    date: "Jan 2026 - Present",
-    summary:
-      "Supporting students in computer vision, deep learning, and database systems through office hours, grading, and mentoring.",
-    logo: companyLogos.cmu,
   },
 ];
 
@@ -230,6 +232,7 @@ const projects = [
   },
   {
     name: "Austin Divided: Road to Recovery",
+    hidden: true, // Temporarily hidden from the selected-work grid.
     description:
       "Investigative magazine analyzing Austin's urban planning history, gentrification, and community-level recovery through historical and economic lenses.",
     tags: [

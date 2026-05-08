@@ -151,14 +151,16 @@ const interestEdges = [
 const nodeById = Object.fromEntries(interestNodes.map((node) => [node.id, node]));
 
 const graphSignals = [
-  { from: "systems", to: "core", delay: 0.1, duration: 7.6, size: 0.54 },
-  { from: "core", to: "security", delay: 1.2, duration: 6.8, size: 0.48 },
-  { from: "politics", to: "core", delay: 2.1, duration: 8.4, size: 0.42 },
-  { from: "core", to: "ai", delay: 0.8, duration: 7.9, size: 0.5 },
-  { from: "quant", to: "systems", delay: 3.2, duration: 9.2, size: 0.38 },
-  { from: "civic", to: "security", delay: 4.1, duration: 8.7, size: 0.44 },
-  { from: "systems", to: "security", delay: 2.8, duration: 10.2, size: 0.34 },
-  { from: "politics", to: "civic", delay: 5.4, duration: 9.7, size: 0.4 },
+  { from: "systems", to: "core", delay: 0.1, duration: 4.2, size: 0.5, opacity: 0.96 },
+  { from: "core", to: "security", delay: 0.7, duration: 2.8, size: 0.36, opacity: 0.98 },
+  { from: "politics", to: "core", delay: 2.1, duration: 8.6, size: 0.42, opacity: 0.74 },
+  { from: "core", to: "ai", delay: 0.8, duration: 3.3, size: 0.46, opacity: 0.92 },
+  { from: "quant", to: "systems", delay: 3.2, duration: 11.4, size: 0.34, opacity: 0.62 },
+  { from: "civic", to: "security", delay: 4.1, duration: 6.9, size: 0.44, opacity: 0.82 },
+  { from: "systems", to: "security", delay: 1.4, duration: 2.35, size: 0.3, opacity: 1 },
+  { from: "politics", to: "civic", delay: 5.4, duration: 12.2, size: 0.38, opacity: 0.58 },
+  { from: "security", to: "ai", delay: 2.6, duration: 3.05, size: 0.28, opacity: 0.95 },
+  { from: "core", to: "civic", delay: 1.8, duration: 9.8, size: 0.32, opacity: 0.68 },
 ];
 
 const emailConfig = {
@@ -251,10 +253,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="xl:mt-12 flex flex-col-reverse gap-8 overflow-hidden xl:flex-row xl:items-stretch">
+    <div className="xl:mt-12 flex flex-col gap-8 overflow-hidden xl:flex-row xl:items-stretch">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.76] rounded-[2rem] border border-white/10 bg-[#05060d]/95 p-7 shadow-[0_28px_90px_rgba(0,0,0,0.55)] backdrop-blur md:p-8"
+        className="flex-[0.76] rounded-[2rem] border border-white/10 bg-[#05060d]/95 p-5 shadow-[0_28px_90px_rgba(0,0,0,0.55)] backdrop-blur sm:p-7 md:p-8"
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
@@ -382,7 +384,7 @@ const Contact = () => {
                   name="message"
                   value={form.message}
                   onChange={handleChange}
-                  placeholder="What do you want to build?"
+                  placeholder="What do you want to reach out about?"
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "message-error" : undefined}
                   disabled={loading}
@@ -422,7 +424,7 @@ const Contact = () => {
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="relative min-h-[430px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#03040a] shadow-[0_32px_110px_rgba(0,0,0,0.68)] md:min-h-[560px] xl:flex-1"
+        className="relative min-h-[340px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#03040a] shadow-[0_32px_110px_rgba(0,0,0,0.68)] sm:min-h-[430px] md:min-h-[560px] xl:flex-1"
       >
         <div
           className="absolute inset-0"
@@ -502,7 +504,7 @@ const Contact = () => {
                   key={`${signal.from}-${signal.to}-${index}`}
                   r={signal.size}
                   fill={index % 3 === 0 ? "#ffffff" : "#cbd5ff"}
-                  opacity="0.9"
+                  opacity={signal.opacity}
                   filter="url(#contactGraphGlow)"
                 >
                   <animateMotion

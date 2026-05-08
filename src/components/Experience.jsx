@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { styles } from "../styles";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
+import TypewriterHeading from "./TypewriterHeading";
 
 const getInitials = (companyName) =>
   companyName
@@ -69,9 +70,19 @@ const ExperienceItem = ({ experience, index }) => {
                 className="inline-flex items-center gap-2 transition-colors duration-200 hover:text-[#dfd9ff]"
               >
                 {experience.company_name}
-                <span aria-hidden="true" className="text-base text-[#dfd9ff]/80">
-                  ↗
-                </span>
+                <svg
+                  width={15}
+                  height={15}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                  className="text-[#dfd9ff]/80"
+                >
+                  <path d="M7 17 17 7" />
+                  <path d="M9 7h8v8" />
+                </svg>
               </a>
             ) : (
               experience.company_name
@@ -117,7 +128,7 @@ const Experience = () => {
     <>
       <motion.div>
         <p className={styles.sectionSubText}>Where I&apos;ve built</p>
-        <h2 className={styles.sectionHeadText}>Experience.</h2>
+        <TypewriterHeading text="Experience." className={styles.sectionHeadText} />
       </motion.div>
 
       <div ref={timelineRef} className="relative mt-20">

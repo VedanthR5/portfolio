@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Space+Mono:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap");
 
 /* Chat widget utilities */
 .custom-scroll {
@@ -25,7 +25,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Geist", sans-serif;
+  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
 }
@@ -283,18 +283,22 @@ canvas {
   color: #1e3a8a;
 }
 
-/* Futuristic typewriter styling for big text only */
+/* Heading typography only. Cursor behavior lives in TypewriterHeading. */
 .big-text-futura {
-  font-family: "Geist", sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 0.02em;
   position: relative;
-  padding-right: 0.1em;
 }
 
-.big-text-futura::after {
-  content: "|";
+.typing-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 0.9em;
   margin-left: 0.08em;
+  transform: translateY(0.08em);
+  background: currentColor;
   color: #915EFF;
+  box-shadow: 0 0 16px rgba(145, 94, 255, 0.45);
   animation: caret-blink 1.1s steps(2, start) infinite;
 }
 
@@ -310,7 +314,7 @@ canvas {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .big-text-futura::after {
+  .typing-caret {
     animation: none;
     opacity: 1;
   }
