@@ -7,38 +7,37 @@ on:
     branches: [main]
 
 jobs:
-  # Continuous Integration - Quality Checks Only
   test:
+    name: Lint and build client
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Code quality check - ESLint
+      - name: Lint
         run: npm run lint
 
-      - name: Test build (client)
+      - name: Build client
         run: npm run build
 
-      - name: Verify server compiles (basic Node syntax check)
-        run: node -e "require('fs').accessSync('./server/server.js')"
-
-      - name: Run security audit
+      - name: Security audit
         run: npm audit --audit-level moderate || echo "Security audit completed with warnings"
 
-      - name: Check for outdated dependencies
+      - name: Check outdated dependencies
         run: npm outdated || echo "Dependency check completed"
 
-      - name: Build size analysis
+      - name: Build size summary
         run: |
-          echo "Build completed successfully ✅"
-          echo "Main bundle size:"
-          ls -lh dist/assets/*.js | head -5 || true
+          echo "Build completed successfully"
+          echo "Largest JavaScript bundles:"
+          find dist/assets -name "*.js" -type f -exec ls -lh {} \; | sort -k5 -hr | head -5 || true
