@@ -32,10 +32,13 @@ const LinkedinIcon = () => (
 );
 
 const domains = ["systems", "ai", "trading", "security", "ml"];
+const DOMAIN_HOLD_MS = 850;
+const TYPE_MS = 65;
+const DELETE_MS = 34;
 
 const useTypingCycle = (words) => {
   const shouldReduceMotion = useReducedMotion();
-  const [displayText, setDisplayText] = useState(words[0]);
+  const [displayText, setDisplayText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -44,7 +47,7 @@ const useTypingCycle = (words) => {
     const current = words[wordIndex];
 
     if (!isDeleting && displayText === current) {
-      const timeout = setTimeout(() => setIsDeleting(true), 2200);
+      const timeout = setTimeout(() => setIsDeleting(true), DOMAIN_HOLD_MS);
       return () => clearTimeout(timeout);
     }
     if (isDeleting && displayText === "") {
@@ -60,7 +63,7 @@ const useTypingCycle = (words) => {
             ? current.slice(0, displayText.length - 1)
             : current.slice(0, displayText.length + 1)
         ),
-      isDeleting ? 50 : 90
+      isDeleting ? DELETE_MS : TYPE_MS
     );
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, wordIndex, words, shouldReduceMotion]);
@@ -104,7 +107,7 @@ const Hero = () => {
         </motion.p>
 
         <motion.div
-          variants={fadeVariants({ delay: 0.3 })}
+          variants={fadeVariants({ delay: 0.15 })}
           initial="hidden"
           animate="show"
           className="mt-3 flex min-h-6 items-center text-sm"
