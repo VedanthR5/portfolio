@@ -1,43 +1,22 @@
 import {
-  divided,
-  flutter,
   mobile,
   backend,
   creator,
   web,
-  javascript,
-  java,
-  python,
-  html,
-  css,
-  meta,
-  starbucks,
-  tesla,
-  shopify,
-  tripguide,
-  github,
-  nn,
-  FoodCycle,
-  antihack,
-  zetamac,
 } from "../assets";
 
 export const navLinks = [
-  {
-    id: "linkedin",
-    title: "LinkedIn",
-  },
-  {
-    id: "github",
-    title: "GitHub",
-  },
   {
     id: "about",
     title: "About",
   },
   {
-    id: "activities",
-    title: "Activities",
+    id: "experience",
+    title: "Experience",
+  },
+  {
+    id: "projects",
+    title: "Projects",
   },
   {
     id: "contact",
@@ -65,91 +44,53 @@ const services = [
   },
 ];
 
-const technologies = [
-  {
-    name: "CSS",
-    icon: css,
-  },
-  {
-    name: "Flutter",
-    icon: flutter,
-  },
-  {
-    name: "Github",
-    icon: github,
-    link: "https://github.com/VedanthR5",
-  },
-  {
-    name: "HTML 5",
-    icon: html,
-    link: "https://google.com", //change
-  },
-  {
-    name: "Java",
-    icon: java,
-  },
-  {
-    name: "JavaScript",
-    icon: javascript,
-  },
-  {
-    name: "Python",
-    icon: python,
-  },
-];
+const companyLogos = {
+  google: "/google_logo_enhanced_upscaled.png",
+  civicduty: "/CD_Logo.png",
+  cmu: "/cmu_logo.png",
+  sandia: "/sandia.png",
+};
 
 const experiences = [
   {
-    title: "React.js Developer",
-    company_name: "Starbucks",
-    icon: starbucks,
-    iconBg: "#383E56",
-    date: "March 2020 - April 2021",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
+    title: "Security Engineering Intern",
+    company_name: "Google",
+    date: "May 2026 - Aug 2026",
+    summary: "Incoming security engineering intern based in New York City.",
+    logo: companyLogos.google,
   },
   {
-    title: "React Native Developer",
-    company_name: "Tesla",
-    icon: tesla,
-    iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
+    title: "Founding Engineer",
+    company_name: "CivicDuty",
+    website: "https://civicduty.app",
+    date: "Oct 2025 - Present",
+    summary:
+      "Building a legislative intelligence platform for tracking bills, votes, meetings, and local government activity.",
+    logo: companyLogos.civicduty,
   },
   {
-    title: "Web Developer",
-    company_name: "Shopify",
-    icon: shopify,
-    iconBg: "#383E56",
-    date: "Jan 2022 - Jan 2023",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
+    title: "Undergraduate AI Research Assistant",
+    company_name: "Carnegie Mellon University",
+    date: "May 2025 - Present",
+    summary:
+      "Researching applied AI systems with an emphasis on reliable models and real-world deployment.",
+    logo: companyLogos.cmu,
   },
   {
-    title: "Full stack Developer",
-    company_name: "Meta",
-    icon: meta,
-    iconBg: "#E6DEDD",
-    date: "Jan 2023 - Present",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
+    title: "Software Engineer Intern",
+    company_name: "Sandia National Laboratories",
+    date: "May 2025 - Aug 2025",
+    summary:
+      "Built security and AI tooling across incident response, threat-log retrieval, and DDoS detection workflows.",
+    logo: companyLogos.sandia,
+  },
+  {
+    title: "Teaching Assistant - Computer Vision & Database Systems",
+    company_name: "Carnegie Mellon University",
+    date: "Jan 2026 - Present",
+    summary:
+      "Supporting students in computer vision, deep learning, and database systems through office hours, grading, and mentoring.",
+    logo: companyLogos.cmu,
   },
 ];
 
@@ -157,7 +98,7 @@ const projects = [
   {
     name: "Neural Network for Skin Cancer Detection",
     description:
-      "Advanced deep learning model using Keras and PyTorch on the HAM10000 dataset to detect skin cancer with high accuracy. Features custom CNN architecture, data augmentation, and comprehensive evaluation metrics for melanoma classification.",
+      "Deep learning pipeline for HAM10000 skin-lesion classification with augmentation, imbalance handling, and melanoma-focused evaluation.",
     tags: [
       {
         name: "PyTorch",
@@ -172,13 +113,12 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: nn,
-    source_code_link: "https://jumpshare.com/share/ENaTgDliEHGVtNfJuTNk",
+    source_code_link: "https://github.com/VedanthR5/C-NN-ancerDetect",
   },
   {
     name: "v2v's zetamac",
     description:
-      "Mental math trainer for aspiring quants and trading interview prep - Speed drill with post-game analysis identifying your slowest operations and specific problem patterns. Features customizable ranges, shareable configurations via URL encoding, and detailed performance breakdowns. Pure JavaScript implementation with no dependencies.",
+      "Zero-dependency mental math trainer for quant prep with URL-shareable configs and post-game weakness analysis.",
     tags: [
       {
         name: "JavaScript",
@@ -193,13 +133,63 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: zetamac,
+    demo_link: "https://vedanthr5.github.io/v2v-Zetamac/",
     source_code_link: "https://vedanthr5.github.io/v2v-Zetamac/",
+  },
+  {
+    name: "BusTub Relational Database",
+    description:
+      "CMU BusTub RDBMS implementation <b>ranked 5th out of 200 students</b> after performance-tuning storage, indexing, execution, and query-optimization paths.",
+    tags: [
+      {
+        name: "C++",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Database Systems",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Query Optimization",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Concurrency",
+        color: "blue-text-gradient",
+      },
+    ],
+    source_code_link: "https://github.com/VedanthR5/bustub-private",
+    private: true,
+  },
+  {
+    name: "Quantfolio Trading Dashboard",
+    description:
+      "Interactive Streamlit quant toolkit for stock analysis, PyCaret model comparison, ARIMA/NeuralProphet forecasting, and Riskfolio-Lib portfolio optimization.",
+    tags: [
+      {
+        name: "Streamlit",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "PyCaret",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Riskfolio-Lib",
+        color: "pink-text-gradient",
+      },
+      {
+        name: "Plotly",
+        color: "blue-text-gradient",
+      },
+    ],
+    demo_link: "https://vrquantfolio.streamlit.app/",
+    source_code_link: "https://github.com/VedanthR5/quantfolio",
   },
   {
     name: "DDoS Attack Detection using Neural Networks",
     description:
-      "Award-winning science fair project detecting DDoS attacks on edge devices using machine learning. Won US Army and Navy Excellence Awards, placed 3rd overall. Achieved 97.6% accuracy using Python, TensorFlow, and custom neural network architecture.",
+      "Machine-learning system for detecting DDoS attacks from network-flow patterns using CNN-based classification.",
     tags: [
       {
         name: "TensorFlow",
@@ -214,14 +204,13 @@ const projects = [
         color: "green-text-gradient",
       },
     ],
-    image: tripguide,
     source_code_link: "https://arxiv.org/abs/2309.05646",
   },
 
   {
     name: "FoodCycle App",
     description:
-      "WINNER of Congressional App Challenge (TX-37) - Revolutionary app reducing food waste in supermarkets through smart inventory management. Featured by ABC, NBC, and Central Texas Food Bank. Full-stack React Native app with AWS backend.",
+      "Congressional App Challenge-winning food waste marketplace connecting surplus inventory with community buyers.",
     tags: [
       {
         name: "React Native",
@@ -236,36 +225,13 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: FoodCycle,
     source_code_link:
       "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
   },
   {
-    name: "DOD Cybersecurity Windows 10 Hardening Scripts",
-    description:
-      "Professional-grade PowerShell and Batch scripts for CyberPatriot XIV competition, aligned with Department of Defense cybersecurity standards. Automates Windows 10 security hardening, vulnerability patching, and system optimization.",
-    tags: [
-      {
-        name: "PowerShell",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Windows Security",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Automation",
-        color: "pink-text-gradient",
-      },
-    ],
-    image: antihack,
-    source_code_link:
-      "https://github.com/VedanthR5/Clickbait-Cyberpatriot-2022-2023/tree/main",
-  },
-  {
     name: "Austin Divided: Road to Recovery",
     description:
-      "Investigative journalism magazine analyzing Austin's urban planning history and its modern impacts on gentrification. Multi-lens analysis covering historical, economic, geographical, educational, and social justice perspectives through community interviews.",
+      "Investigative magazine analyzing Austin's urban planning history, gentrification, and community-level recovery through historical and economic lenses.",
     tags: [
       {
         name: "Journalism",
@@ -280,9 +246,8 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: divided,
     source_code_link: "https://issuu.com/lasaezine/docs/austin_divided",
   },
 ];
 
-export { services, technologies, experiences, projects };
+export { services, experiences, projects };

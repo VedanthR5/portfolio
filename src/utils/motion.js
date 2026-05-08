@@ -1,3 +1,11 @@
+export const fadeVariants = ({ delay = 0, duration = 0.5 } = {}) => ({
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { duration, delay, ease: [0.0, 0.0, 0.2, 1.0] },
+  },
+});
+
 export const textVariant = (delay) => {
     return {
       hidden: {

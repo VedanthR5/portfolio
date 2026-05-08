@@ -1,4 +1,3 @@
-import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 
@@ -9,7 +8,7 @@ import { fadeIn, textVariant } from "../utils/motion";
 import AnnotatedText from "./AnnotatedText";
 
 const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className="w-[220px] sm:w-[240px] lg:w-[260px] shrink-0">
+  <div className="w-[220px] sm:w-[240px] lg:w-[260px] shrink-0">
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
       className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card hover:shadow-2xl transition-shadow duration-300"
@@ -26,7 +25,7 @@ const ServiceCard = ({ index, title, icon }) => (
         </h3>
       </div>
     </motion.div>
-  </Tilt>
+  </div>
 );
 
 ServiceCard.propTypes = {
@@ -90,7 +89,7 @@ const About = () => {
           citationNumber={7}
           citationUrl="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html"
         >
-          Dean&apos;s Advisory Council
+          SCS Dean&apos;s Advisory Council
         </AnnotatedText>
         , working to shape the future of computer science education.
         <br />

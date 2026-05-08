@@ -8,7 +8,10 @@ public/knowledge/**/*.tmp
 public/knowledge/**/*.bak
 public/knowledge/**/.DS_Store
 public/knowledge/**/Thumbs.db
-
+.claude/
+.agent/
+.codex/
+.github/
 # Environment variables
 .env
 .env.local

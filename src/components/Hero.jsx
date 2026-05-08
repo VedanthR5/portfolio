@@ -1,300 +1,168 @@
-// src/components/Hero.jsx
-import { styles } from "../styles";
+import { useState, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from "motion/react";
+import { fadeVariants } from "../utils/motion";
 
+const GithubIcon = () => (
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+  </svg>
+);
+
+const LinkedinIcon = () => (
+  <svg
+    width={20}
+    height={20}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+
+const domains = ["systems", "ai", "trading", "security", "ml"];
+
+const useTypingCycle = (words) => {
+  const shouldReduceMotion = useReducedMotion();
+  const [displayText, setDisplayText] = useState(words[0]);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+    const current = words[wordIndex];
+
+    if (!isDeleting && displayText === current) {
+      const t = setTimeout(() => setIsDeleting(true), 2200);
+      return () => clearTimeout(t);
+    }
+    if (isDeleting && displayText === "") {
+      setIsDeleting(false);
+      setWordIndex((i) => (i + 1) % words.length);
+      return;
+    }
+    const t = setTimeout(
+      () =>
+        setDisplayText(
+          isDeleting
+            ? current.slice(0, displayText.length - 1)
+            : current.slice(0, displayText.length + 1),
+        ),
+      isDeleting ? 50 : 90,
+    );
+    return () => clearTimeout(t);
+  }, [displayText, isDeleting, wordIndex, words, shouldReduceMotion]);
+
+  return shouldReduceMotion ? null : displayText;
+};
 
 const Hero = () => {
+  const { scrollYProgress } = useScroll();
+  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const typingText = useTypingCycle(domains);
+
   return (
-    <section className="relative w-full h-screen mx-auto overflow-hidden">
-      {/* Animated geometric background with floating elements */}
-      <div className="absolute inset-0 bg-primary">
-        {/* Animated grid pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(147, 94, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(147, 94, 255, 0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: "50px 50px",
-              animation: "gridMove 20s linear infinite",
-            }}
-          />
-        </div>
-
-        {/* Floating geometric shapes */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Growing tree/network visualization */}
-          <div className="absolute top-1/4 right-1/4 w-64 h-64">
-            <svg viewBox="0 0 200 200" className="w-full h-full">
-              {/* Animated tree branches */}
-              <g className="animate-pulse">
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="3"
-                  fill="#915EFF"
-                  className="animate-ping"
-                />
-                <line
-                  x1="100"
-                  y1="100"
-                  x2="120"
-                  y2="80"
-                  stroke="#915EFF"
-                  strokeWidth="2"
-                  className="animate-draw"
-                />
-                <line
-                  x1="100"
-                  y1="100"
-                  x2="80"
-                  y2="80"
-                  stroke="#915EFF"
-                  strokeWidth="2"
-                  className="animate-draw delay-300"
-                />
-                <line
-                  x1="100"
-                  y1="100"
-                  x2="130"
-                  y2="120"
-                  stroke="#915EFF"
-                  strokeWidth="2"
-                  className="animate-draw delay-500"
-                />
-                <line
-                  x1="120"
-                  y1="80"
-                  x2="140"
-                  y2="60"
-                  stroke="#915EFF"
-                  strokeWidth="1"
-                  className="animate-draw delay-700"
-                />
-                <line
-                  x1="80"
-                  y1="80"
-                  x2="60"
-                  y2="60"
-                  stroke="#915EFF"
-                  strokeWidth="1"
-                  className="animate-draw delay-900"
-                />
-                <circle
-                  cx="140"
-                  cy="60"
-                  r="2"
-                  fill="#915EFF"
-                  className="animate-ping delay-1000"
-                />
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="2"
-                  fill="#915EFF"
-                  className="animate-ping delay-1200"
-                />
-                <circle
-                  cx="130"
-                  cy="120"
-                  r="2"
-                  fill="#915EFF"
-                  className="animate-ping delay-800"
-                />
-              </g>
-            </svg>
-          </div>
-
-          {/* Floating code symbols */}
-          <div className="absolute top-20 right-20 text-[#915EFF] text-2xl animate-bounce delay-1000">
-            {"{ }"}
-          </div>
-          <div className="absolute bottom-40 right-32 text-[#915EFF] text-xl animate-bounce delay-1500">
-            {"</>"}
-          </div>
-          <div className="absolute top-40 right-40 text-[#915EFF] text-lg animate-bounce delay-2000">
-            {"[]"}
-          </div>
-
-          {/* Glowing orbs */}
-          <div className="absolute top-1/3 right-1/3 w-4 h-4 bg-[#915EFF] rounded-full animate-pulse shadow-lg shadow-[#915EFF]/50"></div>
-          <div className="absolute bottom-1/3 right-1/2 w-3 h-3 bg-blue-500 rounded-full animate-pulse delay-1000 shadow-lg shadow-blue-500/50"></div>
-          <div className="absolute top-1/2 right-20 w-2 h-2 bg-green-500 rounded-full animate-pulse delay-2000 shadow-lg shadow-green-500/50"></div>
-
-          {/* Connecting lines animation */}
-          <svg className="absolute inset-0 w-full h-full">
-            <defs>
-              <linearGradient
-                id="lineGradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="100%"
-              >
-                <stop offset="0%" stopColor="#915EFF" stopOpacity="0" />
-                <stop offset="50%" stopColor="#915EFF" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#915EFF" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <line
-              x1="60%"
-              y1="30%"
-              x2="80%"
-              y2="70%"
-              stroke="url(#lineGradient)"
-              strokeWidth="1"
-              className="animate-pulse"
-            />
-            <line
-              x1="70%"
-              y1="20%"
-              x2="90%"
-              y2="50%"
-              stroke="url(#lineGradient)"
-              strokeWidth="1"
-              className="animate-pulse delay-1000"
-            />
-          </svg>
-        </div>
-
-        {/* Gradient overlays for depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-purple-900/10 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-900/10 to-transparent"></div>
-      </div>
-
-      <div className="relative z-10 h-full flex items-center">
-        <div className={`${styles.paddingX} max-w-7xl mx-auto w-full`}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center h-full">
-            {/* Left: Text Content */}
-            <div className="space-y-8">
-              <div className="flex flex-row items-start gap-5">
-                <div className="flex flex-col justify-center items-center mt-5">
-                  <div className="w-5 h-5 rounded-full bg-[#915EFF] shadow-lg shadow-[#915EFF]/50 animate-pulse" />
-                  <div className="w-1 h-32 violet-gradient animate-pulse" />
-                </div>
-                <div className="flex-1">
-                  <h1
-                    className={`${styles.heroHeadText} text-white drop-shadow-lg`}
-                  >
-                    Hi, I&apos;m{" "}
-                    <span className="text-[#915EFF] animate-pulse">
-                      Vedanth
-                    </span>
-                  </h1>
-                  <p
-                    className={`${styles.heroSubText} text-white-100 mt-6 drop-shadow-md`}
-                  >
-                    A student at{" "}
-                    <a
-                      href="https://www.cs.cmu.edu"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#915EFF] underline hover:text-white transition-colors duration-300"
-                    >
-                      Carnegie Mellon
-                    </a>
-                    <br className="sm:block hidden" />
-                     interested in{" "}
-                    <span className="text-[#915EFF]">education</span>,{" "}
-                    <span className="text-[#915EFF]">sustainability</span>, and{" "}
-                    <span className="text-[#915EFF]">equity</span> through
-                    computing, security and markets.
-                  </p>
-                </div>
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex gap-3 mt-6">
-                <a
-                  href="#about"
-                  className="bg-[#915EFF]/80 backdrop-blur-sm hover:bg-[#915EFF] px-6 py-3 rounded-lg text-white font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#915EFF]/30"
-                >
-                  Explore Work
-                </a>
-                <a
-                  href="https://github.com/VedanthR5"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="border-2 border-white/30 backdrop-blur-sm hover:bg-white/10 px-6 py-3 rounded-lg text-white font-medium transition-all duration-300 hover:border-[#915EFF]"
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
-
-            {/* Right: Minimal Interactive Visual Element */}
-            <div className="hidden lg:flex justify-center items-center">
-              <div className="relative w-80 h-80">
-                {/* Floating geometric shapes */}
-                <div
-                  className="absolute top-1/4 left-1/4 w-6 h-6 border-2 border-[#915EFF] rotate-45 animate-spin"
-                  style={{ animationDuration: "8s" }}
-                ></div>
-                <div className="absolute bottom-1/3 right-1/4 w-4 h-4 bg-blue-500/30 rounded-full animate-bounce delay-500"></div>
-                <div className="absolute top-1/2 right-1/3 w-2 h-12 bg-gradient-to-b from-[#915EFF] to-transparent animate-pulse delay-1000"></div>
-
-                {/* Hexagon pattern */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative">
-                    <div
-                      className="w-32 h-32 border border-[#915EFF]/30 transform rotate-12 animate-pulse"
-                      style={{
-                        clipPath:
-                          "polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)",
-                      }}
-                    ></div>
-                    <div
-                      className="absolute inset-4 border border-blue-500/20 transform -rotate-12 animate-pulse delay-700"
-                      style={{
-                        clipPath:
-                          "polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)",
-                      }}
-                    ></div>
-                  </div>
-                </div>
-
-                {/* Code snippet floating effect */}
-                <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2">
-                  <div className="text-[#915EFF] text-xs font-mono opacity-60 animate-pulse delay-1500">
-                    const impact = code + creativity;
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center z-20">
-        <a href="#about">
-          <div className="w-[35px] h-[64px] rounded-3xl border-4 border-white/30 backdrop-blur-sm flex justify-center items-start p-2 hover:border-[#915EFF] transition-colors duration-300">
-            <div className="w-3 h-3 rounded-full bg-white mb-1 animate-bounce" />
-          </div>
-        </a>
-      </div>
-
-      {/* Custom CSS animations embedded */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-          }
-          
-          @keyframes draw {
-            0% { stroke-dasharray: 0 100; }
-            100% { stroke-dasharray: 100 0; }
-          }
-          
-          .animate-draw {
-            stroke-dasharray: 100;
-            animation: draw 2s ease-in-out infinite;
-          }
-        `,
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      {/* Radial gradient glow — dark indigo/purple behind text */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 55% at 28% 52%, rgba(99,102,241,0.13) 0%, rgba(88,28,135,0.07) 45%, transparent 70%)",
         }}
+      />
+
+      <div className="relative max-w-2xl w-full px-6 sm:px-16">
+        <motion.h1
+          variants={fadeVariants({ delay: 0.1 })}
+          initial="hidden"
+          animate="show"
+          className="text-4xl font-semibold text-vr-text-primary tracking-tight"
+        >
+          Vedanth Ramanathan
+        </motion.h1>
+
+        <motion.p
+          variants={fadeVariants({ delay: 0.2 })}
+          initial="hidden"
+          animate="show"
+          className="mt-4 text-xl font-normal text-vr-text-primary/80"
+        >
+          Engineering resilient platforms — from finance to civic tech.
+        </motion.p>
+
+        <motion.div
+          variants={fadeVariants({ delay: 0.3 })}
+          initial="hidden"
+          animate="show"
+          className="mt-3 h-6 flex items-center text-sm"
+        >
+          {typingText !== null ? (
+            <span className="flex items-center gap-0.5 font-mono text-vr-text-muted">
+              <span className="text-vr-text-secondary">
+                {typingText} @ carnegie mellon
+              </span>
+              <span className="text-vr-accent motion-safe:animate-pulse select-none">
+                |
+              </span>
+            </span>
+          ) : (
+            <span className="flex items-center flex-wrap gap-1 text-vr-text-muted">
+              {domains.map((d, i) => (
+                <span key={d} className="flex items-center gap-1">
+                  {d}
+                  {i < domains.length - 1 && (
+                    <span className="text-vr-accent">/</span>
+                  )}
+                </span>
+              ))}
+            </span>
+          )}
+        </motion.div>
+
+        <motion.div
+          variants={fadeVariants({ delay: 0.5 })}
+          initial="hidden"
+          animate="show"
+          className="mt-8 flex gap-3 items-center"
+        >
+          <a
+            href="https://github.com/VedanthR5"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+            className="p-2 text-vr-text-muted hover:text-vr-text-primary transition-colors duration-200"
+          >
+            <GithubIcon />
+          </a>
+          <a
+            href="https://linkedin.com/in/vedanthramanathan"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn profile"
+            className="p-2 text-vr-text-muted hover:text-vr-text-primary transition-colors duration-200"
+          >
+            <LinkedinIcon />
+          </a>
+        </motion.div>
+      </div>
+
+      <motion.div
+        aria-hidden="true"
+        style={{ opacity: indicatorOpacity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-px h-10 bg-vr-accent"
       />
     </section>
   );

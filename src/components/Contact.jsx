@@ -1,45 +1,232 @@
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
+import { logo } from "../assets";
 
-//nhI9A00KxsAU273Rr
-//template_129z3c4
-// service_kz9delta
-//
+const GithubIcon = () => (
+  <svg
+    width={18}
+    height={18}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+  </svg>
+);
+
+const LinkedinIcon = () => (
+  <svg
+    width={18}
+    height={18}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>
+);
+
+const interestNodes = [
+  {
+    id: "core",
+    label: "Logo",
+    image: logo,
+    x: 50,
+    y: 50,
+    size: "h-14 w-14 md:h-16 md:w-16",
+    hideLabel: true,
+    orb: {
+      background:
+        "linear-gradient(145deg, rgba(255,255,255,0.96), rgba(203,213,255,0.72) 42%, rgba(145,94,255,0.35))",
+      boxShadow:
+        "0 0 58px rgba(145, 94, 255, 0.58), 0 0 18px rgba(255, 255, 255, 0.18), inset 0 0 18px rgba(255, 255, 255, 0.32)",
+      animationDelay: "0s",
+    },
+  },
+  {
+    id: "systems",
+    label: "Systems",
+    x: 23,
+    y: 25,
+    size: "h-9 w-9 md:h-10 md:w-10",
+    labelOffset: "-top-10",
+    orb: {
+      background:
+        "radial-gradient(circle at 35% 30%, #eef2ff 0%, #9caeff 44%, #24305f 100%)",
+      boxShadow: "0 0 34px rgba(156, 174, 255, 0.34)",
+      animationDelay: "0.2s",
+    },
+  },
+  {
+    id: "security",
+    label: "Security",
+    x: 75,
+    y: 27,
+    size: "h-10 w-10 md:h-11 md:w-11",
+    labelOffset: "-top-10",
+    orb: {
+      background:
+        "radial-gradient(circle at 30% 26%, #ffffff 0%, #b9c4ff 38%, #39407d 100%)",
+      boxShadow: "0 0 42px rgba(185, 196, 255, 0.4)",
+      animationDelay: "0.45s",
+    },
+  },
+  {
+    id: "politics",
+    label: "Politics",
+    x: 25,
+    y: 75,
+    size: "h-9 w-9 md:h-10 md:w-10",
+    labelOffset: "-top-10",
+    orb: {
+      background:
+        "radial-gradient(circle at 34% 28%, #f8f8ff 0%, #a7b3ff 42%, #252845 100%)",
+      boxShadow: "0 0 36px rgba(167, 179, 255, 0.32)",
+      animationDelay: "0.7s",
+    },
+  },
+  {
+    id: "ai",
+    label: "AI",
+    x: 74,
+    y: 74,
+    size: "h-9 w-9 md:h-10 md:w-10",
+    labelOffset: "-top-10",
+    orb: {
+      background:
+        "radial-gradient(circle at 35% 30%, #f4f7ff 0%, #8f9eff 42%, #20284d 100%)",
+      boxShadow: "0 0 34px rgba(143, 158, 255, 0.32)",
+      animationDelay: "0.95s",
+    },
+  },
+  {
+    id: "quant",
+    label: "Quant",
+    x: 50,
+    y: 86,
+    size: "h-8 w-8 md:h-9 md:w-9",
+    labelOffset: "-top-10",
+    orb: {
+      background:
+        "radial-gradient(circle at 35% 30%, #f6f7ff 0%, #aeb8ff 44%, #20233f 100%)",
+      boxShadow: "0 0 30px rgba(174, 184, 255, 0.28)",
+      animationDelay: "1.15s",
+    },
+  },
+  {
+    id: "civic",
+    label: "Civic Tech",
+    x: 50,
+    y: 17,
+    size: "h-8 w-8 md:h-9 md:w-9",
+    labelOffset: "-top-10",
+    orb: {
+      background:
+        "radial-gradient(circle at 35% 30%, #ffffff 0%, #b8c3ff 42%, #1d2448 100%)",
+      boxShadow: "0 0 30px rgba(184, 195, 255, 0.3)",
+      animationDelay: "1.35s",
+    },
+  },
+];
+
+const interestEdges = [
+  ["core", "systems", "primary"],
+  ["core", "security", "primary"],
+  ["core", "politics", "primary"],
+  ["core", "ai", "primary"],
+  ["core", "quant", "secondary"],
+  ["core", "civic", "secondary"],
+  ["systems", "security", "secondary"],
+  ["security", "ai", "secondary"],
+  ["politics", "civic", "secondary"],
+  ["politics", "systems", "secondary"],
+  ["quant", "systems", "secondary"],
+  ["civic", "security", "secondary"],
+];
+
+const nodeById = Object.fromEntries(interestNodes.map((node) => [node.id, node]));
+
+const graphSignals = [
+  { from: "systems", to: "core", delay: 0.1, duration: 7.6, size: 0.54 },
+  { from: "core", to: "security", delay: 1.2, duration: 6.8, size: 0.48 },
+  { from: "politics", to: "core", delay: 2.1, duration: 8.4, size: 0.42 },
+  { from: "core", to: "ai", delay: 0.8, duration: 7.9, size: 0.5 },
+  { from: "quant", to: "systems", delay: 3.2, duration: 9.2, size: 0.38 },
+  { from: "civic", to: "security", delay: 4.1, duration: 8.7, size: 0.44 },
+  { from: "systems", to: "security", delay: 2.8, duration: 10.2, size: 0.34 },
+  { from: "politics", to: "civic", delay: 5.4, duration: 9.7, size: 0.4 },
+];
+
+const emailConfig = {
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+};
+
 const Contact = () => {
-  const formRef = useRef();
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
-
+  const [honeypot, setHoneypot] = useState("");
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!form.name.trim()) newErrors.name = "Name is required.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (form.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters.";
+    }
+
+    return newErrors;
+  };
 
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
+    const { name, value } = e.target;
 
-    setForm({
-      ...form,
+    setForm((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (honeypot !== "") return;
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setErrors({});
     setLoading(true);
-    //nhI9A00KxsAU273Rr
-    //template_129z3c4
-    // service_kz9delta
+    setIsSuccess(false);
+    setIsError(false);
+
     emailjs
       .send(
-        "service_kz9delta",
-        "template_129z3c4",
-
+        emailConfig.serviceId,
+        emailConfig.templateId,
         {
           from_name: form.name,
           to_name: "Vedanth Ramanathan",
@@ -47,500 +234,350 @@ const Contact = () => {
           to_email: "vedanth.ramanathan@gmail.com",
           message: form.message,
         },
-        "nhI9A00KxsAU273Rr"
+        emailConfig.publicKey
       )
       .then(
         () => {
           setLoading(false);
-          alert("Thank you! I will get back to you as soon as possible.");
-
-          setForm({
-            name: "",
-            email: "",
-            message: "",
-          });
+          setIsSuccess(true);
+          setForm({ name: "", email: "", message: "" });
         },
         (error) => {
           setLoading(false);
-          console.error(error);
-
-          alert(
-            "Uh oh, something went wrong. Please try again or email me directly at vedanth.ramanathan@gmail.com"
-          );
+          setIsError(true);
+          console.error("EmailJS error:", error.status, error.text);
         }
       );
   };
 
   return (
-    <div
-      className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}
-    >
+    <div className="xl:mt-12 flex flex-col-reverse gap-8 overflow-hidden xl:flex-row xl:items-stretch">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
+        className="flex-[0.76] rounded-[2rem] border border-white/10 bg-[#05060d]/95 p-7 shadow-[0_28px_90px_rgba(0,0,0,0.55)] backdrop-blur md:p-8"
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
 
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="mt-12 flex flex-col gap-8"
-        >
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Name</span>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Enter your name here"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-            />
-          </label>
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your email</span>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="What's your email address?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-            />
-          </label>
-          <label className="flex flex-col">
-            <span className="text-white font-medium mb-4">Your Message</span>
-            <textarea
-              rows={7}
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="What you want to say?"
-              className="bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium"
-            />
-          </label>
+        <AnimatePresence mode="wait">
+          {isSuccess ? (
+            <motion.div
+              key="thanks"
+              role="status"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              className="mt-12 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+            >
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#cbd5ff]/75">
+                Message sent
+              </p>
+              <h4 className="mt-4 text-3xl font-semibold leading-tight text-white">
+                Thank you.
+              </h4>
+              <p className="mt-4 text-[15px] leading-7 text-secondary">
+                I&apos;ll get back to you soon. In the meantime, explore my site
+                or connect with me directly.
+              </p>
 
-          <button
-            type="submit"
-            className="bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary hover:bg-white hover:text-black active:bg-dark-tertiary transition-colors duration-300"
-          >
-            {loading ? "Sending..." : "Send"}
-          </button>
-        </form>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="#about"
+                  className="inline-flex min-h-[42px] items-center justify-center rounded-full border border-white/15 bg-[#eef1ff] px-5 text-sm font-bold text-[#050816] transition duration-300 hover:-translate-y-0.5 hover:bg-white"
+                >
+                  Explore my site
+                </a>
+                <a
+                  href="https://github.com/VedanthR5"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="GitHub profile"
+                  className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-5 text-sm font-semibold text-[#e8ebff] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.1]"
+                >
+                  <GithubIcon />
+                  GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/vedanthramanathan"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn profile"
+                  className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-5 text-sm font-semibold text-[#e8ebff] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.1]"
+                >
+                  <LinkedinIcon />
+                  LinkedIn
+                </a>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.form
+              key="form"
+              onSubmit={handleSubmit}
+              aria-label="Contact form"
+              noValidate
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0, y: -12 }}
+              className="mt-12 flex flex-col gap-7"
+            >
+              <input
+                type="text"
+                name="bot-field"
+                aria-hidden="true"
+                tabIndex={-1}
+                className="hidden"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+              <label className="flex flex-col">
+                <span className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#c8cdf7]/80">
+                  Your Name
+                </span>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name here"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  disabled={loading}
+                  className="rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-none transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
+                />
+                {errors.name && (
+                  <span id="name-error" className="mt-2 text-sm text-[#f2aac4]">
+                    {errors.name}
+                  </span>
+                )}
+              </label>
+              <label className="flex flex-col">
+                <span className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#c8cdf7]/80">
+                  Your Email
+                </span>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="What's your email address?"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                  disabled={loading}
+                  className="rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-none transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
+                />
+                {errors.email && (
+                  <span id="email-error" className="mt-2 text-sm text-[#f2aac4]">
+                    {errors.email}
+                  </span>
+                )}
+              </label>
+              <label className="flex flex-col">
+                <span className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-[#c8cdf7]/80">
+                  Your Message
+                </span>
+                <textarea
+                  id="message"
+                  rows={7}
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="What do you want to build?"
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "message-error" : undefined}
+                  disabled={loading}
+                  className="resize-none rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-none transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
+                />
+                {errors.message && (
+                  <span id="message-error" className="mt-2 text-sm text-[#f2aac4]">
+                    {errors.message}
+                  </span>
+                )}
+              </label>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-fit rounded-full border border-white/15 bg-[#eef1ff] px-8 py-3.5 font-bold text-[#050816] shadow-[0_18px_50px_rgba(174,184,255,0.24)] outline-none transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_22px_60px_rgba(174,184,255,0.34)]"
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </button>
+
+              {isError && (
+                <motion.p
+                  key="error"
+                  role="alert"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  className="text-sm text-[#f2aac4]"
+                >
+                  Something went wrong. Try again or email me directly.
+                </motion.p>
+              )}
+            </motion.form>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px] relative overflow-hidden"
+        className="relative min-h-[430px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#03040a] shadow-[0_32px_110px_rgba(0,0,0,0.68)] md:min-h-[560px] xl:flex-1"
       >
-        {/* Network Animation Canvas - Cleaner Layout */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 47%, rgba(145, 94, 255, 0.22), transparent 33%), radial-gradient(circle at 80% 18%, rgba(174, 184, 255, 0.13), transparent 28%), linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015) 38%, rgba(145,94,255,0.08))",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.16]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(214,220,255,0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(214,220,255,0.09) 1px, transparent 1px)",
+            backgroundSize: "72px 72px",
+            maskImage:
+              "radial-gradient(circle at 50% 50%, black 0%, transparent 74%)",
+          }}
+        />
         <div className="absolute inset-0">
-          {/* Simplified Grid Background */}
-          <div className="absolute inset-0 opacity-8">
+          <svg
+            className="absolute inset-0 h-full w-full"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            <defs>
+              <linearGradient id="contactGraphLine" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#dce2ff" stopOpacity="0" />
+                <stop offset="45%" stopColor="#dce2ff" stopOpacity="0.46" />
+                <stop offset="100%" stopColor="#915eff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="contactGraphHot" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+                <stop offset="48%" stopColor="#cbd5ff" stopOpacity="0.78" />
+                <stop offset="100%" stopColor="#915eff" stopOpacity="0" />
+              </linearGradient>
+              <filter id="contactGraphGlow">
+                <feGaussianBlur stdDeviation="1.2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            {interestEdges.map(([fromId, toId, weight], index) => {
+              const from = nodeById[fromId];
+              const to = nodeById[toId];
+
+              return (
+                <line
+                  key={`${fromId}-${toId}`}
+                  x1={from.x}
+                  y1={from.y}
+                  x2={to.x}
+                  y2={to.y}
+                  stroke={
+                    weight === "primary"
+                      ? "url(#contactGraphHot)"
+                      : "url(#contactGraphLine)"
+                  }
+                  strokeWidth={weight === "primary" ? "1.3" : "0.82"}
+                  strokeLinecap="round"
+                  filter={weight === "primary" ? "url(#contactGraphGlow)" : undefined}
+                  className="contact-graph-edge"
+                  style={{ animationDelay: `${index * 0.34}s` }}
+                  vectorEffect="non-scaling-stroke"
+                />
+              );
+            })}
+
+            {graphSignals.map((signal, index) => {
+              const from = nodeById[signal.from];
+              const to = nodeById[signal.to];
+
+              return (
+                <circle
+                  key={`${signal.from}-${signal.to}-${index}`}
+                  r={signal.size}
+                  fill={index % 3 === 0 ? "#ffffff" : "#cbd5ff"}
+                  opacity="0.9"
+                  filter="url(#contactGraphGlow)"
+                >
+                  <animateMotion
+                    dur={`${signal.duration}s`}
+                    begin={`${signal.delay}s`}
+                    repeatCount="indefinite"
+                    path={`M ${from.x} ${from.y} L ${to.x} ${to.y}`}
+                  />
+                </circle>
+              );
+            })}
+          </svg>
+
+          {interestNodes.map((node) => (
             <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `
-                  linear-gradient(rgba(147, 94, 255, 0.06) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(147, 94, 255, 0.06) 1px, transparent 1px)
-                `,
-                backgroundSize: "80px 80px",
-                animation: "networkPulse 35s linear infinite",
-              }}
-            />
-          </div>
-
-          {/* Expanded Network Graph - Professional Spanning Tree Layout */}
-          <div className="absolute inset-0">
-            {/* Austin, TX - Central Command Hub */}
-            <div className="absolute" style={{ top: "50%", left: "50%" }}>
-              <div className="relative group cursor-pointer transform -translate-x-1/2 -translate-y-1/2">
-                <div className="w-10 h-10 bg-gradient-to-r from-[#915EFF] to-purple-600 rounded-full animate-pulse shadow-xl shadow-[#915EFF]/60 border-3 border-white/25">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-spin-slow"></div>
-                </div>
-                <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-base font-bold text-[#915EFF] font-mono opacity-90 whitespace-nowrap">
-                  Austin
-                </div>
-                <div className="absolute inset-0 w-10 h-10 bg-[#915EFF]/20 rounded-full animate-ping"></div>
-              </div>
-            </div>
-
-            {/* CMU, Pittsburgh, PA */}
-            <div className="absolute" style={{ top: "23%", left: "72%" }}>
-              <div className="relative group cursor-pointer">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full animate-pulse delay-500 shadow-lg shadow-blue-500/50 border-2 border-white/20"></div>
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm font-semibold text-blue-400 font-mono opacity-85 whitespace-nowrap">
-                  CMU
-                </div>
-                <div className="absolute inset-0 w-8 h-8 bg-blue-500/20 rounded-full animate-ping delay-500"></div>
-              </div>
-            </div>
-
-            {/* QUANT Node */}
-            <div className="absolute" style={{ top: "23%", left: "23%" }}>
-              <div className="relative group cursor-pointer">
-                <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 via-teal-500 to-green-600 rounded-full animate-pulse delay-800 shadow-xl shadow-emerald-500/60 border-3 border-white/30">
-                  <div className="absolute inset-1 bg-gradient-to-br from-emerald-300/30 to-transparent rounded-full animate-spin-slow"></div>
-                </div>
-                <div className="absolute -top-11 left-1/2 transform -translate-x-1/2 text-sm font-bold text-emerald-400 font-mono opacity-90 whitespace-nowrap">
-                  Quant
-                </div>
-                <div className="absolute inset-0 w-9 h-9 bg-emerald-500/30 rounded-full animate-ping delay-800"></div>
-              </div>
-            </div>
-
-            {/* React.js Hub */}
-            <div className="absolute" style={{ top: "72%", left: "23%" }}>
-              <div className="relative group cursor-pointer">
-                <div className="w-7 h-7 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-pulse delay-1000 shadow-lg shadow-cyan-500/50 border-2 border-white/25"></div>
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm font-semibold text-cyan-400 font-mono opacity-85 whitespace-nowrap">
-                  React
-                </div>
-                <div className="absolute inset-0 w-7 h-7 bg-cyan-500/20 rounded-full animate-ping delay-1000"></div>
-              </div>
-            </div>
-
-            {/* AI/ML Interest Node */}
-            <div className="absolute" style={{ top: "72%", left: "73%" }}>
-              <div className="relative group cursor-pointer">
-                <div className="w-8 h-8 bg-gradient-to-br from-green-400 via-lime-500 to-emerald-600 rounded-full animate-pulse delay-700 shadow-lg shadow-green-500/60 border-2 border-white/25"></div>
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm font-semibold text-green-400 font-mono opacity-85 whitespace-nowrap">
-                  AI/ML
-                </div>
-                <div className="absolute inset-0 w-8 h-8 bg-green-500/20 rounded-full animate-ping delay-700"></div>
-              </div>
-            </div>
-
-            {/* Projects Node */}
-            <div className="absolute" style={{ top: "88%", left: "50%" }}>
-              <div className="relative group cursor-pointer transform -translate-x-1/2">
-                <div className="w-7 h-7 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse delay-300 shadow-lg shadow-yellow-500/50 border-2 border-white/20"></div>
-                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 text-sm font-semibold text-yellow-400 font-mono opacity-85 whitespace-nowrap">
-                  Projects
-                </div>
-                <div className="absolute inset-0 w-7 h-7 bg-yellow-500/20 rounded-full animate-ping delay-300"></div>
-              </div>
-            </div>
-
-            {/* Enhanced Network - Spanning Tree + Additional Connections */}
-            <svg className="absolute inset-0 w-full h-full">
-              <defs>
-                <linearGradient
-                  id="spanningGradient1"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#915EFF" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#915EFF" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#915EFF" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="spanningGradient2"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#10B981" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#10B981" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="spanningGradient3"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#3B82F6" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#3B82F6" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="spanningGradient4"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#06B6D4" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#06B6D4" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#06B6D4" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="spanningGradient5"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#F59E0B" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#F59E0B" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="spanningGradient6"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#EC4899" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#EC4899" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#EC4899" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="spanningGradient7"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-
-              {/* Original Spanning Tree Edges */}
-              {/* Edge 1: Austin (50%, 50%) -> Pittsburgh (75%, 25%) */}
-              <line
-                x1="50%"
-                y1="50%"
-                x2="75%"
-                y2="25%"
-                stroke="url(#spanningGradient3)"
-                strokeWidth="3"
-                className="animate-pulse"
-                strokeDasharray="8,4"
-              />
-
-              {/* Edge 2: Austin (50%, 50%) -> Quant (25%, 25%) */}
-              <line
-                x1="50%"
-                y1="50%"
-                x2="25%"
-                y2="25%"
-                stroke="url(#spanningGradient2)"
-                strokeWidth="3"
-                className="animate-pulse delay-500"
-                strokeDasharray="8,4"
-              />
-
-              {/* Edge 3: Austin (50%, 50%) -> Projects (50%, 90%) */}
-              <line
-                x1="50%"
-                y1="50%"
-                x2="50%"
-                y2="90%"
-                stroke="url(#spanningGradient5)"
-                strokeWidth="3"
-                className="animate-pulse delay-1000"
-                strokeDasharray="8,4"
-              />
-
-              {/* Edge 4: Quant (25%, 25%) -> React (25%, 75%) */}
-              <line
-                x1="25%"
-                y1="25%"
-                x2="25%"
-                y2="75%"
-                stroke="url(#spanningGradient4)"
-                strokeWidth="3"
-                className="animate-pulse delay-700"
-                strokeDasharray="8,4"
-              />
-
-              {/* Edge 5: Pittsburgh (75%, 25%) -> AI/ML (75%, 75%) */}
-              <line
-                x1="75%"
-                y1="25%"
-                x2="75%"
-                y2="75%"
-                stroke="url(#spanningGradient1)"
-                strokeWidth="3"
-                className="animate-pulse delay-1200"
-                strokeDasharray="8,4"
-              />
-
-              {/* NEW REQUESTED EDGES */}
-              {/* Austin (50%, 50%) -> React (25%, 75%) */}
-              <line
-                x1="50%"
-                y1="50%"
-                x2="25%"
-                y2="75%"
-                stroke="url(#spanningGradient6)"
-                strokeWidth="2.5"
-                className="animate-pulse delay-300"
-                strokeDasharray="6,6"
-                opacity="0.8"
-              />
-
-              {/* Austin (50%, 50%) -> AI/ML (75%, 75%) */}
-              <line
-                x1="50%"
-                y1="50%"
-                x2="75%"
-                y2="75%"
-                stroke="url(#spanningGradient7)"
-                strokeWidth="2.5"
-                className="animate-pulse delay-800"
-                strokeDasharray="6,6"
-                opacity="0.8"
-              />
-
-              {/* Projects (50%, 90%) -> AI/ML (75%, 75%) */}
-              <line
-                x1="50%"
-                y1="90%"
-                x2="75%"
-                y2="75%"
-                stroke="url(#spanningGradient6)"
-                strokeWidth="2.5"
-                className="animate-pulse delay-1400"
-                strokeDasharray="6,6"
-                opacity="0.8"
-              />
-
-              {/* Projects (50%, 90%) -> React (25%, 75%) */}
-              <line
-                x1="50%"
-                y1="90%"
-                x2="25%"
-                y2="75%"
-                stroke="url(#spanningGradient7)"
-                strokeWidth="2.5"
-                className="animate-pulse delay-600"
-                strokeDasharray="6,6"
-                opacity="0.8"
-              />
-
-              {/* Quant (25%, 25%) -> Pittsburgh (75%, 25%) - Solid Color Styled */}
-              <line
-                x1="25%"
-                y1="25%"
-                x2="75%"
-                y2="25%"
-                stroke="#10B981"
-                strokeWidth="3"
-                className="animate-pulse delay-900"
-                strokeDasharray="8,6"
-                opacity="0.8"
-              />
-
-              {/* AI/ML (75%, 75%) -> Pittsburgh (75%, 25%) - Solid Color Styled */}
-              <line
-                x1="75%"
-                y1="75%"
-                x2="75%"
-                y2="25%"
-                stroke="#EC4899"
-                strokeWidth="3"
-                className="animate-pulse delay-1100"
-                strokeDasharray="6,8"
-                opacity="0.8"
-              />
-            </svg>
-
-            {/* Enhanced Data Flow Along Spanning Tree */}
-            <div className="absolute" style={{ top: "50%", left: "50%" }}>
+              key={node.id}
+              className="group absolute z-10 -translate-x-1/2 -translate-y-1/2"
+              style={{ top: `${node.y}%`, left: `${node.x}%` }}
+            >
               <div
-                className="absolute w-3 h-3 bg-white rounded-full shadow-lg"
-                style={{ animation: "spanningFlow1 6s linear infinite" }}
-              ></div>
-              <div
-                className="absolute w-2.5 h-2.5 bg-emerald-400 rounded-full shadow-lg delay-1000"
-                style={{ animation: "spanningFlow2 5s linear infinite" }}
-              ></div>
-              <div
-                className="absolute w-2 h-2 bg-blue-400 rounded-full shadow-lg delay-2000"
-                style={{ animation: "spanningFlow3 7s linear infinite" }}
-              ></div>
+                className={`${node.size} contact-graph-node relative overflow-hidden rounded-full border border-white/30`}
+                style={node.orb}
+              >
+                {node.image ? (
+                  <img
+                    src={node.image}
+                    alt="Vedanth Ramanathan logo"
+                    className="absolute inset-[7px] h-[calc(100%-14px)] w-[calc(100%-14px)] rounded-full object-contain"
+                  />
+                ) : (
+                  <div className="absolute inset-[5px] rounded-full border border-white/15 bg-black/30" />
+                )}
+                <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 transition duration-300 group-hover:opacity-100" />
+              </div>
+              {!node.hideLabel && (
+                <div
+                  className={`absolute ${node.labelOffset} left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-[#060815]/80 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#e8ebff] shadow-[0_12px_34px_rgba(0,0,0,0.42)] backdrop-blur md:text-sm`}
+                >
+                  {node.label}
+                </div>
+              )}
             </div>
-
-            {/* Repositioned Tech Stack Labels */}
-            <div className="absolute top-16 right-16 text-[#915EFF]/70 text-lg font-mono font-semibold">
-              AI/ML
-            </div>
-            <div className="absolute bottom-16 left-16 text-emerald-500/70 text-lg font-mono font-semibold">
-              Quant
-            </div>
-
-            {/* Repositioned Status Indicator */}
-            <div className="absolute top-8 right-8 flex items-center space-x-2 text-sm text-[#915EFF]/80 font-mono">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <span>ACTIVE</span>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* CSS Animations*/}
         <style
           dangerouslySetInnerHTML={{
             __html: `
-            @keyframes networkPulse {
-              0%, 100% { transform: scale(1); opacity: 0.08; }
-              50% { transform: scale(1.03); opacity: 0.15; }
-            }
-            
-            @keyframes spanningFlow1 {
-              0% { transform: translate(0, 0) scale(1); opacity: 1; }
-              20% { transform: translate(125px, -125px) scale(1.2); opacity: 0.8; }
-              40% { transform: translate(-125px, -125px) scale(0.9); opacity: 0.7; }
-              60% { transform: translate(0, 200px) scale(1.1); opacity: 0.6; }
-              80% { transform: translate(-125px, 125px) scale(0.8); opacity: 0.8; }
-              100% { transform: translate(0, 0) scale(1); opacity: 1; }
-            }
-            
-            @keyframes spanningFlow2 {
-              0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-              25% { transform: translate(-125px, -125px) rotate(90deg); opacity: 0.8; }
-              50% { transform: translate(-125px, 125px) rotate(180deg); opacity: 0.7; }
-              75% { transform: translate(125px, -125px) rotate(270deg); opacity: 0.8; }
-              100% { transform: translate(0, 0) rotate(360deg); opacity: 1; }
-            }
-            
-            @keyframes spanningFlow3 {
-              0% { transform: translate(0, 0); opacity: 1; }
-              33% { transform: translate(125px, 125px); opacity: 0.8; }
-              66% { transform: translate(0, 200px); opacity: 0.7; }
-              100% { transform: translate(0, 0); opacity: 1; }
-            }
-
-            @keyframes spin-slow {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
-            }
-
-            .animate-spin-slow {
-              animation: spin-slow 3s linear infinite;
-            }
-
-            @keyframes gradient-radial {
-              0%, 100% { background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%); }
-              50% { background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 50%); }
-            }
-
-            @media (max-width: 768px) {
-              .absolute[style*="top:"] {
-                font-size: 0.7rem;
+              @keyframes contactEdgeFlow {
+                from { stroke-dashoffset: 0; opacity: 0.32; }
+                50% { opacity: 0.92; }
+                to { stroke-dashoffset: -42; opacity: 0.32; }
               }
-              
-              .absolute[style*="Austin"], .absolute[style*="Pittsburgh"] {
-                transform: scale(0.9);
+
+              @keyframes contactNodeBreathe {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.055); }
               }
-              
-              /* Mobile-optimized animations */
-              @keyframes epicDataFlow1 {
-                0%, 100% { transform: translate(0, 0) scale(0.8); opacity: 1; }
-                50% { transform: translate(40px, 60px) scale(1); opacity: 0.7; }
+
+              .contact-graph-edge {
+                stroke-dasharray: 1 7;
+                animation: contactEdgeFlow 15s linear infinite;
               }
-            }
-          `,
+
+              .contact-graph-node {
+                animation: contactNodeBreathe 5.8s ease-in-out infinite;
+              }
+
+              @media (prefers-reduced-motion: reduce) {
+                .contact-graph-edge,
+                .contact-graph-node {
+                  animation: none;
+                }
+              }
+            `,
           }}
         />
       </motion.div>

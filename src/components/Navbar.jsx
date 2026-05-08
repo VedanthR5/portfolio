@@ -57,37 +57,7 @@ const Navbar = () => {
               } hover:text-white text-[18px] font-medium cursor-pointer`}
               onClick={() => setActive(nav.title)}
             >
-              {nav.title === "LinkedIn" ? (
-                <a
-                  href="https://www.linkedin.com/in/vedanthramanathan/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  LinkedIn
-                </a>
-              ) : nav.title === "GitHub" ? (
-                <a
-                  href="https://github.com/VedanthR5"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub
-                </a>
-              ) : nav.title === "About" ? (
-                <a href={`#${nav.id}`}>{nav.title}</a>
-              ) : nav.title === "Activities" ? (
-                <a
-                  href="https://www.computely.org"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Computely
-                </a>
-              ) : nav.title === "Contact" ? (
-                <a href={`#${nav.id}`}>{nav.title}</a>
-              ) : (
-                <Link to={nav.url || `#${nav.id}`}>{nav.title}</Link>
-              )}
+              <a href={`#${nav.id}`}>{nav.title}</a>
             </li>
           ))}
         </ul>
@@ -117,33 +87,7 @@ const Navbar = () => {
                     setActive(nav.title);
                   }}
                 >
-                  {nav.title === "LinkedIn" ? (
-                    <a
-                      href="https://www.linkedin.com/in/vedanthramanathan/"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      LinkedIn
-                    </a>
-                  ) : nav.title === "GitHub" ? (
-                    <a
-                      href="https://github.com/VedanthR5"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      GitHub
-                    </a>
-                  ) : nav.title === "Activities" ? (
-                    <a
-                      href="https://www.computely.org"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Computely
-                    </a>
-                  ) : (
-                    <a href={`#${nav.id}`}>{nav.title}</a>
-                  )}
+                  <a href={`#${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
             </ul>

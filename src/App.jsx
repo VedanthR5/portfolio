@@ -5,6 +5,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
+import Experience from "./components/Experience";
 import CurrentWork from "./components/CurrentWork";
 import Works from "./components/Works";
 import Contact from "./components/Contact";
@@ -68,6 +69,7 @@ const App = () => {
           </div>
 
           <About />
+          <Experience />
           <CurrentWork />
 
           <Works />
