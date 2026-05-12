@@ -98,7 +98,7 @@ const CurrentWork = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const workItems = [
-    "portal - think. type. transform. change how you browse.",
+    "portkey - think. type. transform. go. intent to action. change how you browse.",
     "llm research and watermarking",
     "startup for localized political data aggregation"
   ];
