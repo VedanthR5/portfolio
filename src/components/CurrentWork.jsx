@@ -100,7 +100,7 @@ const CurrentWork = () => {
   const workItems = [
     "portkey - think. type. transform. go. intent to action. change how you browse.",
     "llm research and watermarking",
-    "startup for localized political data aggregation"
+    "civicduty for localized political data aggregation"
   ];
 
   const toggleItem = (index) => {
@@ -204,8 +204,18 @@ const CurrentWork = () => {
                           transition={{ duration: 0.3 }}
                           className="ml-10 overflow-hidden sm:ml-[4.5rem]"
                         >
-                          <p className="mt-2 font-mono text-base font-light text-white/80 sm:text-xl">
-                            {restOfText}
+                          <p className="mt-2 font-mono text-base font-light text-white drop-shadow-lg sm:text-xl">
+                            {(() => {
+                              const isCivic = firstWord.toLowerCase() === 'civicduty';
+                              if (isCivic) {
+                                return (
+                                  <>
+                                    {restOfText} <a href="https://civicduty.app" target="_blank" rel="noopener noreferrer" className="underline text-purple-400 hover:text-purple-300 transition-colors">civicduty.app</a> — mcginnis venture finalist
+                                  </>
+                                );
+                              }
+                              return restOfText;
+                            })()}
                           </p>
                         </motion.div>
                       )}

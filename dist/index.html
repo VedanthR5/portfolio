@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- Security Headers -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; worker-src 'self' blob:; connect-src 'self' https://api.emailjs.com https://www.google-analytics.com https://analytics.google.com https://storage.googleapis.com https://vedanth-portfolio-chat.fly.dev https://*.fly.dev; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; base-uri 'self'; form-action 'self';"
@@ -14,7 +13,6 @@
       content="strict-origin-when-cross-origin"
     />
 
-    <!-- Google tag (gtag.js) -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-RHGV1K1ENG"
@@ -28,38 +26,34 @@
       gtag("config", "G-RHGV1K1ENG");
     </script>
 
-    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://www.computely.org" />
-    <link rel="dns-prefetch" href="https://the-tartan.org" />
     <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://linkedin.com" />
 
-    <!-- Mobile & viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#915EFF" />
+    <meta name="application-name" content="Vedanth Ramanathan" />
 
-    <!-- Favicons -->
     <link
       rel="icon"
       type="image/png"
-      href="../vr-low-resolution-color-logo (1)-modified.png"
+      href="/vr-low-resolution-color-logo (1)-modified.png"
     />
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- Primary Meta Tags -->
-    <title>Vedanth Ramanathan</title>
+    <title>Vedanth Ramanathan | Security, Systems, AI Portfolio</title>
     <meta
       name="title"
-      content="Vedanth Ramanathan — Coding Portfolio, Contact, About"
+      content="Vedanth Ramanathan | Security, Systems, AI Portfolio"
     />
     <meta
       name="description"
-      content="The portfolio, projects, and activities of Vedanth Ramanathan — student at Carnegie Mellon University's SCS."
+      content="Portfolio of Vedanth Ramanathan, a Carnegie Mellon computer science student building security, AI, systems, civic-tech, and quantitative software."
     />
+    <meta name="author" content="Vedanth Ramanathan" />
     <link rel="canonical" href="https://vedanthramanathan.com/" />
 
-    <!-- Robots / Crawlers -->
     <meta name="robots" content="index, follow" />
     <meta
       name="googlebot"
@@ -67,66 +61,85 @@
     />
     <meta name="bingbot" content="index, follow" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://vedanthramanathan.com/" />
-    <meta property="og:title" content="Vedanth Ramanathan — Coding Portfolio" />
+    <meta property="og:site_name" content="Vedanth Ramanathan" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:title"
+      content="Vedanth Ramanathan | Security, Systems, AI Portfolio"
+    />
     <meta
       property="og:description"
-      content="Explore Vedanth's web and mobile projects, sustainability work, and equity-focused computer science endeavors."
+      content="CMU computer science portfolio spanning security engineering, applied AI, systems, civic-tech, and quantitative software."
     />
     <meta
       property="og:image"
-      content="https://vedanthramanathan.com/assets/social-preview.png"
+      content="https://vedanthramanathan.com/vr-low-resolution-color-logo%20(1)-modified.png"
     />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Vedanth Ramanathan portfolio logo" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@your_twitter_handle" />
-    <meta name="twitter:creator" content="@your_twitter_handle" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:url" content="https://vedanthramanathan.com/" />
     <meta
       name="twitter:title"
-      content="Vedanth Ramanathan — Coding Portfolio"
+      content="Vedanth Ramanathan | Security, Systems, AI Portfolio"
     />
     <meta
       name="twitter:description"
-      content="Discover my education, sustainability, and equity projects powered by computing."
+      content="Security, AI, systems, civic-tech, and quantitative software portfolio."
     />
     <meta
       name="twitter:image"
-      content="https://vedanthramanathan.com/assets/social-preview.png"
+      content="https://vedanthramanathan.com/vr-low-resolution-color-logo%20(1)-modified.png"
     />
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Vedanth Ramanathan",
-        "url": "https://vedanthramanathan.com/",
-        "sameAs": [
-          "https://github.com/VedanthR5",
-          "https://www.linkedin.com/in/vedanthramanathan"
-        ],
-        "jobTitle": "Computer Science Student",
-        "affiliation": {
-          "@type": "CollegeOrUniversity",
-          "name": "Carnegie Mellon University"
-        },
-        "description": "Student at CMU focused on education, sustainability, and equity through computing.",
-        "image": "https://vedanthramanathan.com/assets/logo-931957b9.png"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://vedanthramanathan.com/#website",
+            "name": "Vedanth Ramanathan",
+            "url": "https://vedanthramanathan.com/",
+            "inLanguage": "en-US",
+            "description": "Portfolio of Vedanth Ramanathan, student at CMU, focused on security, systems, AI, civic-tech, and quantitative software."
+          },
+          {
+            "@type": "Person",
+            "@id": "https://vedanthramanathan.com/#person",
+            "name": "Vedanth Ramanathan",
+            "url": "https://vedanthramanathan.com/",
+            "image": "https://vedanthramanathan.com/vr-low-resolution-color-logo%20(1)-modified.png",
+            "sameAs": [
+              "https://github.com/VedanthR5",
+              "https://www.linkedin.com/in/vedanthramanathan"
+            ],
+            "jobTitle": "Computer Science Student and Engineer",
+            "affiliation": {
+              "@type": "CollegeOrUniversity",
+              "name": "Carnegie Mellon University"
+            },
+            "knowsAbout": [
+              "Security Engineering",
+              "Applied AI",
+              "Systems Software",
+              "Civic Technology",
+              "Quantitative Software"
+            ],
+            "description": "Carnegie Mellon computer science student building security, AI, systems, civic-tech, and quantitative software."
+          }
+        ]
       }
     </script>
-    <script type="module" crossorigin src="/assets/index-CKfkyhbU.js"></script>
+    <script type="module" crossorigin src="/assets/index-CfUidL2s.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/three-CmeZkD_X.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-three-Co3uJO0Z.js">
-    <link rel="modulepreload" crossorigin href="/assets/framer-motion-CEHA0Z1x.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-C24da32h.css">
+    <link rel="modulepreload" crossorigin href="/assets/react-three-CnazwM21.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-motion-DgCv6KBL.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DH8ksn2w.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>
