@@ -115,6 +115,7 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
+    demo_link: "https://docs.google.com/presentation/d/17k3rfrBu-ShUnvRCkQ0N9p9d9BurqgM_/edit?usp=sharing&ouid=115317224396364574547&rtpof=true&sd=true",
     source_code_link: "https://github.com/VedanthR5/C-NN-ancerDetect",
   },
   {
