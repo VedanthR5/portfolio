@@ -27,6 +27,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Validate blog content
+        run: npm run test:blog
+
       - name: Build client
         run: npm run build
 

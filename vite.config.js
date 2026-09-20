@@ -21,13 +21,8 @@ export default defineConfig({
         }
         warn(warning);
       },
-      output: {
-        manualChunks: {
-          three: ["three"],
-          "react-three": ["@react-three/fiber", "@react-three/drei"],
-          "framer-motion": ["framer-motion"],
-        },
-      },
+      // Let Rollup keep shared UI dependencies separate from the lazy home route.
+
     },
     // Chunk size optimization
     chunkSizeWarningLimit: 1000,
