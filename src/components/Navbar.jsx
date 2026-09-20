@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getRouteMeta } from "../blog/pageMeta";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
@@ -7,7 +8,7 @@ import { logo, menu, close } from "../assets";
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const isBlog = pathname.startsWith("/blog");
+  const { isBlog } = getRouteMeta(pathname);
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);

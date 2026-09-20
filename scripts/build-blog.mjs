@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { posts } from "../src/blog/catalog.js";
+import { getRouteMeta } from "../src/blog/pageMeta.js";
 
 // Give static hosts and link-preview crawlers route-specific metadata without
 // fetching article bodies or adding another rendering dependency.
@@ -27,7 +28,7 @@ function setMeta(html, attribute, name, value) {
 }
 
 async function writePage(pathname, title, description, post) {
-  const url = `${origin}${pathname}`;
+  const { url, type } = getRouteMeta(pathname);
   const fullTitle = `${title} · Vedanth Ramanathan`;
   let html = template.replace(/<title\b[^>]*>[\s\S]*?<\/title>/i,
     () => `<title>${escapeHtml(fullTitle)}</title>`);
@@ -39,7 +40,7 @@ async function writePage(pathname, title, description, post) {
     ["property", "og:title", fullTitle],
     ["property", "og:description", description],
     ["property", "og:url", url],
-    ["property", "og:type", post ? "article" : "website"],
+    ["property", "og:type", type],
     ["name", "twitter:title", fullTitle],
     ["name", "twitter:description", description],
     ["name", "twitter:url", url],

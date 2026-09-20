@@ -1,6 +1,26 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { posts, topics, selectPosts, formatDate } from "../src/blog/catalog.js";
+import { getRouteMeta } from "../src/blog/pageMeta.js";
+
+test("canonical and social metadata agree for slash and non-slash routes", () => {
+  for (const path of ["/blog", "/blog/", "/blog///"]) {
+    assert.deepEqual(getRouteMeta(path), {
+      path: "/blog", url: "https://vedanthramanathan.com/blog", isBlog: true, type: "website",
+    });
+  }
+  for (const suffix of ["", "/", "///"]) {
+    const route = getRouteMeta(`/blog/warsh-and-the-independent-fed${suffix}`);
+    assert.equal(route.url, "https://vedanthramanathan.com/blog/warsh-and-the-independent-fed");
+    assert.equal(route.type, "article");
+    assert.equal(route.isBlog, true);
+  }
+  assert.equal(getRouteMeta("/").url, "https://vedanthramanathan.com/");
+  for (const path of ["/", "/blogger", "/blogger/", "/blog-archive"]) {
+    assert.equal(getRouteMeta(path).isBlog, false);
+    assert.equal(getRouteMeta(path).type, "website");
+  }
+});
 
 test("catalog search combines words, topics, and empty results", () => {
   assert.ok(posts.length, "Keep at least one article in the catalog");
@@ -76,12 +96,14 @@ test("every lazy article has valid metadata, sections, and source references", a
     }
     assert.ok(references.size, "Each essay should cite its evidence");
     for (const [id, source] of Object.entries(article.sources)) {
-      for (const field of ["title", "publisher", "date", "kind", "summary"]) {
+      for (const field of ["title", "publisher", "kind", "summary"]) {
         assert.ok(typeof source[field] === "string" && source[field].trim(), `${id}: missing ${field}`);
       }
       assert.equal(new URL(source.url).protocol, "https:", `${id}: sources must use HTTPS`);
-      assert.match(source.date, /^\d{4}-\d{2}-\d{2}$/);
-      assert.equal(new Date(`${source.date}T00:00:00Z`).toISOString().slice(0, 10), source.date);
+      if (source.date !== undefined) {
+        assert.match(source.date, /^\d{4}-\d{2}-\d{2}$/);
+        assert.equal(new Date(`${source.date}T00:00:00Z`).toISOString().slice(0, 10), source.date);
+      }
     }
   }
 });

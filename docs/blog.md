@@ -50,6 +50,8 @@ export default {
 
 Citation markup is `[[sourceKey|visible label]]`. The key must exist in the same article's `sources` map. Use HTTPS URLs and concise summaries written in your own words. Identify reporting, opinion, and primary sources through `kind`; mention subscription requirements when appropriate. Preview summaries are not live extracts or substitutes for reading the source.
 
+Source dates are optional when the publication date is unknown. Omit the date rather than guessing; known dates use `YYYY-MM-DD`. Article publication dates remain required.
+
 A section can include `quote`, `quoteSource`, and `quoteAttribution` (for example, `Speaker · event`). Verify quotations against the cited document. The sources heading is numbered automatically after the article sections.
 
 ## Interaction and accessibility checks
@@ -57,6 +59,8 @@ A section can include `quote`, `quoteSource`, and `quoteAttribution` (for exampl
 Hovering or focusing a citation link opens its preview. The original link still opens the source in a new tab. Use ArrowDown or activate the adjacent preview button to enter the preview with the keyboard; Escape closes it and returns focus. The explicit button also makes previews available on touchscreens. Verify that the pointer can move from the citation into the card without dismissing it.
 
 Sections have stable fragment links and fixed-navbar offsets. Contents navigation becomes a disclosure on narrow screens. Focus mode hides the decorative article artwork. Readers who request reduced motion receive static artwork and no animated scrolling or reveal motion. Print styles remove navigation and artwork and expose source URLs.
+
+Article text remains visible throughout scrolling; reveals apply only to the header and artwork. Preview focus changes must use `preventScroll`, and toggling focus mode preserves the reading position. Canonical URLs, social page types, and Blog navigation matching share `pageMeta.js`; test both slash and non-slash routes.
 
 Useful manual checks: direct article refresh, an unknown slug, filtered index reload, browser Back, keyboard preview entry and dismissal, mobile overflow, reduced motion, and print preview. Local content tests validate structure and reference integrity; they do not verify source accuracy or remote link availability.
 

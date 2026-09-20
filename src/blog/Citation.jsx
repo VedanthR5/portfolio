@@ -28,7 +28,7 @@ export default function Citation({ source, children }) {
   const enterPreview = () => {
     focusPreview.current = true;
     show();
-    if (card.current) { card.current.focus(); focusPreview.current = false; }
+    if (card.current) { card.current.focus({ preventScroll: true }); focusPreview.current = false; }
   };
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Citation({ source, children }) {
     function onKey(event) {
       if (event.key === "Escape") {
         // Return focus without reopening on focus; the queued close wins.
-        if (card.current?.contains(document.activeElement)) trigger.current?.querySelector("button")?.focus();
+        if (card.current?.contains(document.activeElement)) trigger.current?.querySelector("button")?.focus({ preventScroll: true });
         setOpen(false);
       }
     }
@@ -60,7 +60,7 @@ export default function Citation({ source, children }) {
       if (!trigger.current?.contains(event.target) && !card.current?.contains(event.target)) setOpen(false);
     }
     place();
-    if (focusPreview.current) { card.current?.focus(); focusPreview.current = false; }
+    if (focusPreview.current) { card.current?.focus({ preventScroll: true }); focusPreview.current = false; }
     window.addEventListener("resize", place);
     window.addEventListener("scroll", place, { passive: true });
     document.addEventListener("keydown", onKey);
@@ -81,10 +81,10 @@ export default function Citation({ source, children }) {
     {open && createPortal(<aside id={id} ref={card} tabIndex={-1} className="source-preview" aria-label={`Source preview: ${source.title}`} style={position}
       onPointerEnter={cancelClose} onPointerLeave={scheduleClose}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget) && !trigger.current?.contains(event.relatedTarget)) scheduleClose(); }}>
-      <div className="preview-top"><span>{source.kind}</span><button type="button" aria-label="Close source preview" onClick={() => { trigger.current?.querySelector("button")?.focus(); close(); }}>×</button></div>
+      <div className="preview-top"><span>{source.kind}</span><button type="button" aria-label="Close source preview" onClick={() => { trigger.current?.querySelector("button")?.focus({ preventScroll: true }); close(); }}>×</button></div>
       <p className="preview-publisher">{source.publisher}</p>
       <h3>{source.title}</h3><p id={`${id}-summary`}>{source.summary}</p>
-      <div className="preview-bottom"><time dateTime={source.date}>{formatDate(source.date)}</time><a href={source.url} target="_blank" rel="noopener noreferrer">Open source ↗<span className="sr-only"> (opens in a new tab)</span></a></div>
+      <div className="preview-bottom">{source.date && <time dateTime={source.date}>{formatDate(source.date)}</time>}<a href={source.url} target="_blank" rel="noopener noreferrer">Open source ↗<span className="sr-only"> (opens in a new tab)</span></a></div>
     </aside>, document.body)}
   </span>;
 }

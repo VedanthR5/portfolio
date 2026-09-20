@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { motion, useScroll } from "motion/react";
 import PropTypes from "prop-types";
@@ -24,6 +24,8 @@ function Article({ post, article }) {
   const [copied, setCopied] = useState("");
   const [focusMode, setFocusMode] = useState(false);
   const copyTimer = useRef(null);
+  const readingLayout = useRef(null);
+  const readingPosition = useRef(null);
   const { scrollYProgress } = useScroll({ target: articleRef, offset: ["start start", "end end"] });
   const wordCount = [article.lede, ...article.sections.flatMap((s) => [s.title, ...s.paragraphs, s.quote || ""])].join(" ").split(/\s+/).length;
   usePageMeta(post.title, post.description);
@@ -50,6 +52,17 @@ function Article({ post, article }) {
     return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
   }, [article]);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
+  useLayoutEffect(() => {
+    if (readingPosition.current === null || !readingLayout.current) return;
+    // Collapsing the artwork must not move the paragraph the reader is viewing.
+    const delta = readingLayout.current.getBoundingClientRect().top - readingPosition.current;
+    if (delta) window.scrollBy({ top: delta, behavior: "instant" });
+    readingPosition.current = null;
+  }, [focusMode]);
+  function toggleFocusMode() {
+    readingPosition.current = readingLayout.current?.getBoundingClientRect().top ?? null;
+    setFocusMode((value) => !value);
+  }
   async function copyLink() {
     try { await navigator.clipboard.writeText(window.location.href); setCopied("Link copied"); }
     catch { setCopied("Copy the address from your browser"); }
@@ -68,22 +81,21 @@ function Article({ post, article }) {
       <div className="post-byline"><span>Vedanth Ramanathan</span><time dateTime={post.date}>{formatDate(post.date)}</time><span>{Math.max(1, Math.ceil(wordCount / 220))} min read</span></div>
     </Reveal>
     <Reveal className="post-art"><FieldArt /></Reveal>
-    <div className="reading-layout">
+    <div ref={readingLayout} className="reading-layout">
       <aside className="reading-rail"><nav aria-label="Article contents"><span className="eyebrow">ON THIS PAGE</span>{contents}</nav>
-        <div className="reading-tools"><button onClick={() => setFocusMode(!focusMode)} aria-pressed={focusMode}>{focusMode ? "Show artwork" : "Focus mode"} <span aria-hidden="true">◉</span></button><button onClick={copyLink}>Copy link ↗</button><span role="status">{copied}</span></div>
+        <div className="reading-tools"><button onClick={toggleFocusMode} aria-pressed={focusMode}>{focusMode ? "Show artwork" : "Focus mode"} <span aria-hidden="true">◉</span></button><button onClick={copyLink}>Copy link ↗</button><span role="status">{copied}</span></div>
       </aside>
       <div className="article-body">
         <details className="mobile-contents"><summary>In this essay</summary><nav aria-label="Article contents on mobile">{contents}</nav></details>
         <p className="editor-note">{article.note}</p>
         <p className="article-lede">{article.lede}</p>
         {article.sections.map((section) => <section key={section.id} id={section.id}>
-          <Reveal><h2><a href={`#${section.id}`}>{section.title}</a></h2>
-            {section.paragraphs.map((paragraph, index) => <p key={index}><InlineText text={paragraph} sources={article.sources} /></p>)}
-            {section.quote && <blockquote><p>“{section.quote}”</p><footer><Citation source={article.sources[section.quoteSource]}>{section.quoteAttribution || article.sources[section.quoteSource].publisher}</Citation></footer></blockquote>}
-          </Reveal>
+          <h2><a href={`#${section.id}`}>{section.title}</a></h2>
+          {section.paragraphs.map((paragraph, index) => <p key={index}><InlineText text={paragraph} sources={article.sources} /></p>)}
+          {section.quote && <blockquote><p>“{section.quote}”</p><footer><Citation source={article.sources[section.quoteSource]}>{section.quoteAttribution || article.sources[section.quoteSource].publisher}</Citation></footer></blockquote>}
         </section>)}
         <section id="sources" className="source-list"><h2>{sourcesLabel}</h2><p>Primary documents and reporting behind this essay. Previews are editorial summaries, not live extracts.</p>
-          <ol>{Object.entries(article.sources).map(([id, source], index) => <li key={id}><span className="source-number">{String(index + 1).padStart(2, "0")}</span><div><Citation source={source}>{source.title}</Citation><p>{source.publisher} · {formatDate(source.date)}</p></div></li>)}</ol>
+          <ol>{Object.entries(article.sources).map(([id, source], index) => <li key={id}><span className="source-number">{String(index + 1).padStart(2, "0")}</span><div><Citation source={source}>{source.title}</Citation><p>{source.publisher}{source.date && ` · ${formatDate(source.date)}`}</p></div></li>)}</ol>
         </section>
         <footer className="post-end"><span>Thanks for reading.</span><Link to={returnTo}>All articles ↗</Link></footer>
       </div>

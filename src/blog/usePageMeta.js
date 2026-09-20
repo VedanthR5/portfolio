@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { getRouteMeta } from "./pageMeta";
 
 export function usePageMeta(title, description) {
   const { pathname } = useLocation();
   useEffect(() => {
     const previousTitle = document.title;
     const fullTitle = `${title} · Vedanth Ramanathan`;
-    const canonicalPath = pathname.replace(/\/+$/, "") || "/";
-    const url = `https://vedanthramanathan.com${canonicalPath}`;
+    const { url, type } = getRouteMeta(pathname);
     const updates = [
       ['meta[name="title"]', "content", fullTitle],
       ['meta[name="description"]', "content", description],
@@ -15,7 +15,7 @@ export function usePageMeta(title, description) {
       ['meta[property="og:title"]', "content", fullTitle],
       ['meta[property="og:description"]', "content", description],
       ['meta[property="og:url"]', "content", url],
-      ['meta[property="og:type"]', "content", canonicalPath.startsWith("/blog/") ? "article" : "website"],
+      ['meta[property="og:type"]', "content", type],
       ['meta[name="twitter:title"]', "content", fullTitle],
       ['meta[name="twitter:description"]', "content", description],
       ['meta[name="twitter:url"]', "content", url],

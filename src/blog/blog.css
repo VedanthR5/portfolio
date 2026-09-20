@@ -151,7 +151,8 @@
   .journal *,.source-preview { animation: none !important; transition: none !important; }
 }
 @media print {
-  body { background: white !important; }
+  html,body,#root,#root > .bg-primary { background: white !important; color-scheme: light; }
+  .journal,.journal * { color-scheme: light; }
   body > #root nav,.reading-rail,.post-art,.post-topline,.reading-progress,.source-preview,.mobile-contents,.post-end,.citation-toggle { display: none !important; }
   .journal { padding: 0; max-width: none; color: #111; }
   .journal * { color: #111 !important; opacity: 1 !important; transform: none !important; }
