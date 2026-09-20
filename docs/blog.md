@@ -9,7 +9,7 @@ The blog lives at `/blog`; articles live at `/blog/:slug`. It uses the existing 
 - `Blog.jsx` renders the index. Search, topic, and sort state use the URL parameters `q`, `topic`, and `sort`, so filtered views can be bookmarked.
 - `Post.jsx` loads the selected article and renders headings, contents navigation, reading progress, focus mode, and sources.
 - `Citation.jsx` renders ordinary external links and optional previews using local editorial metadata. It never fetches or embeds the source website.
-- `Shared.jsx` and `blog.css` contain shared motion, artwork, metadata handling, and styling.
+- `Shared.jsx` and `blog.css` contain shared motion, artwork, and styling. `usePageMeta.js` updates browser metadata; `scripts/build-blog.mjs` emits static social/canonical metadata and sitemap entries.
 
 The home, index, and article routes are lazy-loaded independently. Keep Three.js and other home-only imports out of the blog and shared navigation so an article visit does not load the portfolio's canvas code.
 

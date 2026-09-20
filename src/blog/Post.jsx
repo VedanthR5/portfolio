@@ -18,7 +18,7 @@ InlineText.propTypes = { text: PropTypes.string.isRequired, sources: PropTypes.o
 
 function Article({ post, article }) {
   const { hash, state } = useLocation();
-  const returnTo = state?.from?.startsWith("/blog?") ? state.from : "/blog";
+  const returnTo = useRef(state?.from?.startsWith("/blog?") ? state.from : "/blog").current;
   const articleRef = useRef(null);
   const [active, setActive] = useState(article.sections[0]?.id);
   const [copied, setCopied] = useState("");

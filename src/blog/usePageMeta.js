@@ -6,7 +6,8 @@ export function usePageMeta(title, description) {
   useEffect(() => {
     const previousTitle = document.title;
     const fullTitle = `${title} · Vedanth Ramanathan`;
-    const url = `https://vedanthramanathan.com${pathname}`;
+    const canonicalPath = pathname.replace(/\/+$/, "") || "/";
+    const url = `https://vedanthramanathan.com${canonicalPath}`;
     const updates = [
       ['meta[name="title"]', "content", fullTitle],
       ['meta[name="description"]', "content", description],
@@ -14,7 +15,7 @@ export function usePageMeta(title, description) {
       ['meta[property="og:title"]', "content", fullTitle],
       ['meta[property="og:description"]', "content", description],
       ['meta[property="og:url"]', "content", url],
-      ['meta[property="og:type"]', "content", pathname === "/blog" ? "website" : "article"],
+      ['meta[property="og:type"]', "content", canonicalPath.startsWith("/blog/") ? "article" : "website"],
       ['meta[name="twitter:title"]', "content", fullTitle],
       ['meta[name="twitter:description"]', "content", description],
       ['meta[name="twitter:url"]', "content", url],

@@ -1,5 +1,6 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { useEffect } from "react";
+import { usePageMeta } from "../blog/usePageMeta";
 
 // Keep critical above-the-fold components loaded immediately - import directly to avoid canvas imports
 import Hero from "./Hero";
@@ -27,6 +28,7 @@ const ScrollProgress = () => {
 };
 
 export default function Home() {
+  usePageMeta("Security, Systems & AI", "Portfolio of Vedanth Ramanathan, a Carnegie Mellon student building security, AI, systems, civic-tech, and quantitative software.");
   useEffect(() => {
     const id = window.location.hash.slice(1);
     if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
