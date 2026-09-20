@@ -68,7 +68,7 @@ const Navbar = () => {
               <a href={pathname === "/" ? `#${nav.id}` : `/#${nav.id}`}>{nav.title}</a>
             </li>
           ))}
-          <li><Link to="/blog" aria-current={isBlog ? "page" : undefined} className={isBlog ? "text-white" : "text-secondary hover:text-white"} onClick={() => setActive("")}>Blog</Link></li>
+          <li className="text-[18px] font-medium cursor-pointer"><Link to="/blog" aria-current={isBlog ? "page" : undefined} className={isBlog ? "text-white" : "text-secondary hover:text-white"} onClick={() => setActive("")}>Blog</Link></li>
         </ul>
 
         <div className="lg:hidden flex flex-1 justify-end items-center">
@@ -109,7 +109,7 @@ const Navbar = () => {
                   <a href={pathname === "/" ? `#${nav.id}` : `/#${nav.id}`}>{nav.title}</a>
                 </li>
               ))}
-              <li><Link to="/blog" aria-current={isBlog ? "page" : undefined} className="text-secondary hover:text-white" onClick={() => { setToggle(false); setActive(""); }}>Blog</Link></li>
+              <li className="font-poppins font-medium text-[16px]"><Link to="/blog" aria-current={isBlog ? "page" : undefined} className="text-secondary hover:text-white" onClick={() => { setToggle(false); setActive(""); }}>Blog</Link></li>
             </ul>
           </div>
         </div>

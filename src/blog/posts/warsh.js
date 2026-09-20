@@ -1,6 +1,6 @@
 export default {
-  note: "An opening draft, with sources attached. The argument and language will evolve.",
-  lede: "Criticizing a central bank is easier than becoming accountable for it. Kevin Warsh’s first Jackson Hole address as chair is interesting precisely because it sits at that boundary: a promise to change the Fed, paired with an obligation to defend its mandate.",
+  note: "Written after the September 16 rate decision.",
+  lede: "Kevin Warsh took over the Fed with a reputation for criticizing it. By September, he was leading a unanimous vote to raise interest rates. His Jackson Hole speech helps explain how he arrived there—and what his version of an independent Fed might look like.",
   sources: {
     response: {
       title: "How Warsh Raised Rates Without Drawing Trump’s Ire", publisher: "The Wall Street Journal", date: "2026-09-17", kind: "Reporting · subscription may be required",
@@ -30,32 +30,47 @@ export default {
     },
   },
   sections: [
-    {
-      id: "the-paradox", title: "01 / The paradox", paragraphs: [
-        "The apparent irony is straightforward. Trump appointed Warsh while pressing for cheaper borrowing. The chair now leads a committee that has moved in the other direction. But a critic of how the Fed operates need not oppose its independence—or favor low rates in every circumstance.",
-        "That distinction matters. [[ft|The Financial Times’ reporting]] recalls Warsh’s earlier reputation as an inflation hawk and explains why his appointment nevertheless created doubts about his willingness to resist political pressure. The interesting question is whether institutional criticism can coexist with institutional responsibility.",
-      ],
-    },
-    {
-      id: "jackson-hole", title: "02 / The turning point", paragraphs: [
-        "Jackson Hole is the turning point in this reading, rather than proof of a private conversion. Warsh’s August 28 address resisted advance commitments about rates while setting a standard for judging inflation. He questioned the routine use of forward guidance and argued that markets should convey information rather than simply echo the central bank. [[speech|Read the address.]]",
-        "The tension is productive: less certainty about the next decision, greater insistence on the objective. The line below is a compact expression of that distinction. It gives an audience a principle without giving traders a calendar.",
-      ],
-      quote: "I stand here today committed to a discipline, not to a decision.", quoteSource: "speech", quoteAttribution: "Kevin Warsh · Jackson Hole, 2026",
-    },
-    {
-      id: "words-and-rates", title: "03 / When words acquire a price", paragraphs: [
-        "The speech also changed expectations. The FT reported that the market-implied probability of a September increase rose from 35% the previous day to 57% after the address. These were probabilities at that moment, not a promise from the Fed. [[ft|See the contemporaneous reporting.]]",
-        "Ahead of the meeting, an [[credibility|FT editorial]] cast the decision as a credibility test. On September 16, the committee voted unanimously to raise the federal funds target range by a quarter point, to 3.75–4.00%. Its statement cited elevated inflation alongside solid activity and resilient spending. [[decision|Read the actual decision.]]",
-        "That is a meaningful instance of policy diverging from the president’s stated preference. It is not evidence that Trump was unaware of what might happen: [[response|the Wall Street Journal reports]] that he described a call before the decision and publicly stood by Warsh. Nor does one decision establish how every future dispute will end. Independence is better evaluated through a sequence of choices than a single dramatic moment.",
-      ],
-    },
-    {
-      id: "looking-forward", title: "04 / What to watch next", paragraphs: [
-        "The forward-looking part of the speech deserves attention too. Warsh treated AI as a source of questions about productivity, employment, and investment, while separating longer-term research from immediate policy decisions. [[speech|The speech sets out those questions.]]",
-        "For this draft, three questions remain open. Can the Fed communicate enough to be accountable without effectively precommitting? Can a chair’s reform agenda preserve confidence in the institution’s existing promises? And will the same discipline hold when inflation and employment pull in different directions?",
-        "The most interesting version of this story is not a personality reversal. It is the test of whether an institution’s critic can reform its habits while remaining bound by its responsibilities.",
-      ],
-    },
-  ],
+  {
+    "id": "the-paradox",
+    "title": "01 / The paradox",
+    "paragraphs": [
+      "Trump wanted lower borrowing costs. On September 16, the Fed raised its target range by a quarter of a percentage point, to 3.75–4.00%. All twelve voting members supported the decision. The committee pointed to persistent inflation, solid economic activity, and resilient spending. [[decision|The statement]] left little ambiguity about its immediate priority.",
+      "Warsh’s appointment had made this outcome difficult to predict. He had a reputation as an inflation hawk from his earlier time at the Fed, but his selection by a president demanding cuts raised questions about how he would respond to pressure from the White House. [[ft|Claire Jones’s reporting for the Financial Times]] captures that uncertainty.",
+      "The irony is real. An administration seeking cheaper money chose a chair who has now tightened policy. Warsh also has to answer for the institution’s performance. Every criticism he makes of the Fed carries a practical question: what will he do about it?"
+    ]
+  },
+  {
+    "id": "jackson-hole",
+    "title": "02 / The turning point",
+    "paragraphs": [
+      "Jackson Hole gave a clearer answer. In his [[speech|August 28 address]], Warsh argued that the labor market was broadly at full employment while inflation remained too high. Recent improvements in the data had yet to convince him that the underlying trend was changing fast enough.",
+      "His warning was brief. Unless inflation moved toward the target clearly and quickly enough, the Fed would have more to do. The wording left the timing open while making further action plausible.",
+      "Warsh also challenged the routine use of forward guidance: central bankers signaling future policy decisions in advance. His concern was a feedback loop. Markets take their cues from the Fed; the Fed then reads those prices as evidence about the economy. That can leave both sides working from the same assumptions.",
+      "This is where the speech becomes more demanding for its author. A chair who promises fewer signals has to make the decisions themselves understandable. Otherwise, the public is left trying to distinguish flexibility from inconsistency."
+    ],
+    "quote": "Otherwise, we have work to do.",
+    "quoteSource": "speech",
+    "quoteAttribution": "Kevin Warsh · Jackson Hole, August 28, 2026"
+  },
+  {
+    "id": "words-and-rates",
+    "title": "03 / When words acquire a price",
+    "paragraphs": [
+      "Investors took the warning seriously. The FT reported that the market-implied probability of a September increase rose from 35% the previous day to 57% after the speech. [[ft|That immediate repricing]] makes Jackson Hole a useful turning point: it changed what markets thought the Fed was prepared to do.",
+      "By the eve of the meeting, an [[credibility|FT editorial]] was pressing Warsh to follow through. The unanimous September hike supplied the evidence that a speech alone could only suggest. He was willing to support higher rates while the president wanted lower ones.",
+      "Trump’s response complicates the account of a confrontation. According to [[response|the Wall Street Journal]], he publicly stood by Warsh and described a phone call before the decision in which he encouraged the chair to vote with the committee. That report gives us reason to be careful about claims that the president was caught unaware.",
+      "For now, the committee reached its decision and the president accepted his appointee’s role in it. A future disagreement could be harder to contain. Independence has to survive those disagreements as well."
+    ]
+  },
+  {
+    "id": "looking-forward",
+    "title": "04 / What to watch next",
+    "paragraphs": [
+      "Warsh’s interest in AI adds another question. At Jackson Hole, he discussed its possible effects on productivity, employment, and investment, while keeping that longer-term research separate from immediate rate decisions. [[speech|Those questions]] will become more consequential as the technology spreads through the economy.",
+      "The timing matters. Investment can increase demand before its productivity benefits reach the wider economy. A central bank needs to understand both effects, and the gap between them. Optimism about future capacity offers limited help with a price increase happening now.",
+      "I would watch how Warsh explains the next difficult decision. Which evidence changed his view? What risks did the committee weigh? How would its judgment change if employment weakened while inflation stayed high?",
+      "Jackson Hole set out a standard for action. September showed that Warsh could bring the committee with him. His next decisions will tell us how consistently he applies it."
+    ]
+  }
+]
 };

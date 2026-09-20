@@ -319,3 +319,9 @@ canvas {
     opacity: 1;
   }
 }
+
+/* Netlify injects its review drawer into deploy previews. Its failed iframe
+   obscures the site; keep preview chrome out of the portfolio layout. */
+div[data-netlify-deploy-id][data-netlify-site-id] {
+  display: none !important;
+}

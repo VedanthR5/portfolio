@@ -85,7 +85,7 @@ function Article({ post, article }) {
         <section id="sources" className="source-list"><h2>{sourcesLabel}</h2><p>Primary documents and reporting behind this essay. Previews are editorial summaries, not live extracts.</p>
           <ol>{Object.entries(article.sources).map(([id, source], index) => <li key={id}><span className="source-number">{String(index + 1).padStart(2, "0")}</span><div><Citation source={source}>{source.title}</Citation><p>{source.publisher} · {formatDate(source.date)}</p></div></li>)}</ol>
         </section>
-        <footer className="post-end"><span>Thanks for reading.</span><Link to={returnTo}>Back to the notebook ↗</Link></footer>
+        <footer className="post-end"><span>Thanks for reading.</span><Link to={returnTo}>All articles ↗</Link></footer>
       </div>
     </div>
   </article>;
@@ -103,7 +103,7 @@ export default function Post() {
     if (post) post.load().then(({ default: article }) => { if (!cancelled) setLoaded({ slug, article }); }).catch(() => { if (!cancelled) setFailed(true); });
     return () => { cancelled = true; };
   }, [post, slug]);
-  if (!post || failed) return <div className="journal empty-state"><h1>{failed ? "This essay couldn’t load." : "A page still unwritten."}</h1><p>{failed ? "Please refresh to try again." : "That essay doesn’t exist, or its address has changed."}</p><Link to="/blog">Back to all writing ↗</Link></div>;
-  if (loaded?.slug !== slug) return <div className="journal" role="status">Opening the notebook…</div>;
+  if (!post || failed) return <div className="journal empty-state"><h1>{failed ? "This essay couldn’t load." : "Article not found."}</h1><p>{failed ? "Please refresh to try again." : "That essay doesn’t exist, or its address has changed."}</p><Link to="/blog">Back to all writing ↗</Link></div>;
+  if (loaded?.slug !== slug) return <div className="journal" role="status">Loading article…</div>;
   return <Article key={slug} post={post} article={loaded.article} />;
 }

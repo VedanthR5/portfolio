@@ -14,8 +14,6 @@ export function FieldArt() {
     <div className="field-glow" />
     <div className="field-rings">{Array.from({ length: 12 }, (_, i) => <i key={i} style={{ "--i": i }} />)}</div>
     <span className="field-axis axis-one" /><span className="field-axis axis-two" />
-    <span className="field-point" />
-    <span className="field-coordinate">FIG. 01 — A SHIFT IN PERSPECTIVE</span>
   </div>;
 }
 

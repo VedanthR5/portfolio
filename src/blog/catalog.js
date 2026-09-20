@@ -4,7 +4,7 @@ export const posts = [
     slug: "warsh-and-the-independent-fed",
     title: "The skeptic inherits the Fed.",
     subtitle: "Kevin Warsh, Jackson Hole, and the price of independence.",
-    description: "A close reading of the moment a Fed critic became responsible for the institution he wanted to change.",
+    description: "How Warsh’s Jackson Hole speech set up September’s rate increase.",
     date: "2026-09-20",
     tags: ["Economics", "Institutions"],
     status: "Working draft",

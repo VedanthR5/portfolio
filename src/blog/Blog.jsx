@@ -20,17 +20,16 @@ export default function Blog() {
   }
   return <div className="journal journal-index">
     <Reveal className="journal-intro">
-      <div className="eyebrow"><span className="status-dot" /> THE NOTEBOOK <span className="edition">VOL. 01 / 2026</span></div>
       <h1>Thinking out loud.<br /><span>Looking ahead.</span></h1>
-      <p>Notes on technology, markets, and the institutions<br className="desktop-break" /> that shape what comes next.</p>
-      <div className="intro-rule"><span>BY VEDANTH RAMANATHAN</span><span>{String(posts.length).padStart(2, "0")} ENTRY / OPEN ENDED</span></div>
+      <p>Essays on technology, economics, and public policy.</p>
+      <div className="intro-rule"><span>By Vedanth Ramanathan</span></div>
     </Reveal>
     <section aria-label="Browse articles">
       <Reveal className="journal-controls" delay={0.08}>
         <div className="topic-filters" aria-label="Filter by topic">{["All", ...topics].map((tag) =>
           <button key={tag} type="button" aria-pressed={topic === tag} onClick={() => update("topic", tag)}>{tag}{tag === "All" && <span>{posts.length}</span>}</button>)}</div>
         <div className="search-sort">
-          <label className="search-field"><span aria-hidden="true">⌕</span><span className="sr-only">Search articles</span><input type="search" placeholder="Find a thought…" value={query} onChange={(event) => update("q", event.target.value)} /></label>
+          <label className="search-field"><span aria-hidden="true">⌕</span><span className="sr-only">Search articles</span><input type="search" placeholder="Search articles" value={query} onChange={(event) => update("q", event.target.value)} /></label>
           <label><span className="sr-only">Sort articles</span><select value={sort} onChange={(event) => update("sort", event.target.value)}><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="title">Title A–Z</option></select></label>
         </div>
       </Reveal>
@@ -46,8 +45,8 @@ export default function Blog() {
           <FieldArt />
         </Link>
       </Reveal>)}
-      {!results.length && <div className="empty-state"><h2>No matching thoughts. Yet.</h2><p>Try another phrase or reset your filters.</p><button onClick={() => setParams({})}>Clear filters ↗</button></div>}
+      {!results.length && <div className="empty-state"><h2>No articles found.</h2><p>Try another phrase or reset your filters.</p><button onClick={() => setParams({})}>Clear filters ↗</button></div>}
     </section>
-    <Reveal className="journal-footer"><p>A notebook, not a news cycle.</p><span>Ideas worth returning to.</span><Link to="/">Back to the portfolio ↗</Link></Reveal>
+    <footer className="journal-footer"><Link to="/">Back to portfolio ↗</Link></footer>
   </div>;
 }
