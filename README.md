@@ -62,3 +62,13 @@ Ignore (already in .gitignore):
 ## CI/CD notes
 
 The GitHub Actions workflow runs lint, builds the client, and validates the server entry exists. For deployment, run `npm run build` then `npm start` on your host. Ensure `OPENAI_API_KEY` is configured in the host environment if you want live model answers.
+
+## Blog
+
+The notebook lives at `/blog`. See [the blog authoring guide](docs/blog.md) for adding essays and citations.
+
+- `npm run dev` — local Vite preview
+- `npm run test:blog` — validate content and filtering
+- `npm run build` — production bundle plus per-article metadata pages and sitemap
+
+Netlify should publish `dist/` using `npm run build`. `public/_redirects` supports client-side deep links; generated article HTML provides social/canonical metadata on direct requests. Other hosts must serve existing static files before falling back to `index.html`.
