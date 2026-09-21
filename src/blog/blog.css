@@ -1,4 +1,6 @@
 .journal { --ink: #eeedf6; --muted: #a29eb9; --accent: #b69aff; --line: rgba(186,169,236,.16); color: var(--ink); max-width: 1180px; margin: auto; padding: 160px 44px 48px; }
+/* Focus mode compensates for its own height change; native anchoring would apply it twice. */
+.journal-post { overflow-anchor: none; }
 .journal a:focus-visible,.journal button:focus-visible,.journal input:focus-visible,.journal select:focus-visible,.journal summary:focus-visible,.source-preview :focus-visible { outline: 2px solid #c5afff; outline-offset: 5px; border-radius: 3px; }
 .journal button,.journal select,.source-preview button { cursor: pointer; }
 .eyebrow,.eyebrow span,.intro-rule span,.essay-meta,.essay-meta time,.source-number,.preview-top,.preview-top span,.preview-bottom time { font-family: "Poppins", sans-serif; font-size: 12px; letter-spacing: .025em; }
