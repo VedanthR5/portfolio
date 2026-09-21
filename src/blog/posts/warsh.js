@@ -1,6 +1,6 @@
 export default {
   "note": "Written after the September 16 rate decision.",
-  "lede": "A president can appoint a Fed chair without determining the committee’s next decision. Kevin Warsh arrived as a critic of the institution. By September, he was leading a unanimous vote to raise rates while the president who chose him had been calling for cuts. The road between those facts runs through Jackson Hole.",
+  "lede": "Central-bank independence is easy to admire in the abstract. It becomes harder when a president wants lower rates and the Fed decides to raise them. Kevin Warsh arrived as one of the institution’s sharpest critics. By September, he was leading a unanimous vote to raise rates. The road between those two facts runs through Jackson Hole.",
   "sources": {
     "response": {
       "title": "How Warsh Raised Rates Without Drawing Trump’s Ire",
@@ -79,10 +79,10 @@ export default {
       "id": "jackson-hole",
       "title": "02 / The turning point",
       "paragraphs": [
-        "For a few days in late August, central banking gathers beneath the Tetons. At [[symposium|Jackson Lake Lodge]], the setting gives the proceedings an unusual scale: mountains on the horizon, a room of economists listening for a change in a sentence. The landscape stretches far beyond the meeting. The discussion reaches toward the next release of employment and inflation data.",
+        "For a few days in late August, central banking gathers beneath the Tetons. At [[symposium|Jackson Lake Lodge]], the mountains fill the horizon, rising beyond the lake into a scale of time that makes the next policy meeting seem very small. Inside, a room waits on the wording of a sentence. From this landscape of apparent permanence, a few carefully chosen words can alter the price of money before the morning is over.",
         "In his [[speech|August 28 address]], Warsh described a labor market broadly at full employment and inflation still above target. The summer’s better readings had not convinced him that the underlying trend had meaningfully improved. Unless inflation moved toward the objective clearly and quickly enough, he warned, “Otherwise, we have work to do.”",
         "Warsh also questioned reliance on forward guidance, the hints central bankers give markets about future decisions. His concern was circularity: markets move in response to the Fed, and the Fed then looks back at those same prices for evidence. Both sides can end up listening to an echo.",
-        "With fewer advance signals, the explanations accompanying each decision take on more weight. The Fed publishes meeting minutes and monetary-policy reports, and its chair testifies before Congress. Those [[independence|public accounts]] allow readers to compare the institution’s stated reasoning with its subsequent actions."
+        "There is a risk in giving up that choreography. A chair who offers fewer signals has to make each decision more intelligible after it arrives. Flexibility cannot become an excuse for surprise. Independence asks the public to tolerate decisions it may dislike; in return, the institution owes the public a clear account of why it made them. The Fed’s [[independence|reports, meeting minutes, and congressional testimony]] provide the record against which those explanations can be judged."
       ]
     },
     {
@@ -98,8 +98,8 @@ export default {
       "title": "04 / What to watch next",
       "paragraphs": [
         "Warsh’s [[speech|discussion of AI]] looked further ahead, to its effects on investment, productivity, and employment. He kept those research questions separate from the immediate rate decision. Future statements and meeting minutes will show how those considerations enter the committee’s assessment alongside inflation and employment.",
-        "In [[music|Margin Call’s emergency boardroom scene]], Jeremy Irons’s John Tuld describes his job as anticipating what the music will do next. Then he pauses. He hears silence. The scene concerns a firm facing losses; its metaphor turns on the difficulty of recognizing a change while it is happening.",
-        "At Jackson Hole, Warsh described the signals he was listening to: employment holding up, inflation remaining high, and markets taking cues from the Fed itself. September brought a vote and a higher rate. The next meeting will add another decision to that record, beyond the mountains and the speech."
+        "In [[music|Margin Call’s emergency boardroom scene]], Jeremy Irons’s John Tuld describes his job as anticipating what the music will do next. Then he pauses. He hears silence. What stays with me is the listening: the moment when the familiar rhythm can no longer be taken for granted. Tuld is trying to save a firm; a Fed chair’s decisions reach into the lives of people who were never in the room.",
+        "Jackson Hole gave Warsh the grandeur of the mountains and the attention of the world. September gave him a chance to act on what he had heard. The next decision may demand a different answer. An independent Fed has to leave room for that change—to hear the economy through the echo of its own words, and to explain what it hears even when the audience would prefer another tune."
       ]
     }
   ]

@@ -3,7 +3,7 @@ export const posts = [
   {
     slug: "warsh-and-the-independent-fed",
     title: "The skeptic inherits the Fed.",
-    subtitle: "Kevin Warsh, Jackson Hole, and the path to September’s rate increase.",
+    subtitle: "Kevin Warsh, Jackson Hole, and the lonely work of saying no.",
     description: "How Warsh’s Jackson Hole speech set up September’s rate increase.",
     date: "2026-09-20",
     tags: ["Economics", "Institutions"],
