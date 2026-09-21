@@ -1,6 +1,6 @@
 export default {
   "note": "Written after the September 16 rate decision.",
-  "lede": "Central-bank independence is easy to admire in the abstract. It becomes harder when a president wants lower rates and the Fed decides to raise them. Kevin Warsh arrived as one of the institution’s sharpest critics. By September, he was leading a unanimous vote to raise rates. The road between those two facts runs through Jackson Hole.",
+  "lede": "Central-bank independence is a sterile concept until it collides with executive power. A president demanded cheaper money. The Federal Reserve engineered the exact opposite. Kevin Warsh entered the Eccles Building as a vocal critic of its orthodoxies, yet by September, he had orchestrated a unanimous hike. The mechanics of that pivot trace back to the shadow of the Tetons.",
   "sources": {
     "response": {
       "title": "How Warsh Raised Rates Without Drawing Trump’s Ire",
@@ -71,35 +71,34 @@ export default {
       "id": "the-paradox",
       "title": "01 / The paradox",
       "paragraphs": [
-        "Trump wanted lower borrowing costs. On September 16, the Fed raised its target range by a quarter of a percentage point, to 3.75–4.00%. All twelve voting members supported the decision. The [[decision|committee’s statement]] cited persistent inflation, solid economic activity, and resilient spending.",
-        "Warsh had been regarded as an inflation hawk during his earlier tenure at the Fed. His appointment by a president demanding cuts nevertheless raised questions about the direction he would take, as [[ft|Claire Jones reported for the Financial Times]]. The Fed’s [[independence|institutional structure]] gives it discretion over monetary policy while leaving it accountable to Congress. September put that arrangement into view."
+        "Politics demands leverage; monetary policy demands arithmetic. While the Oval Office broadcast a fierce appetite for monetary easing, the Federal Open Market Committee executed a quarter-point tightening, lifting the target range to 3.75–4.00%. The vote was absolute. Twelve unblinking members endorsed the [[decision|committee’s statement]], a clinical text citing stubborn price pressures, entrenched consumer demand, and a resilient macroeconomic baseline.",
+        "Warsh’s appointment was inherently combustible. He possessed a documented hawkish pedigree, yet was elevated by an administration hostile to tight money—a contradiction [[ft|widely parsed across financial media]]. The tension illuminated the severe architecture of the Fed’s [[independence|statutory autonomy]]. Congress grants the central bank the power to price capital without immediate political reprisal. September was the first stress test of that mandate."
       ]
     },
     {
       "id": "jackson-hole",
       "title": "02 / The turning point",
       "paragraphs": [
-        "For a few days in late August, central banking gathers beneath the Tetons. At [[symposium|Jackson Lake Lodge]], the mountains fill the horizon, rising beyond the lake into a scale of time that makes the next policy meeting seem very small. Inside, a room waits on the wording of a sentence. From this landscape of apparent permanence, a few carefully chosen words can alter the price of money before the morning is over.",
-        "In his [[speech|August 28 address]], Warsh described a labor market broadly at full employment and inflation still above target. The summer’s better readings had not convinced him that the underlying trend had meaningfully improved. Unless inflation moved toward the objective clearly and quickly enough, he warned, “Otherwise, we have work to do.”",
-        "Warsh also questioned reliance on forward guidance, the hints central bankers give markets about future decisions. His concern was circularity: markets move in response to the Fed, and the Fed then looks back at those same prices for evidence. Both sides can end up listening to an echo.",
-        "There is a risk in giving up that choreography. A chair who offers fewer signals has to make each decision more intelligible after it arrives. Flexibility cannot become an excuse for surprise. Independence asks the public to tolerate decisions it may dislike; in return, the institution owes the public a clear account of why it made them. The Fed’s [[independence|reports, meeting minutes, and congressional testimony]] provide the record against which those explanations can be judged."
+        "Central banking is an exercise in invisible architecture, momentarily rendered physical each August beneath the Grand Tetons. Outside [[symposium|Jackson Lake Lodge]], the geology suggests an immovable, permanent world. Inside, the atmosphere is fiercely fragile. A single dependent clause deployed at a lectern can violently reprice sovereign debt before the morning is over.",
+        "Taking the podium for his [[speech|keynote address]], Warsh mapped a landscape of constrained capacity. The labor market sat at peak saturation, while core inflation stubbornly refused to break beneath the two-percent threshold. Transient summer disinflation offered no institutional comfort. His ultimatum was unadorned: if the structural trend did not rapidly converge on the target, the committee would force the issue.",
+        "The deeper surgery of the address was a direct assault on forward guidance. For a decade, the Fed had spoon-fed interest rate trajectories to Wall Street, effectively insuring risk assets against surprise. Warsh identified the fatal flaw of this regime: epistemic circularity. When a central bank telegraphs its moves, markets instantly price them in. When policymakers then look to asset prices for economic signals, they are merely analyzing their own reflection.",
+        "Abandoning this choreographed signaling transfers immense pressure back to the Eccles Building. Without the cushion of forward guidance, subsequent rate shocks hit the plumbing of the financial system unmitigated. This demands a hyper-literate retroactive defense of policy. The burden of [[independence|institutional autonomy]] is absolute accountability. If the Fed refuses to tell the market what it will do next, it must ruthlessly explain what it just did."
       ]
     },
     {
       "id": "words-and-rates",
       "title": "03 / When words acquire a price",
       "paragraphs": [
-        "After the speech, the market-implied probability of a September increase rose to 57%, from 35% the previous day, according to CME data cited by the [[ft|Financial Times]]. A few weeks later, an [[credibility|FT editorial]] urged Warsh to follow through. The September meeting ended with a unanimous increase.",
-        "Trump publicly stood by Warsh. According to [[response|the Wall Street Journal]], the president described a call before the decision in which he encouraged the chair to vote with the committee. His preference for lower rates and his acceptance of this decision both belong in the account. The reporting does not support a story in which he was caught unaware."
+        "Rhetoric instantly materialized into hard probability. Fed funds futures violently repriced, dragging the implied likelihood of a September hike from 35% up to 57% by the close of trading, according to [[ft|CME data tracked by the Financial Times]]. The market called the chair’s bluff, prompting a [[credibility|sharply worded editorial]] demanding Warsh execute on his hawkish threat. The subsequent unanimous vote proved the rhetoric was entirely structural.",
+        "The political fallout violated conventional expectations. Instead of public execution via social media, the White House projected alignment. Back-channel diplomacy preceded the hike; [[response|reporting confirmed]] the president was briefed via phone and ultimately blessed the committee's consensus. He demanded cheap capital, but he accepted the raw gravity of the institution. The administration was structurally outmaneuvered, not blindsided."
       ]
     },
     {
       "id": "looking-forward",
       "title": "04 / What to watch next",
       "paragraphs": [
-        "Warsh’s [[speech|discussion of AI]] looked further ahead, to its effects on investment, productivity, and employment. He kept those research questions separate from the immediate rate decision. Future statements and meeting minutes will show how those considerations enter the committee’s assessment alongside inflation and employment.",
-        "In [[music|Margin Call’s emergency boardroom scene]], Jeremy Irons’s John Tuld describes his job as anticipating what the music will do next. Then he pauses. He hears silence. What stays with me is the listening: the moment when the familiar rhythm can no longer be taken for granted. Tuld is trying to save a firm; a Fed chair’s decisions reach into the lives of people who were never in the room.",
-        "Jackson Hole gave Warsh the grandeur of the mountains and the attention of the world. September gave him a chance to act on what he had heard. The next decision may demand a different answer. An independent Fed has to leave room for that change—to hear the economy through the echo of its own words, and to explain what it hears even when the audience would prefer another tune."
+        "Warsh’s deliberate [[speech|pivot to artificial intelligence]] at Jackson Hole established the next frontier of monetary calculus. By isolating machine intelligence as a driver of aggregate supply and labor productivity, he planted a flag beyond the immediate inflation fight. The integration of algorithmic efficiency into the standard models of capital formation will redefine the natural rate of interest.",
+        "Institutional finance operates entirely on the cadence of liquidity. In the midnight boardroom of [[music|Margin Call]], Jeremy Irons attributes his survival to a singular edge: an ear for the music. He listens for the exact moment the rhythm of capital stops. A central bank chairman controls that metronome. By killing forward guidance, the Fed has abruptly stopped the music. That sudden silence is a deliberate signal, forcing financial markets to end their frantic anticipation and take a moment to truly listen in the mountains of Jackson Hole."
       ]
     }
   ]
