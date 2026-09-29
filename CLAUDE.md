@@ -4,7 +4,7 @@ Project-specific guidance for this repo. It supplements (does not replace) the g
 
 ## What this is
 
-Personal portfolio + blog for Vedanth Ramanathan, live at https://vedanthramanathan.com. A client-only React 18 SPA built with Vite 6, Tailwind 3, React Router 6, Three.js (`@react-three/fiber`/`drei`) and Motion. Deployed as static files from `dist/` (Netlify).
+Personal portfolio + blog for Vedanth Ramanathan, live at https://vedanthramanathan.com. A client-only React 19 SPA built with Vite 8 (Rolldown/Oxc), Tailwind 3, React Router 7 (`react-router-dom`), Three.js (`@react-three/fiber`/`drei`) and Motion. Deployed as static files from `dist/` (Netlify).
 
 ## Commands
 
@@ -38,9 +38,9 @@ CI (`.github/workflows/ci-cd.yml`, Node 20) runs: `npm ci` → `lint` → `test:
 
 - **Keep the blog routes free of Three.js and other home-only imports.** The routes are split so that article visits don't download the canvas code.
 - **Animation imports come from `motion/react`**, not `framer-motion`, which is not a direct dependency.
-- **Console output is stripped in builds** (`esbuild.drop: ["console", "debugger"]` in `vite.config.js`). Don't rely on `console.*` for production diagnostics.
-- **ESLint** (v8, legacy config) is configured only in `.eslintrc.cjs` (`root: true`). `react/prop-types` is on, and blog components declare `propTypes`.
-- **Node/npm**: Node 24 is pinned in `.nvmrc`, and CI reads its version from that file. npm 12 blocks dependency install scripts unless they are listed under `allowScripts` in `package.json`. Those entries are pinned to exact versions, so bumping `esbuild`/`fsevents` requires `npm install-scripts approve <pkg>` again.
+- **Console output is stripped in builds** (Oxc `dropConsole`/`dropDebugger` under `build.rolldownOptions.output.minify` in `vite.config.js`). Don't rely on `console.*` for production diagnostics.
+- **ESLint 9** uses the flat config in `eslint.config.js`. It can't move to ESLint 10 yet because `eslint-plugin-react` only supports up to 9. `react/prop-types` is on, so blog components declare `propTypes`, even though React 19 no longer checks them at runtime. The React Compiler rules `react-hooks/refs` and `react-hooks/set-state-in-effect` are downgraded to warnings for existing effects in `Post`, `Hero`, `CurrentWork` and `TypewriterHeading`.
+- **Node/npm**: Node 24 is pinned in `.nvmrc`, and CI reads its version from that file. npm 12 blocks dependency install scripts unless they are listed under `allowScripts` in `package.json`. Only `fsevents` (via Vite) needs one. Entries are pinned to exact versions, so a version bump requires `npm install-scripts approve <pkg>` again.
 - **CSP** is a `<meta http-equiv>` in `index.html`. New third-party origins (scripts, fetch targets, fonts) must be added there or they will be blocked. Google Analytics (`gtag`) is loaded in `index.html`, and helpers are in `src/utils/analytics.js`.
 - **Env vars** (Vite, client-side, in `.env.local`, gitignored): `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` (Contact form) and `VITE_RESUME_URL` (`src/utils/secureUrl.js`). They end up in the bundle, so never put real secrets in `VITE_*`. `security-check.sh` greps `dist/` for leaked resume URLs.
 - **SPA fallback**: `public/_redirects` (`/* /index.html 200`). Generated static files under `dist/blog/` take precedence.
