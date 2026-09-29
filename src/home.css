@@ -8,12 +8,29 @@
   --home-line: rgba(186, 169, 236, 0.14);
 }
 
+/* Type scale for the home route: 13 meta, 14 figure text, 15 detail,
+   16 row summary, 17 prose, 18 row title, 22 subsection, 26–34 section. */
 .home-section {
   scroll-margin-top: 72px;
   color: var(--home-body);
 }
 
+/* The hero's glow, faintly, where each section begins. */
+.home-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: min(640px, 100%);
+  height: 360px;
+  background: radial-gradient(ellipse 60% 50% at 20% 30%, rgba(99, 102, 241, 0.07), rgba(88, 28, 135, 0.03) 50%, transparent 75%);
+  pointer-events: none;
+}
+
 .section-title {
+  position: relative;
+  padding-top: 18px;
   color: var(--home-ink);
   font-size: clamp(26px, 3.2vw, 34px);
   font-weight: 500;
@@ -21,10 +38,43 @@
   line-height: 1.2;
 }
 
+/* Every heading carries the same short accent rule as the recognition groups. */
+.section-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--home-accent);
+  transform-origin: left;
+}
+
+/* Arriving from a nav link: the rule stretches once, so the eye finds the
+   section after an instant jump. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-section.is-arrived .section-title::before {
+    animation: section-arrive 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes section-arrive {
+  0% {
+    transform: scaleX(1);
+  }
+  35% {
+    transform: scaleX(3);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 .section-head {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 8px 24px;
 }
@@ -388,10 +438,39 @@
 }
 
 .work-line {
-  max-width: 70ch;
+  max-width: 68ch;
   margin-top: 4px;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
+}
+
+/* The verified numbers, readable without opening a row: value in the hero's
+   mono voice, label muted. */
+.work-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin-top: 10px;
+}
+
+.work-metrics > div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.work-metrics dd {
+  color: var(--home-ink);
+  font-family: "Space Mono", monospace;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.work-metrics dt {
+  color: var(--home-muted);
+  font-size: 13px;
 }
 
 .work-links {
@@ -431,12 +510,39 @@
   font-size: 13px;
 }
 
+/* Problem, decision, result: labels in the accent tick used by headings. */
+.work-story {
+  display: grid;
+  gap: 16px;
+}
+
+.work-story dt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--home-ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.work-story dt::before {
+  content: "";
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--home-accent);
+}
+
+.work-story dd {
+  margin-top: 4px;
+}
+
 .work-artifact {
   align-self: start;
   margin: 0;
   border: 1px solid var(--home-line);
   border-radius: 14px;
-  padding: 14px;
+  padding: 18px;
   background: radial-gradient(ellipse 70% 60% at 30% 45%, rgba(99, 102, 241, 0.1), transparent 70%), #060818;
 }
 
@@ -686,11 +792,319 @@
   }
 }
 
-/* Diagrams explain mechanisms; on narrow phones their labels would be too
-   small to read, so the text carries the detail alone. */
-@media (max-width: 639px) {
-  .work-artifact.is-diagram {
-    display: none;
+/* Figures in opened rows. Words are HTML so they stay legible on phones;
+   the SVG carries only shape and short labels. */
+.fig-caption,
+.fig-rank figcaption,
+.fig-scores figcaption {
+  color: var(--home-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.fig-layer-note {
+  color: var(--home-muted);
+  font-size: 13px;
+}
+
+.work-artifact .fig-fuzz-orbit {
+  margin: 0 auto 12px;
+  max-width: 420px;
+}
+
+.fig-node {
+  cursor: default;
+}
+
+.fig-node .diagram-node {
+  transition: stroke 0.15s ease-out, fill 0.15s ease-out;
+}
+
+.fig-node.is-active .diagram-node {
+  fill: #1a1233;
+  stroke: #cdbdff;
+}
+
+.fig-steps {
+  display: grid;
+  gap: 2px;
+}
+
+.fig-steps li {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: 2px 8px;
+  padding: 7px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  transition: border-color 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.fig-steps li.is-active {
+  border-color: var(--home-line);
+  background: rgba(145, 94, 255, 0.07);
+}
+
+.fig-step-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--home-ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fig-step-index {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(201, 184, 255, 0.45);
+  border-radius: 999px;
+  color: var(--home-link);
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+}
+
+.fig-step-text {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 479px) {
+  .fig-steps li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fig-step-text {
+    padding-left: 28px;
+  }
+}
+
+.fig-caption {
+  margin-top: 12px;
+}
+
+/* BusTub: a tapering stack, the cross-cutting band, and where it placed. */
+.fig-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.fig-stack ol,
+.fig-pipeline {
+  display: grid;
+  gap: 8px;
+}
+
+.fig-stack li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  margin-inline: calc(var(--step) * 6px);
+  padding: 8px 12px;
+  border: 1px solid rgba(201, 184, 255, 0.4);
+  border-radius: 8px;
+  background: #07091a;
+  color: var(--home-ink);
+  font-size: 14px;
+}
+
+.fig-stack li.is-faint {
+  border-color: rgba(201, 184, 255, 0.16);
+  color: var(--home-muted);
+}
+
+.fig-band {
+  padding-left: 8px;
+  border-left: 1px dashed rgba(201, 184, 255, 0.5);
+  color: var(--home-body);
+  font-size: 13px;
+  writing-mode: vertical-rl;
+  text-align: center;
+}
+
+.fig-rank {
+  margin: 20px 0 0;
+}
+
+.fig-rank svg {
+  display: block;
+  width: 100%;
+  height: 22px;
+}
+
+.fig-rank-tick {
+  fill: rgba(201, 184, 255, 0.3);
+}
+
+.fig-rank-mark {
+  fill: #cdbdff;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+.fig-rank figcaption {
+  margin-top: 8px;
+}
+
+.fig-rank strong,
+.fig-score-value {
+  color: var(--home-ink);
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+}
+
+/* DDoS paper: pipeline as a threaded list, then the scores. */
+.fig-pipeline li {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 10px;
+  padding-left: 22px;
+  color: var(--home-ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.fig-pipeline li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 7px;
+  width: 7px;
+  height: 7px;
+  border: 1px solid #cdbdff;
+  border-radius: 999px;
+  background: #07091a;
+}
+
+.fig-pipeline li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 16px;
+  bottom: -10px;
+  width: 1px;
+  background: rgba(201, 184, 255, 0.35);
+}
+
+.fig-pipeline li:last-child::before {
+  background: #cdbdff;
+}
+
+.fig-scores {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--home-line);
+}
+
+.fig-scores dl {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.fig-scores dl > div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.fig-scores dt {
+  color: var(--home-body);
+  font-size: 13px;
+}
+
+.fig-scores dd {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fig-score-value {
+  font-size: 13px;
+}
+
+.fig-score-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(201, 184, 255, 0.12);
+  overflow: hidden;
+}
+
+.fig-score-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #6d4fd8, #cdbdff);
+  transform: scaleX(var(--fill));
+  transform-origin: left;
+}
+
+/* Build in once as a row opens, in reading order, well under half a second
+   per piece. Opening a row mounts its figure, so nothing replays on scroll. */
+@media (prefers-reduced-motion: no-preference) {
+  .work-detail .fig-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: fig-draw 0.42s ease-out forwards;
+    animation-delay: calc(var(--step) * 110ms + 140ms);
+  }
+
+  .work-detail .fig-node,
+  .work-detail .fig-steps li,
+  .work-detail .fig-stack li,
+  .work-detail .fig-pipeline li,
+  .work-detail .fig-scores dl > div {
+    animation: fig-in 0.3s ease-out both;
+    animation-delay: calc(var(--step) * 70ms + 80ms);
+  }
+
+  .work-detail .fig-rank-mark {
+    animation: fig-rise 0.4s 0.35s ease-out both;
+  }
+
+  .work-detail .fig-score-bar > span {
+    animation: fig-fill 0.5s ease-out both;
+    animation-delay: calc(var(--step) * 70ms + 160ms);
+  }
+}
+
+@keyframes fig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fig-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes fig-rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes fig-fill {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig-node .diagram-node,
+  .fig-steps li {
+    transition: none;
   }
 }
 

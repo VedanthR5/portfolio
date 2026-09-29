@@ -50,12 +50,42 @@ const EvidenceLinks = ({ entry }) =>
     </ul>
   );
 
+// The verified numbers, visible without opening the row.
+const Metrics = ({ entry }) =>
+  entry.metrics?.length > 0 && (
+    <dl className="work-metrics">
+      {entry.metrics.map((metric) => (
+        <div key={metric.label}>
+          <dt>{metric.label}</dt>
+          <dd>{metric.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+
+const storyParts = [
+  ["problem", "Why it was hard"],
+  ["decision", "What I did"],
+  ["result", "Result"],
+];
+
+const Story = ({ story }) => (
+  <dl className="work-story">
+    {storyParts.map(([key, label]) => (
+      <div key={key}>
+        <dt>{label}</dt>
+        <dd>{story[key]}</dd>
+      </div>
+    ))}
+  </dl>
+);
+
 const Artifact = ({ entry }) => {
   if (entry.diagram) {
     return (
-      <figure className="work-artifact is-diagram">
+      <div className="work-artifact is-diagram">
         <Diagram kind={entry.diagram} />
-      </figure>
+      </div>
     );
   }
   const image = images[entry.image];
@@ -72,7 +102,7 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
   const detailId = `${entry.id}-detail`;
   const buttonId = `${entry.id}-toggle`;
   // A row with nothing more to show has no toggle.
-  const expandable = Boolean(entry.detail?.length || entry.diagram || entry.image);
+  const expandable = Boolean(entry.detail?.length || entry.story || entry.diagram || entry.image);
 
   // Escape anywhere in an open row (its toggle or its links) closes it.
   const closeOnEscape = (event) => {
@@ -121,6 +151,7 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
             )}
           </h3>
           <p className="work-line">{entry.line}</p>
+          <Metrics entry={entry} />
           <EvidenceLinks entry={entry} />
         </div>
       </div>
@@ -140,6 +171,7 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
             <div className={`work-detail-inner${entry.diagram || entry.image ? " has-artifact" : ""}`}>
               <div className="work-detail-copy">
                 {entry.place && <p className="work-place">{entry.place}</p>}
+                {entry.story && <Story story={entry.story} />}
                 {(entry.detail ?? []).map((paragraph) => (
                   <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
@@ -167,6 +199,12 @@ const CompactItem = ({ entry }) => (
   </li>
 );
 
+const storyShape = PropTypes.shape({
+  problem: PropTypes.string.isRequired,
+  decision: PropTypes.string.isRequired,
+  result: PropTypes.string.isRequired,
+});
+
 const entryShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
   org: PropTypes.string.isRequired,
@@ -175,6 +213,10 @@ const entryShape = PropTypes.shape({
   place: PropTypes.string,
   line: PropTypes.string.isRequired,
   detail: PropTypes.arrayOf(PropTypes.string),
+  story: storyShape,
+  metrics: PropTypes.arrayOf(
+    PropTypes.shape({ value: PropTypes.string.isRequired, label: PropTypes.string.isRequired })
+  ),
   diagram: PropTypes.string,
   image: PropTypes.string,
   featured: PropTypes.bool,
@@ -185,6 +227,8 @@ const entryShape = PropTypes.shape({
 
 EvidenceLinks.propTypes = { entry: entryShape.isRequired };
 Artifact.propTypes = { entry: entryShape.isRequired };
+Metrics.propTypes = { entry: entryShape.isRequired };
+Story.propTypes = { story: storyShape.isRequired };
 CompactItem.propTypes = { entry: entryShape.isRequired };
 WorkItem.propTypes = {
   entry: entryShape.isRequired,
