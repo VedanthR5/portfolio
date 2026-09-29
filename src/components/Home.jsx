@@ -15,7 +15,7 @@ import "../home.css";
 const readingPosition = new Map();
 
 export default function Home() {
-  usePageMeta("Security, Systems & AI", "Vedanth Ramanathan studies artificial intelligence at Carnegie Mellon and builds security, systems and machine-learning software.");
+  usePageMeta(null, "Vedanth Ramanathan studies artificial intelligence at Carnegie Mellon and builds security, systems, and machine-learning software.");
   const { key } = useLocation();
   const navigationType = useNavigationType();
 
@@ -28,9 +28,24 @@ export default function Home() {
       requestAnimationFrame(() => requestAnimationFrame(restore));
       return;
     }
-    // A fresh load or a new visit with a hash: go straight to the target.
-    const id = decodeURIComponent(window.location.hash.slice(1));
-    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
+    // A fresh load or a nav link: jump straight to the target rather than
+    // animating across the whole page, then mark where the reader landed.
+    let id = "";
+    try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { /* malformed hash */ }
+    if (!id) return undefined;
+    let timer;
+    const frame = requestAnimationFrame(() => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      target.scrollIntoView({ behavior: "instant" });
+      if (target.classList.contains("home-section")) {
+        target.classList.remove("is-arrived");
+        void target.offsetWidth; // restart the cue when the same link is used twice
+        target.classList.add("is-arrived");
+        timer = setTimeout(() => target.classList.remove("is-arrived"), 1200);
+      }
+    });
+    return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
   }, [key, navigationType]);
 
   useEffect(() => {

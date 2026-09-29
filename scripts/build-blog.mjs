@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { posts } from "../src/blog/catalog.js";
+import { posts, blogIndex } from "../src/blog/catalog.js";
 import { getRouteMeta } from "../src/blog/pageMeta.js";
 
 // Give static hosts and link-preview crawlers route-specific metadata without
@@ -78,7 +78,7 @@ for (const post of posts) {
   slugs.add(post.slug);
 }
 
-await writePage("/blog", "Writing", "Notes and essays on economics, technology, and the institutions shaping what comes next.");
+await writePage("/blog", blogIndex.title, blogIndex.description);
 for (const post of posts) await writePage(`/blog/${post.slug}`, post.title, post.description, post);
 
 const sitemapPath = resolve(dist, "sitemap.xml");
@@ -91,7 +91,7 @@ sitemap = sitemap.replace(/\s*<url\b[^>]*>[\s\S]*?<\/url>/g, (entry) => {
 });
 if (!/<\/urlset>/.test(sitemap)) throw new Error("Missing urlset in dist/sitemap.xml");
 const entries = ["/blog", ...posts.map((post) => `/blog/${post.slug}`)]
-  .map((pathname) => `  <url>\n    <loc>${escapeHtml(`${origin}${pathname}`)}</loc>\n  </url>`)
+  .map((pathname) => `  <url>\n    <loc>${escapeHtml(getRouteMeta(pathname).url)}</loc>\n  </url>`)
   .join("\n");
 sitemap = sitemap.replace(/<\/urlset>/, () => `${entries}\n</urlset>`);
 await writeFile(sitemapPath, sitemap);

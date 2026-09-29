@@ -112,9 +112,9 @@ const Hero = () => {
           variants={fadeVariants({ delay: 0.2 })}
           initial="hidden"
           animate="show"
-          className="mt-4 max-w-xl text-lg font-normal leading-8 text-vr-text-primary/80 sm:text-xl"
+          className="mt-4 max-w-xl text-lg font-normal leading-8 text-balance text-vr-text-primary/80 sm:text-xl"
         >
-          Security, systems, and machine learning, often all at once.
+          I build fuzzers, database engines, and machine-learning systems.
         </motion.p>
 
         <motion.div

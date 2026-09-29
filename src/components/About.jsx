@@ -31,33 +31,35 @@ const About = () => (
   <>
     <div className="about-grid">
       <div className="about-copy">
-  <h2 className="section-title">About</h2>
-  <p>
-    I study artificial intelligence at Carnegie Mellon, concentrating in computer
-    systems. I graduate in 2028.
-  </p>
-  <p>
-    My work sits around security, machine learning, and the systems beneath them.
-    I&apos;ve built tools to find vulnerabilities in video decoders, worked on incident
-    response, and researched what language models may have seen during training.
-    I&apos;ve also become interested in markets and how people make decisions with
-    incomplete information.
-  </p>
-  <p>
-    At CMU, I chair the{" "}
-    <External href="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html">
-      School of Computer Science Dean&apos;s Advisory Council
-    </External>{" "}
-    and have written sports columns for{" "}
-    <External href="https://the-tartan.org/author/vedanth-ramanathan/">
-      The Tartan
-    </External>
-    . In high school, I founded{" "}
-    <External href="https://www.computely.org">Computely</External> to teach
-    computing to students in Austin. I&apos;ve played violin for 13 years and made
-    Texas All-State four times. I play basketball & football with less distinction.
-  </p>
-</div>
+        <h2 className="section-title">About</h2>
+        <p>
+          I&apos;m in Carnegie Mellon&apos;s class of 2028, studying artificial intelligence
+          with a concentration in computer systems.
+        </p>
+        <p>
+          I work mostly on security and machine learning. This summer at Google Project
+          Zero, I built a fuzzer that agents can run against AV1 video decoders. Before
+          that, I tested whether language models had trained on copyrighted text, and
+          wrote a paper on spotting DDoS floods with a network small enough to run at
+          the edge.
+        </p>
+        <p>
+          Markets are the newer thread. My current research looks for trading signals
+          in the language of earnings calls, and I&apos;ve started{" "}
+          <Link to="/blog">writing</Link> about the institutions behind the prices.
+        </p>
+        <p>
+          At CMU, I chair the{" "}
+          <External href="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html">
+            School of Computer Science Dean&apos;s Advisory Council
+          </External>{" "}
+          and have written sports columns for{" "}
+          <External href="https://the-tartan.org/author/vedanth-ramanathan/">The Tartan</External>.
+          In high school, I founded <External href="https://www.computely.org">Computely</External>{" "}
+          to teach computing to students around Austin. I&apos;ve played the violin for
+          thirteen years, and play basketball and football when I can.
+        </p>
+      </div>
 
       <div className="about-side">
         <figure className="about-photo">

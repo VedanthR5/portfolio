@@ -1,21 +1,10 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
-// Hairline diagrams drawn in the same contour-line language as the hero.
-const Pill = ({ x, y, w, text }) => (
-  <g>
-    <rect className="diagram-node" x={x} y={y} width={w} height={30} rx={15} />
-    <text className="diagram-label" x={x + w / 2} y={y + 19} textAnchor="middle">
-      {text}
-    </text>
-  </g>
-);
-
-Pill.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  w: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-};
+// Figures for opened rows, drawn in the hero's contour-line language. Each one
+// explains a mechanism or shows a result; the words stay in HTML so they are
+// readable at phone widths, and SVG carries only the shape. They build in once
+// when a row opens (see home.css); reduced motion shows them complete.
 
 const Arrow = ({ id }) => (
   <defs>
@@ -27,82 +16,176 @@ const Arrow = ({ id }) => (
 
 Arrow.propTypes = { id: PropTypes.string.isRequired };
 
-const FuzzLoop = () => (
-  <svg viewBox="0 0 420 240" role="img" aria-labelledby="fuzz-title">
-    <title id="fuzz-title">
-      AV1Forge loop: generate AV1 bitstreams, mutate OBUs, run them through a decoder harness, and
-      feed sanitizer results and triage back into generation.
-    </title>
-    <Arrow id="fuzz-arrow" />
-    {[0, 1, 2, 3, 4, 5].map((ring) => (
-      <ellipse key={ring} className="diagram-contour" cx={210} cy={122} rx={176 - ring * 15} ry={92 - ring * 9} />
-    ))}
-    <path className="diagram-edge" d="M168 46 C 250 34, 320 60, 344 100" markerEnd="url(#fuzz-arrow)" />
-    <path className="diagram-edge" d="M340 146 C 322 184, 290 198, 262 200" markerEnd="url(#fuzz-arrow)" />
-    <path className="diagram-edge" d="M146 200 C 110 200, 90 196, 74 188" markerEnd="url(#fuzz-arrow)" />
-    <path className="diagram-edge" d="M50 172 C 34 136, 40 92, 70 64" markerEnd="url(#fuzz-arrow)" />
-    <Pill x={60} y={30} w={140} text="Generate bitstreams" />
-    <Pill x={290} y={108} w={116} text="Mutate OBUs" />
-    <Pill x={148} y={186} w={124} text="Decoder harness" />
-    <Pill x={10} y={144} w={104} text="ASan · triage" />
-  </svg>
+// AV1Forge: the loop as a contour orbit, with its four stages listed beside it.
+// Pointing at a stage in either place highlights it in both.
+const fuzzStages = [
+  { id: "generate", name: "Generate", text: "Valid AV1 bitstreams through a stable encoder interface", x: 60, y: 30, w: 118 },
+  { id: "mutate", name: "Mutate", text: "Mutate each stream down to individual OBUs", x: 292, y: 108, w: 104 },
+  { id: "decode", name: "Decode", text: "Run each stream through decoder harnesses", x: 150, y: 186, w: 104 },
+  { id: "triage", name: "Triage", text: "AddressSanitizer reports and automated crash triage steer the next round", x: 18, y: 138, w: 96 },
+];
+
+const fuzzEdges = [
+  "M178 44 C 250 34, 320 62, 342 104",
+  "M340 140 C 322 184, 290 198, 256 200",
+  "M148 200 C 112 200, 92 194, 78 172",
+  "M52 136 C 40 110, 52 80, 80 60",
+];
+
+const FuzzLoop = () => {
+  const [active, setActive] = useState(null);
+  const hover = (id) => ({
+    onPointerEnter: () => setActive(id),
+    onPointerLeave: () => setActive(null),
+  });
+
+  return (
+    <div className="fig-fuzz">
+      <svg viewBox="0 0 420 240" aria-hidden="true" className="fig-fuzz-orbit">
+        <Arrow id="fuzz-arrow" />
+        {[0, 1, 2, 3, 4, 5].map((ring) => (
+          <ellipse key={ring} className="diagram-contour" cx={210} cy={122} rx={176 - ring * 15} ry={92 - ring * 9} />
+        ))}
+        {fuzzEdges.map((d, index) => (
+          <path
+            key={d}
+            className="diagram-edge fig-draw"
+            style={{ "--step": index }}
+            d={d}
+            pathLength={1}
+            markerEnd="url(#fuzz-arrow)"
+          />
+        ))}
+        {fuzzStages.map((stage, index) => (
+          <g
+            key={stage.id}
+            className={`fig-node${active === stage.id ? " is-active" : ""}`}
+            style={{ "--step": index }}
+            {...hover(stage.id)}
+          >
+            <rect className="diagram-node" x={stage.x} y={stage.y} width={stage.w} height={30} rx={15} />
+            <text className="diagram-label" x={stage.x + stage.w / 2} y={stage.y + 19} textAnchor="middle">
+              {`${index + 1} · ${stage.name}`}
+            </text>
+          </g>
+        ))}
+      </svg>
+      <ol className="fig-steps">
+        {fuzzStages.map((stage, index) => (
+          <li
+            key={stage.id}
+            className={active === stage.id ? "is-active" : undefined}
+            style={{ "--step": index }}
+            {...hover(stage.id)}
+          >
+            <span className="fig-step-name">
+              <span className="fig-step-index" aria-hidden="true">{index + 1}</span>
+              {stage.name}
+            </span>
+            <span className="fig-step-text">{stage.text}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="fig-caption">Four stages, repeated. Agents drive the loop.</p>
+    </div>
+  );
+};
+
+// BusTub: what was built, layer by layer, and where it placed.
+const engineLayers = [
+  { name: "Query optimizer", note: "custom rewrite rules" },
+  { name: "Executors", note: "vectorized" },
+  { name: "B+ tree index", note: "" },
+  { name: "Buffer pool manager", note: "thread-safe" },
+];
+
+const RANKED = 190;
+const PLACE = 5;
+
+const EngineStack = () => (
+  <div className="fig-engine">
+    <div className="fig-stack">
+      <ol aria-label="Engine layers, top to bottom">
+        {engineLayers.map((layer, index) => (
+          <li key={layer.name} style={{ "--step": index }}>
+            <span>{layer.name}</span>
+            {layer.note && <span className="fig-layer-note">{layer.note}</span>}
+          </li>
+        ))}
+        <li className="is-faint" style={{ "--step": engineLayers.length }}>
+          <span>Disk</span>
+        </li>
+      </ol>
+      <p className="fig-band">Concurrency control, across the stack</p>
+    </div>
+
+    <figure className="fig-rank">
+      <svg viewBox={`0 0 ${RANKED} 14`} preserveAspectRatio="none" aria-hidden="true">
+        {Array.from({ length: RANKED }, (_, index) => (
+          <rect
+            key={index}
+            className={index === PLACE - 1 ? "fig-rank-mark" : "fig-rank-tick"}
+            x={index + 0.2}
+            y={index === PLACE - 1 ? 0 : 5}
+            width={index === PLACE - 1 ? 1.2 : 0.6}
+            height={index === PLACE - 1 ? 14 : 9}
+          />
+        ))}
+      </svg>
+      <figcaption>
+        <strong>5th</strong> of 190+ implementations on the course&apos;s performance benchmark
+      </figcaption>
+    </figure>
+  </div>
 );
 
-const EngineLayers = () => {
-  const layers = ["Query optimizer", "Vectorized executors", "B+ tree index", "Buffer pool manager", "Disk"];
-  return (
-    <svg viewBox="0 0 420 240" role="img" aria-labelledby="db-title">
-      <title id="db-title">
-        BusTub layers from top to bottom: query optimizer, vectorized executors, B+ tree index,
-        buffer pool manager and disk, with concurrency control spanning the stack.
-      </title>
-      {layers.map((layer, index) => (
-        <g key={layer}>
-          <rect
-            className={index === layers.length - 1 ? "diagram-node is-faint" : "diagram-node"}
-            x={50 + index * 10}
-            y={18 + index * 42}
-            width={270 - index * 20}
-            height={30}
-            rx={6}
-          />
-          <text className="diagram-label" x={185} y={37 + index * 42} textAnchor="middle">
-            {layer}
-          </text>
-        </g>
-      ))}
-      <line className="diagram-edge is-dashed" x1={352} y1={20} x2={352} y2={186} />
-      <text className="diagram-label" x={372} y={104} textAnchor="middle" transform="rotate(90 372 104)">
-        Concurrency control
-      </text>
-    </svg>
-  );
-};
+// DDoS paper: the pipeline as five steps, then the four held-out scores.
+const flowSteps = [
+  ["Packet captures", "CIC-DDoS2019 PCAPs"],
+  ["Bidirectional flows", "extracted with PyShark"],
+  ["Fixed length", "normalized per flow"],
+  ["Compact CNN", "convolution, dropout, pooling"],
+  ["Benign or DDoS", "sigmoid output, one label per flow"],
+];
 
-const FlowPipeline = () => {
-  const steps = ["PCAP", "Flows", "Fixed-length", "Small CNN"];
-  return (
-    <svg viewBox="0 0 420 118" role="img" aria-labelledby="flow-title">
-      <title id="flow-title">
-        Detection pipeline: packet captures become bidirectional flows, then fixed-length inputs to
-        a small CNN that labels each flow benign or DDoS.
-      </title>
-      <Arrow id="flow-arrow" />
-      {steps.map((step, index) => (
-        <g key={step}>
-          <Pill x={8 + index * 103} y={20} w={92} text={step} />
-          {index < steps.length - 1 && (
-            <line className="diagram-edge" x1={101 + index * 103} y1={35} x2={109 + index * 103} y2={35} markerEnd="url(#flow-arrow)" />
-          )}
-        </g>
-      ))}
-      <line className="diagram-edge" x1={363} y1={52} x2={363} y2={74} markerEnd="url(#flow-arrow)" />
-      <text className="diagram-label" x={363} y={96} textAnchor="middle">benign or DDoS</text>
-    </svg>
-  );
-};
+const flowScores = [
+  ["Accuracy", 0.9883],
+  ["Precision", 0.9864],
+  ["Recall", 0.9784],
+  ["F1", 0.9824],
+];
 
-const diagrams = { fuzz: FuzzLoop, db: EngineLayers, flow: FlowPipeline };
+const FlowPipeline = () => (
+  <div className="fig-flow">
+    <ol className="fig-pipeline" aria-label="Detection pipeline">
+      {flowSteps.map(([name, note], index) => (
+        <li key={name} style={{ "--step": index }}>
+          <span>{name}</span>
+          <span className="fig-layer-note">{note}</span>
+        </li>
+      ))}
+    </ol>
+    <figure className="fig-scores">
+      <figcaption>Scores on held-out flows (paper, v2). Bars run from 0.95 to 1.</figcaption>
+      <dl>
+        {flowScores.map(([label, value], index) => (
+          <div key={label} style={{ "--step": index }}>
+            <dt>{label}</dt>
+            <dd>
+              <span className="fig-score-value">{value.toFixed(4)}</span>
+              {/* The axis starts at 0.95 so differences between scores are visible. */}
+              <span className="fig-score-bar" aria-hidden="true">
+                <span style={{ "--fill": (value - 0.95) / 0.05 }} />
+              </span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </figure>
+  </div>
+);
+
+const diagrams = { fuzz: FuzzLoop, db: EngineStack, flow: FlowPipeline };
 
 const Diagram = ({ kind }) => {
   const Figure = diagrams[kind];

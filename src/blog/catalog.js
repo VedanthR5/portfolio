@@ -12,7 +12,24 @@ export const posts = [
   },
 ];
 
+// The index page's own metadata, shared with scripts/build-blog.mjs.
+export const blogIndex = {
+  title: "Writing",
+  description: "Essays by Vedanth Ramanathan on economics, technology, and public policy.",
+  dek: "Essays on economics, technology, and public policy. Every citation opens a preview of its source.",
+};
+
 export const topics = [...new Set(posts.flatMap((post) => post.tags))].sort();
+
+// Browsing controls appear once there is enough to browse. Below these counts
+// the index is short enough to read whole; URL parameters keep working either way.
+export const BROWSE_THRESHOLDS = { topics: 4, search: 6, sort: 6 };
+export const browsingFor = (count, topicCount) => ({
+  topics: count >= BROWSE_THRESHOLDS.topics && topicCount >= 2,
+  search: count >= BROWSE_THRESHOLDS.search,
+  sort: count >= BROWSE_THRESHOLDS.sort,
+});
+export const browsing = browsingFor(posts.length, topics.length);
 export const formatDate = (date) => new Intl.DateTimeFormat("en-US", {
   month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
 }).format(new Date(`${date}T00:00:00Z`));

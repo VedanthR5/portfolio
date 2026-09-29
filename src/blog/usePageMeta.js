@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getRouteMeta } from "./pageMeta";
 
+// A null title keeps the document's own title (the home page's, from index.html).
 export function usePageMeta(title, description) {
   const { pathname } = useLocation();
   useEffect(() => {
     const previousTitle = document.title;
-    const fullTitle = `${title} · Vedanth Ramanathan`;
+    const fullTitle = title ? `${title} · Vedanth Ramanathan` : previousTitle;
     const { url, type } = getRouteMeta(pathname);
     const updates = [
       ['meta[name="title"]', "content", fullTitle],
