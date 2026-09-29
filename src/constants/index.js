@@ -83,7 +83,7 @@ export const honors = [
     label: "Violin",
     items: [
       { name: "TMEA All-State violinist", note: "Texas, all four years of high school" },
-      { name: "YoungArts honorable mention" },
+      { name: "YoungArts Honorable Mention" },
       { name: "Concerto competition finalist", note: "PIMF and Skylight" },
     ],
   },
