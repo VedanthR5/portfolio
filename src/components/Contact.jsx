@@ -256,7 +256,7 @@ const Contact = () => {
     <div className="xl:mt-12 flex flex-col gap-8 overflow-hidden xl:flex-row xl:items-stretch">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.76] rounded-[2rem] border border-white/10 bg-[#05060d]/95 p-5 shadow-[0_28px_90px_rgba(0,0,0,0.55)] backdrop-blur sm:p-7 md:p-8"
+        className="flex-[0.76] rounded-4xl border border-white/10 bg-[#05060d]/95 p-5 shadow-[0_28px_90px_rgba(0,0,0,0.55)] backdrop-blur-sm sm:p-7 md:p-8"
       >
         <p className={styles.sectionSubText}>Get in touch</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
@@ -269,7 +269,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              className="mt-12 rounded-[1.6rem] border border-white/10 bg-white/[0.045] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+              className="mt-12 rounded-[1.6rem] border border-white/10 bg-white/4.5 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
             >
               <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#cbd5ff]/75">
                 Message sent
@@ -294,7 +294,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub profile"
-                  className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-5 text-sm font-semibold text-[#e8ebff] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.1]"
+                  className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/6 px-5 text-sm font-semibold text-[#e8ebff] transition duration-300 hover:-translate-y-0.5 hover:bg-white/10"
                 >
                   <GithubIcon />
                   GitHub
@@ -304,7 +304,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn profile"
-                  className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-5 text-sm font-semibold text-[#e8ebff] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.1]"
+                  className="inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/10 bg-white/6 px-5 text-sm font-semibold text-[#e8ebff] transition duration-300 hover:-translate-y-0.5 hover:bg-white/10"
                 >
                   <LinkedinIcon />
                   LinkedIn
@@ -344,7 +344,7 @@ const Contact = () => {
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? "name-error" : undefined}
                   disabled={loading}
-                  className="rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-none transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
+                  className="rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-hidden transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
                 />
                 {errors.name && (
                   <span id="name-error" className="mt-2 text-sm text-[#f2aac4]">
@@ -366,7 +366,7 @@ const Contact = () => {
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? "email-error" : undefined}
                   disabled={loading}
-                  className="rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-none transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
+                  className="rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-hidden transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
                 />
                 {errors.email && (
                   <span id="email-error" className="mt-2 text-sm text-[#f2aac4]">
@@ -388,7 +388,7 @@ const Contact = () => {
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? "message-error" : undefined}
                   disabled={loading}
-                  className="resize-none rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-none transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
+                  className="resize-none rounded-2xl border border-white/10 bg-[#090b16]/90 px-5 py-4 font-medium text-white outline-hidden transition duration-300 placeholder:text-[#737997] focus:border-[#aeb8ff]/60 focus:bg-[#0d1020] focus:shadow-[0_0_0_4px_rgba(145,94,255,0.14)]"
                 />
                 {errors.message && (
                   <span id="message-error" className="mt-2 text-sm text-[#f2aac4]">
@@ -400,7 +400,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-fit rounded-full border border-white/15 bg-[#eef1ff] px-8 py-3.5 font-bold text-[#050816] shadow-[0_18px_50px_rgba(174,184,255,0.24)] outline-none transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_22px_60px_rgba(174,184,255,0.34)]"
+                className="w-fit rounded-full border border-white/15 bg-[#eef1ff] px-8 py-3.5 font-bold text-[#050816] shadow-[0_18px_50px_rgba(174,184,255,0.24)] outline-hidden transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_22px_60px_rgba(174,184,255,0.34)]"
               >
                 {loading ? "Sending..." : "Send Message"}
               </button>
@@ -424,7 +424,7 @@ const Contact = () => {
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="relative min-h-[340px] overflow-hidden rounded-[2rem] border border-white/10 bg-[#03040a] shadow-[0_32px_110px_rgba(0,0,0,0.68)] sm:min-h-[430px] md:min-h-[560px] xl:flex-1"
+        className="relative min-h-[340px] overflow-hidden rounded-4xl border border-white/10 bg-[#03040a] shadow-[0_32px_110px_rgba(0,0,0,0.68)] sm:min-h-[430px] md:min-h-[560px] xl:flex-1"
       >
         <div
           className="absolute inset-0"
@@ -541,7 +541,7 @@ const Contact = () => {
               </div>
               {!node.hideLabel && (
                 <div
-                  className={`absolute ${node.labelOffset} left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-[#060815]/80 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#e8ebff] shadow-[0_12px_34px_rgba(0,0,0,0.42)] backdrop-blur md:text-sm`}
+                  className={`absolute ${node.labelOffset} left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-[#060815]/80 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#e8ebff] shadow-[0_12px_34px_rgba(0,0,0,0.42)] backdrop-blur-sm md:text-sm`}
                 >
                   {node.label}
                 </div>

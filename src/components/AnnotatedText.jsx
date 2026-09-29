@@ -24,7 +24,7 @@ const AnnotatedText = ({
   return (
     <span className="relative inline-block">
       <span
-        className={`bg-white text-[#915EFF] cursor-pointer transition-all duration-300 hover:bg-gray-700/70 hover:text-white px-1 py-0.125 rounded font-medium border border-[#915EFF]/20 ${className}`}
+        className={`bg-white text-[#915EFF] cursor-pointer transition-all duration-300 hover:bg-gray-700/70 hover:text-white px-1 py-0.125 rounded-sm font-medium border border-[#915EFF]/20 ${className}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
@@ -47,11 +47,11 @@ const AnnotatedText = ({
 
       {shouldShowAnnotation && (
         <div
-          className="fixed bottom-20 left-4 right-4 z-[70] max-w-sm animate-fade-in sm:bottom-24 sm:left-auto sm:right-8"
+          className="fixed bottom-20 left-4 right-4 z-70 max-w-sm animate-fade-in sm:bottom-24 sm:left-auto sm:right-8"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="bg-gray-900/95 backdrop-blur-sm border-2 border-[#915EFF]/50 rounded-lg p-4 shadow-2xl">
+          <div className="bg-gray-900/95 backdrop-blur-xs border-2 border-[#915EFF]/50 rounded-lg p-4 shadow-2xl">
             <div className="flex items-start justify-between">
               <div className="text-gray-100 text-sm leading-relaxed flex-1">
                 {citationNumber && (
@@ -67,7 +67,7 @@ const AnnotatedText = ({
                     href={citationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#915EFF] hover:text-white transition-colors duration-200 flex-shrink-0"
+                    className="text-[#915EFF] hover:text-white transition-colors duration-200 shrink-0"
                     title="Open link"
                   >
                     <svg
@@ -86,7 +86,7 @@ const AnnotatedText = ({
                 {!citationUrl && (
                   <button
                     onClick={() => setIsPinned(false)}
-                    className="text-gray-400 hover:text-white transition-colors duration-200 flex-shrink-0"
+                    className="text-gray-400 hover:text-white transition-colors duration-200 shrink-0"
                     title="Close"
                   >
                     <svg

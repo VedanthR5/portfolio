@@ -4,7 +4,7 @@ Project-specific guidance for this repo. It supplements (does not replace) the g
 
 ## What this is
 
-Personal portfolio + blog for Vedanth Ramanathan, live at https://vedanthramanathan.com. A client-only React 19 SPA built with Vite 8 (Rolldown/Oxc), Tailwind 3, React Router 7 (`react-router-dom`), Three.js (`@react-three/fiber`/`drei`) and Motion. Deployed as static files from `dist/` (Netlify).
+Personal portfolio + blog for Vedanth Ramanathan, live at https://vedanthramanathan.com. A client-only React 19 SPA built with Vite 8 (Rolldown/Oxc), Tailwind 4 (`@tailwindcss/vite`; the JS `tailwind.config.js` is loaded through `@config` in `src/index.css`), React Router 7 (`react-router-dom`), Three.js (`@react-three/fiber`/`drei`) and Motion. Deployed as static files from `dist/` (Netlify).
 
 ## Commands
 

@@ -77,7 +77,7 @@ const Hero = () => {
   const typingText = useTypingCycle(domains);
 
   return (
-    <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-svh w-full items-center justify-center overflow-hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"

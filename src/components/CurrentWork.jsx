@@ -113,8 +113,8 @@ const CurrentWork = () => {
     <section className="relative w-full h-auto min-h-[200px] flex flex-col items-center justify-center py-20 overflow-hidden">
       
       {/* Gradient Masks for smooth blending */}
-      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-primary to-transparent z-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-primary to-transparent z-10 pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-24 bg-linear-to-b from-primary to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-24 bg-linear-to-t from-primary to-transparent z-10 pointer-events-none" />
 
       {/* Trigger Element */}
       <motion.div 
@@ -204,7 +204,7 @@ const CurrentWork = () => {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="ml-10 overflow-hidden sm:ml-[4.5rem]"
+                          className="ml-10 overflow-hidden sm:ml-18"
                         >
                           <p className="mt-2 font-mono text-base font-light text-white drop-shadow-lg sm:text-xl">
                             {(() => {

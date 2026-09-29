@@ -15,12 +15,12 @@ const getInitials = (companyName) =>
     .slice(0, 2);
 
 const LogoSlot = ({ logo, companyName }) => (
-  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] shadow-[0_0_30px_rgba(99,102,241,0.12)] backdrop-blur">
+  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_0_30px_rgba(99,102,241,0.12)] backdrop-blur-sm">
     {logo ? (
       <img
         src={logo}
         alt={`${companyName} logo`}
-        className="h-10 w-10 rounded-xl bg-white/95 p-1.5 object-contain shadow-sm"
+        className="h-10 w-10 rounded-xl bg-white/95 p-1.5 object-contain shadow-xs"
         loading="lazy"
       />
     ) : (
@@ -47,8 +47,8 @@ const ExperienceItem = ({ experience, index }) => {
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className="group relative mb-14 last:mb-0 md:min-h-[170px]"
     >
-      <div className="absolute left-[1.7rem] top-7 hidden h-px w-[calc(50%-1.7rem)] bg-gradient-to-l from-white/15 to-transparent md:block" />
-      <div className="absolute left-[1.7rem] top-7 h-px w-10 bg-gradient-to-r from-white/20 to-transparent md:left-1/2 md:w-12 md:-translate-x-1/2" />
+      <div className="absolute left-[1.7rem] top-7 hidden h-px w-[calc(50%-1.7rem)] bg-linear-to-l from-white/15 to-transparent md:block" />
+      <div className="absolute left-[1.7rem] top-7 h-px w-10 bg-linear-to-r from-white/20 to-transparent md:left-1/2 md:w-12 md:-translate-x-1/2" />
 
       <div
         className={`flex gap-5 pl-14 md:w-[calc(50%-3.5rem)] md:pl-0 ${
@@ -57,7 +57,7 @@ const ExperienceItem = ({ experience, index }) => {
       >
         <LogoSlot logo={experience.logo} companyName={experience.company_name} />
 
-        <div className="rounded-3xl px-1 py-1 transition-colors duration-300 group-hover:bg-white/[0.025] md:px-4 md:py-3">
+        <div className="rounded-3xl px-1 py-1 transition-colors duration-300 group-hover:bg-white/2.5 md:px-4 md:py-3">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-secondary">
             {experience.date}
           </p>
@@ -134,7 +134,7 @@ const Experience = () => {
       <div ref={timelineRef} className="relative mt-20">
         <div className="absolute bottom-6 left-7 top-7 w-px overflow-hidden rounded-full bg-white/10 md:left-1/2 md:-translate-x-1/2">
           <motion.div
-            className="h-full w-full origin-top rounded-full bg-gradient-to-b from-[#915EFF] via-white/60 to-[#915EFF]/20"
+            className="h-full w-full origin-top rounded-full bg-linear-to-b from-[#915EFF] via-white/60 to-[#915EFF]/20"
             style={{ scaleY }}
           />
         </div>

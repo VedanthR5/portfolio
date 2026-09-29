@@ -29,7 +29,7 @@ const ProjectLink = ({ project, href, label, variant = "secondary" }) => {
       className={`inline-flex min-h-[40px] items-center justify-center gap-2 rounded-full px-4 text-sm font-medium transition-colors duration-200 ${
         variant === "primary"
           ? "bg-white text-primary hover:bg-[#dfd9ff]"
-          : "bg-white/[0.06] text-secondary hover:bg-white/[0.1] hover:text-white"
+          : "bg-white/6 text-secondary hover:bg-white/10 hover:text-white"
       }`}
     >
       {label}
@@ -73,7 +73,7 @@ const ProjectEntry = ({ index, project }) => {
             {project.tags.map((tag) => (
               <span
                 key={`${project.name}-${tag.name}`}
-                className={`rounded-full bg-white/[0.055] px-3 py-1.5 text-[13px] font-medium ${tag.color}`}
+                className={`rounded-full bg-white/5.5 px-3 py-1.5 text-[13px] font-medium ${tag.color}`}
               >
                 #{tag.name}
               </span>
@@ -84,7 +84,7 @@ const ProjectEntry = ({ index, project }) => {
 
       <div className="mt-8 flex shrink-0 flex-wrap gap-3">
           {isPrivate ? (
-            <span className="inline-flex min-h-[40px] items-center justify-center rounded-full bg-white/[0.06] px-4 text-sm font-medium text-secondary">
+            <span className="inline-flex min-h-[40px] items-center justify-center rounded-full bg-white/6 px-4 text-sm font-medium text-secondary">
               Private repo
             </span>
           ) : (
