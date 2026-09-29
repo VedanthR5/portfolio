@@ -108,7 +108,7 @@ const Contact = () => {
     <div className="contact-grid">
       <div className="contact-intro">
         <h2 className="section-title">Contact</h2>
-        <p>Email is the fastest way to reach me. I read everything that comes through the form too.</p>
+        <p>Email reaches me fastest. The form sends to the same inbox.</p>
         <ul className="contact-channels">
           <li>
             <span>Email</span>
