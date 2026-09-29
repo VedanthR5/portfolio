@@ -1,50 +1,58 @@
-import { motion, useScroll, useSpring } from "motion/react";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+import { useLocation, useNavigationType } from "react-router-dom";
 import { usePageMeta } from "../blog/usePageMeta";
 
-// Keep critical above-the-fold components loaded immediately - import directly to avoid canvas imports
 import Hero from "./Hero";
 import About from "./About";
 import Experience from "./Experience";
-import CurrentWork from "./CurrentWork";
 import Works from "./Works";
 import Contact from "./Contact";
-import StarsCanvas from "./canvas/Stars";
+import "../home.css";
 
-const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-[#2e1065] origin-left z-50"
-      style={{ scaleX }}
-    />
-  );
-};
+// Where the reader was on each visited home entry. With an open row the URL
+// carries its hash, and on Back the browser jumps to that row instead of
+// restoring the reading position, so Home restores it itself.
+const readingPosition = new Map();
 
 export default function Home() {
-  usePageMeta("Security, Systems & AI", "Portfolio of Vedanth Ramanathan, a Carnegie Mellon student building security, AI, systems, civic-tech, and quantitative software.");
+  usePageMeta("Security, Systems & AI", "Vedanth Ramanathan studies artificial intelligence at Carnegie Mellon and builds security, systems and machine-learning software.");
+  const { key } = useLocation();
+  const navigationType = useNavigationType();
+
+  useLayoutEffect(() => {
+    const saved = readingPosition.get(key);
+    if (navigationType === "POP" && saved !== undefined) {
+      const restore = () => window.scrollTo({ top: saved, behavior: "instant" });
+      restore();
+      // Again after the route's scroll reset and the browser's fragment jump.
+      requestAnimationFrame(() => requestAnimationFrame(restore));
+      return;
+    }
+    // A fresh load or a new visit with a hash: go straight to the target.
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
+  }, [key, navigationType]);
+
   useEffect(() => {
-    const id = window.location.hash.slice(1);
-    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
-  }, []);
+    // Skip scrolls caused by leaving: while a lazy route loads, Suspense hides
+    // this page (display: none) and the browser clamps the scroll to 0.
+    const remember = () => {
+      if (document.getElementById("experience")?.offsetParent) readingPosition.set(key, window.scrollY);
+    };
+    window.addEventListener("scroll", remember, { passive: true });
+    return () => window.removeEventListener("scroll", remember);
+  }, [key]);
+
   return <>
-    <ScrollProgress />
           <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat">
             <Hero />
           </div>
           <About />
           <Experience />
-          <CurrentWork />
           <Works />
-          <div className="relative z-0">
+          {/* The hero's contour lines return once to close the page. */}
+          <div className="home-bookend">
             <Contact />
-            <StarsCanvas />
           </div>
   </>;
 }

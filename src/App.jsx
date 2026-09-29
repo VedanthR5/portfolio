@@ -17,7 +17,7 @@ function RoutePosition() {
 export default function App() {
   return <BrowserRouter>
     <RoutePosition />
-    <a href="#content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary">Skip to content</a>
+    <a href="#content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-100 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary">Skip to content</a>
     <div className="relative z-0 bg-primary min-h-screen">
       <Navbar />
       <main id="content" tabIndex={-1}>

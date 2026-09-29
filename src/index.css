@@ -1,57 +1,48 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap')
+layer(base);
 
-/* Chat widget utilities */
-.custom-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: #4b3a7d transparent;
-}
-.custom-scroll::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #4b3a7d, #915EFF);
-  border-radius: 8px;
-}
-.custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config '../tailwind.config.js';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-  scroll-behavior: smooth;
-  color-scheme: dark;
-}
-html{
-  scroll-behavior: smooth;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-.hash-span {
-  margin-top: -100px;
-  padding-bottom: 100px;
-  display: block;
+
+@layer base {
+  :where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid #c9b8ff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  html {
+    font-family: "Poppins", sans-serif;
+    color-scheme: dark;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
 
-.black-gradient {
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
+
 
 .violet-gradient {
   background: #804dee;
@@ -63,11 +54,6 @@ html{
   );
 }
 
-.green-pink-gradient {
-  background: "#00cea8";
-  background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-  background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-}
 
 .orange-text-gradient {
   background: #f12711; /* fallback for old browsers */
@@ -85,54 +71,8 @@ html{
   -webkit-text-fill-color: transparent;
 }
 
-.green-text-gradient {
-  background: #11998e; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #11998e,
-    #38ef7d
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #11998e,
-    #38ef7d
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
-.blue-text-gradient {
-  /* background: -webkit-linear-gradient(#eee, #333); */
-  background: #56ccf2; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #2f80ed,
-    #56ccf2
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #2f80ed,
-    #56ccf2
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
-.pink-text-gradient {
-  background: #ec008c; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #ec008c,
-    #fc6767
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #ec008c,
-    #fc6767
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 /* canvas- styles */
 .canvas-loader {
@@ -233,10 +173,6 @@ html{
   opacity: 1;
 }
 
-/* Smooth transforms for better performance */
-* {
-  will-change: auto;
-}
 
 .hover\:scale-105:hover {
   transform: scale(1.05);
@@ -246,79 +182,25 @@ html{
   transform: scale(1.1);
 }
 
-/* Improved link hover effects */
-a {
-  transition: color 0.3s ease;
-}
-
-/* Better scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Optimize canvas rendering */
-canvas {
-  display: block;
-  outline: none;
-}
-
-/* Fade-in animation for annotations */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Element defaults live in the base layer so utilities can override them;
+   unlayered rules would outrank every utility in Tailwind v4. */
+@layer base {
+  a {
+    transition: color 0.3s ease;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  canvas {
+    display: block;
+    outline: none;
   }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.2s ease-out;
-}
 
 /* Custom navy blue color */
 .text-navy-900 {
   color: #1e3a8a;
 }
 
-/* Heading typography only. Cursor behavior lives in TypewriterHeading. */
-.big-text-futura {
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0.02em;
-  position: relative;
-}
-
-.typing-caret {
-  display: inline-block;
-  width: 0.08em;
-  height: 0.9em;
-  margin-left: 0.08em;
-  transform: translateY(0.08em);
-  background: currentColor;
-  color: #915EFF;
-  box-shadow: 0 0 16px rgba(145, 94, 255, 0.45);
-  animation: caret-blink 1.1s steps(2, start) infinite;
-}
-
-@keyframes caret-blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .typing-caret {
-    animation: none;
-    opacity: 1;
-  }
-}
 
 /* Netlify injects its review drawer into deploy previews. Its failed iframe
    obscures the site; keep preview chrome out of the portfolio layout. */
