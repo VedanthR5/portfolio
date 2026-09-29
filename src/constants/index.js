@@ -58,7 +58,7 @@ export const experiences = [
     role: "Software security engineering intern",
     when: "May – Aug 2026",
     place: "New York",
-    line: "Built a closed-loop fuzzing system for AV1 video decoders that autonomous agents can drive.",
+    line: "Built AV1Forge, a closed-loop fuzzing system for AV1 video decoders that autonomous agents can drive. It found a couple of bugs confirmed with AddressSanitizer.",
     detail: [
       "Written in Python and Rust. The loop generates AV1 bitstreams, mutates them down to individual OBUs, runs them through decoder harnesses, and feeds sanitizer results back into the next round, with crash triage automated.",
       "The difficult part was the encoder interface: it had to stay backward-compatible across more than 50,000 test cases so agents could drive the loop without breaking earlier work. I pushed for its use in continued agent-driven vulnerability research.",

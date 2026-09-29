@@ -30,7 +30,7 @@ Arrow.propTypes = { id: PropTypes.string.isRequired };
 const FuzzLoop = () => (
   <svg viewBox="0 0 420 240" role="img" aria-labelledby="fuzz-title">
     <title id="fuzz-title">
-      Fuzzing loop: generate AV1 bitstreams, mutate OBUs, run them through a decoder harness, and
+      AV1Forge loop: generate AV1 bitstreams, mutate OBUs, run them through a decoder harness, and
       feed sanitizer results and triage back into generation.
     </title>
     <Arrow id="fuzz-arrow" />
