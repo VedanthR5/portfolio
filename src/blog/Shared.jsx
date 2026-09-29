@@ -1,5 +1,18 @@
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import PropTypes from "prop-types";
+
+// Holds the page's space while something loads and only speaks up if it is slow,
+// so a fast load never flashes a bare status line.
+export function PendingStatus({ label, className = "" }) {
+  const [slow, setSlow] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setSlow(true), 900);
+    return () => clearTimeout(timer);
+  }, []);
+  return <div className={className} role="status" aria-live="polite">{slow && label}</div>;
+}
+PendingStatus.propTypes = { label: PropTypes.string.isRequired, className: PropTypes.string };
 
 export function Reveal({ children, className = "", delay = 0 }) {
   const reduce = useReducedMotion();

@@ -6,22 +6,48 @@ import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { logo, menu, close } from "../assets";
 import ResumeLink from "./ResumeLink";
+import { preload, preloadOn } from "../routes";
 
-const linkClass = "text-secondary transition-colors duration-150 hover:text-white";
+const linkClass = "nav-link text-secondary transition-colors duration-150 hover:text-white";
+
+// The home section whose top has passed the upper third of the viewport.
+const currentSection = () => {
+  let current = null;
+  for (const { id } of navLinks) {
+    const section = document.getElementById(id);
+    if (section && section.getBoundingClientRect().top <= window.innerHeight * 0.33) current = id;
+  }
+  return current;
+};
 
 const Navbar = () => {
   const { pathname } = useLocation();
   const { isBlog } = getRouteMeta(pathname);
+  const isHome = pathname === "/";
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [section, setSection] = useState(null);
   const toggleRef = useRef(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 100);
+    let frame = 0;
+    const handleScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        setScrolled(window.scrollY > 100);
+        setSection(isHome ? currentSection() : null);
+      });
+    };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("resize", handleScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [isHome]);
 
   // While the phone menu is open it behaves like a sheet: the page behind it
   // is inert, Escape or a tap outside closes it, and any navigation does too.
@@ -58,7 +84,11 @@ const Navbar = () => {
     setToggle(false);
   }
 
-  const sectionHref = (id) => (pathname === "/" ? `#${id}` : `/#${id}`);
+  // Section links are router links from every route: a plain "/#about" on the
+  // blog would reload the whole document. Home scrolls to the hash itself.
+  const sectionTo = (id) => ({ pathname: "/", hash: `#${id}` });
+  const homeIntent = preloadOn(preload.home);
+  const blogIntent = preloadOn(preload.blog);
   const closeMenu = () => setToggle(false);
 
   return (
@@ -75,11 +105,12 @@ const Navbar = () => {
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
         <Link
           to="/"
+          {...homeIntent}
           aria-label="Vedanth Ramanathan, home"
           className="flex items-center gap-2"
           onClick={() => {
             closeMenu();
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: "instant" });
           }}
         >
           <img
@@ -95,11 +126,18 @@ const Navbar = () => {
         <ul className="list-none hidden lg:flex flex-row items-center gap-8 text-[15px]">
           {navLinks.map((nav) => (
             <li key={nav.id}>
-              <a href={sectionHref(nav.id)} className={linkClass}>{nav.title}</a>
+              <Link
+                to={sectionTo(nav.id)}
+                {...homeIntent}
+                aria-current={section === nav.id ? "location" : undefined}
+                className={linkClass}
+              >
+                {nav.title}
+              </Link>
             </li>
           ))}
           <li>
-            <Link to="/blog" aria-current={isBlog ? "page" : undefined} className={isBlog ? "text-white" : linkClass}>
+            <Link to="/blog" {...blogIntent} aria-current={isBlog ? "page" : undefined} className={linkClass}>
               Blog
             </Link>
           </li>
@@ -144,14 +182,20 @@ const Navbar = () => {
             <ul className="list-none flex flex-col text-[16px]">
               {navLinks.map((nav) => (
                 <li key={nav.id}>
-                  <a href={sectionHref(nav.id)} onClick={closeMenu} className="block rounded-xl px-4 py-3 text-[#d9d6e8] hover:bg-white/5">
+                  <Link
+                    to={sectionTo(nav.id)}
+                    {...homeIntent}
+                    onClick={closeMenu}
+                    className="block rounded-xl px-4 py-3 text-[#d9d6e8] hover:bg-white/5"
+                  >
                     {nav.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>
                 <Link
                   to="/blog"
+                  {...blogIntent}
                   aria-current={isBlog ? "page" : undefined}
                   onClick={closeMenu}
                   className="block rounded-xl px-4 py-3 text-[#d9d6e8] hover:bg-white/5"

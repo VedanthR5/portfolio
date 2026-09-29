@@ -1,17 +1,18 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { posts, topics, selectPosts, formatDate } from "../src/blog/catalog.js";
+import { posts, topics, selectPosts, formatDate, browsingFor, BROWSE_THRESHOLDS } from "../src/blog/catalog.js";
 import { getRouteMeta } from "../src/blog/pageMeta.js";
 
 test("canonical and social metadata agree for slash and non-slash routes", () => {
+  // Blog canonicals end in a slash: that is the URL the host serves without a redirect.
   for (const path of ["/blog", "/blog/", "/blog///"]) {
     assert.deepEqual(getRouteMeta(path), {
-      path: "/blog", url: "https://vedanthramanathan.com/blog", isBlog: true, type: "website",
+      path: "/blog", url: "https://vedanthramanathan.com/blog/", isBlog: true, type: "website",
     });
   }
   for (const suffix of ["", "/", "///"]) {
     const route = getRouteMeta(`/blog/warsh-and-the-independent-fed${suffix}`);
-    assert.equal(route.url, "https://vedanthramanathan.com/blog/warsh-and-the-independent-fed");
+    assert.equal(route.url, "https://vedanthramanathan.com/blog/warsh-and-the-independent-fed/");
     assert.equal(route.type, "article");
     assert.equal(route.isBlog, true);
   }
@@ -35,6 +36,13 @@ test("catalog search combines words, topics, and empty results", () => {
     assert.ok(results.length, `Topic ${topic} has articles`);
     assert.ok(results.every((post) => post.tags.includes(topic)));
   }
+});
+
+test("browsing controls appear only once the collection is large enough", () => {
+  assert.deepEqual(browsingFor(1, 2), { topics: false, search: false, sort: false });
+  assert.deepEqual(browsingFor(BROWSE_THRESHOLDS.topics, 3), { topics: true, search: false, sort: false });
+  assert.equal(browsingFor(BROWSE_THRESHOLDS.topics, 1).topics, false, "One topic is not a filter");
+  assert.deepEqual(browsingFor(BROWSE_THRESHOLDS.search, 3), { topics: true, search: true, sort: true });
 });
 
 test("sort order does not mutate the catalog", () => {

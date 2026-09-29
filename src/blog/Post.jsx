@@ -3,9 +3,11 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { motion, useScroll } from "motion/react";
 import PropTypes from "prop-types";
 import { posts, formatDate } from "./catalog";
-import { FieldArt, Reveal } from "./Shared";
+import { FieldArt, PendingStatus, Reveal } from "./Shared";
 import Citation from "./Citation";
 import { usePageMeta } from "./usePageMeta";
+import { getRouteMeta } from "./pageMeta";
+import { preload, preloadOn } from "../routes";
 import "./blog.css";
 
 function InlineText({ text, sources }) {
@@ -17,12 +19,13 @@ function InlineText({ text, sources }) {
 InlineText.propTypes = { text: PropTypes.string.isRequired, sources: PropTypes.object.isRequired };
 
 function Article({ post, article }) {
-  const { hash, state } = useLocation();
+  const { hash, state, pathname } = useLocation();
   const returnTo = useRef(state?.from?.startsWith("/blog?") ? state.from : "/blog").current;
   const articleRef = useRef(null);
   const [active, setActive] = useState(article.sections[0]?.id);
   const [copied, setCopied] = useState("");
-  const [focusMode, setFocusMode] = useState(false);
+  // The only thing this hides is the decorative artwork, so it says so.
+  const [showArt, setShowArt] = useState(true);
   const copyTimer = useRef(null);
   const readingLayout = useRef(null);
   const readingPosition = useRef(null);
@@ -33,8 +36,16 @@ function Article({ post, article }) {
     if (!hash) return undefined;
     let id;
     try { id = decodeURIComponent(hash.slice(1)); } catch { return undefined; }
-    const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
-    return () => cancelAnimationFrame(frame);
+    let timer;
+    // Jump, then brighten the section heading briefly so the reader sees where they landed.
+    const frame = requestAnimationFrame(() => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      target.scrollIntoView({ behavior: "instant" });
+      target.classList.add("is-arrived");
+      timer = setTimeout(() => target.classList.remove("is-arrived"), 900);
+    });
+    return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
   }, [hash]);
   useEffect(() => {
     const update = () => {
@@ -58,13 +69,15 @@ function Article({ post, article }) {
     const delta = readingLayout.current.getBoundingClientRect().top - readingPosition.current;
     if (delta) window.scrollBy({ top: delta, behavior: "instant" });
     readingPosition.current = null;
-  }, [focusMode]);
-  function toggleFocusMode() {
+  }, [showArt]);
+  function toggleArt() {
     readingPosition.current = readingLayout.current?.getBoundingClientRect().top ?? null;
-    setFocusMode((value) => !value);
+    setShowArt((value) => !value);
   }
   async function copyLink() {
-    try { await navigator.clipboard.writeText(window.location.href); setCopied("Link copied"); }
+    // The canonical address, so a copied link never depends on how this page was reached.
+    const link = `${getRouteMeta(pathname).url}${window.location.hash}`;
+    try { await navigator.clipboard.writeText(link); setCopied("Link copied"); }
     catch { setCopied("Copy the address from your browser"); }
     clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopied(""), 3000);
@@ -72,9 +85,9 @@ function Article({ post, article }) {
   const sourcesLabel = `${String(article.sections.length + 1).padStart(2, "0")} / Sources & further reading`;
   const contents = <>{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} aria-current={active === section.id ? "location" : undefined}>{section.title}</a>)}<a href="#sources" aria-current={active === "sources" ? "location" : undefined}>{sourcesLabel}</a></>;
 
-  return <article ref={articleRef} className={`journal journal-post ${focusMode ? "focus-reading" : ""}`}>
+  return <article ref={articleRef} className={`journal journal-post${showArt ? "" : " art-hidden"}`}>
     <motion.div className="reading-progress" aria-hidden="true" style={{ scaleX: scrollYProgress }} />
-    <Reveal><div className="post-topline"><Link to={returnTo}>← All writing</Link><span className="eyebrow">{post.tags.join(" / ")}</span></div></Reveal>
+    <Reveal><div className="post-topline"><Link to={returnTo} {...preloadOn(preload.blog)}>← All writing</Link><span className="eyebrow">{post.tags.join(" / ")}</span></div></Reveal>
     <Reveal className="post-header" delay={0.04}>
       <span className="draft-pill">{post.status}</span>
       <h1>{post.title}</h1><p className="post-subtitle">{post.subtitle}</p>
@@ -82,8 +95,14 @@ function Article({ post, article }) {
     </Reveal>
     <Reveal className="post-art"><FieldArt /></Reveal>
     <div ref={readingLayout} className="reading-layout">
-      <aside className="reading-rail"><nav aria-label="Article contents"><span className="eyebrow">ON THIS PAGE</span>{contents}</nav>
-        <div className="reading-tools"><button onClick={toggleFocusMode} aria-pressed={focusMode}>{focusMode ? "Show artwork" : "Focus mode"} <span aria-hidden="true">◉</span></button><button onClick={copyLink}>Copy link ↗</button><span role="status">{copied}</span></div>
+      <aside className="reading-rail"><nav aria-label="Article contents"><span className="eyebrow">Contents</span>{contents}</nav>
+        <div className="reading-tools">
+          <button type="button" role="switch" aria-checked={showArt} onClick={toggleArt} className="art-switch">
+            Show artwork <span className="switch-track" aria-hidden="true"><span /></span>
+          </button>
+          <button type="button" onClick={copyLink}>Copy link</button>
+          <span role="status">{copied}</span>
+        </div>
       </aside>
       <div className="article-body">
         <details className="mobile-contents"><summary>In this essay</summary><nav aria-label="Article contents on mobile">{contents}</nav></details>
@@ -97,7 +116,7 @@ function Article({ post, article }) {
         <section id="sources" className="source-list"><h2>{sourcesLabel}</h2><p>Primary documents and reporting behind this essay. Previews are editorial summaries, not live extracts.</p>
           <ol>{Object.entries(article.sources).map(([id, source], index) => <li key={id}><span className="source-number">{String(index + 1).padStart(2, "0")}</span><div><Citation source={source}>{source.title}</Citation><p>{source.publisher}{source.date && ` · ${formatDate(source.date)}`}</p></div></li>)}</ol>
         </section>
-        <footer className="post-end"><span>Thanks for reading.</span><Link to={returnTo}>All articles ↗</Link></footer>
+        <footer className="post-end"><span>Thanks for reading.</span><Link to={returnTo} {...preloadOn(preload.blog)}>← All writing</Link></footer>
       </div>
     </div>
   </article>;
@@ -116,6 +135,6 @@ export default function Post() {
     return () => { cancelled = true; };
   }, [post, slug]);
   if (!post || failed) return <div className="journal empty-state"><h1>{failed ? "This essay couldn’t load." : "Article not found."}</h1><p>{failed ? "Please refresh to try again." : "That essay doesn’t exist, or its address has changed."}</p><Link to="/blog">Back to all writing ↗</Link></div>;
-  if (loaded?.slug !== slug) return <div className="journal" role="status">Loading article…</div>;
+  if (loaded?.slug !== slug) return <PendingStatus className="journal journal-pending" label="Loading article…" />;
   return <Article key={slug} post={post} article={loaded.article} />;
 }

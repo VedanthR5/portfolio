@@ -76,7 +76,8 @@ export default function Citation({ source, children }) {
   return <span className="citation" ref={trigger} onPointerEnter={(event) => { if (event.pointerType !== "touch") show(); }} onPointerLeave={scheduleClose}
     onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget) && !card.current?.contains(event.relatedTarget)) scheduleClose(); }}>
     <a href={source.url} target="_blank" rel="noopener noreferrer" onFocus={show} onKeyDown={(event) => { if (event.key === "ArrowDown") { event.preventDefault(); enterPreview(); } }} aria-describedby={open ? `${id}-summary` : undefined}>{children}<span className="sr-only"> (opens in a new tab)</span></a>
-    <button className="citation-toggle" aria-label={`Preview source: ${source.title}`} aria-expanded={open} aria-controls={open ? id : undefined}
+    {/* A word joiner keeps the preview toggle on the same line as the end of its link. */}
+    {"⁠"}<button className="citation-toggle" aria-label={`Preview source: ${source.title}`} aria-expanded={open} aria-controls={open ? id : undefined}
       onClick={enterPreview} type="button">↗</button>
     {open && createPortal(<aside id={id} ref={card} tabIndex={-1} className="source-preview" aria-label={`Source preview: ${source.title}`} style={position}
       onPointerEnter={cancelClose} onPointerLeave={scheduleClose}
