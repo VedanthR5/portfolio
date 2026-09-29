@@ -29,9 +29,9 @@ const About = () => (
   </p>
   <p>
     My work sits around security, machine learning, and the systems beneath them.
-    I've built tools to find vulnerabilities in video decoders, worked on incident
+    I&apos;ve built tools to find vulnerabilities in video decoders, worked on incident
     response, and researched what language models may have seen during training.
-    I've also become interested in markets and how people make decisions with
+    I&apos;ve also become interested in markets and how people make decisions with
     incomplete information.
   </p>
   <p>
@@ -45,7 +45,7 @@ const About = () => (
     </External>
     . In high school, I founded{" "}
     <External href="https://www.computely.org">Computely</External> to teach
-    computing to students in Austin. I've played violin for 13 years and made
+    computing to students in Austin. I&apos;ve played violin for 13 years and made
     Texas All-State four times. I play basketball & football with less distinction.
   </p>
 </div>
