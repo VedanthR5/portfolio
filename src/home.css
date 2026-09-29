@@ -81,6 +81,99 @@
   align-content: start;
 }
 
+/* Photo with a location chip in the corner, like a map app's place label. */
+.about-photo {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0;
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--home-line);
+  border-radius: 16px;
+}
+
+.place-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px 6px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(7, 8, 22, 0.62);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  backdrop-filter: blur(10px) saturate(1.2);
+  color: var(--home-ink);
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
+}
+
+.place-chip:hover,
+.place-chip:focus-visible {
+  background: rgba(7, 8, 22, 0.8);
+  border-color: rgba(201, 184, 255, 0.45);
+}
+
+.place-chip:focus-visible {
+  border-radius: 999px;
+}
+
+.place-pin {
+  flex: none;
+  margin-right: 6px;
+  color: var(--home-link);
+}
+
+.place-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* The coordinates open as a second line for a pointer or keyboard, so the
+   chip grows down inside the photo; touch screens keep the short label.
+   Same mono voice as the hero's domain line. */
+.place-coords {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  color: #cfc9e6;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  transition: max-height 0.24s ease-out, opacity 0.2s ease-out, margin-top 0.24s ease-out;
+}
+
+.place-chip:hover .place-coords,
+.place-chip:focus-visible .place-coords {
+  max-height: 18px;
+  margin-top: 3px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .place-chip,
+  .place-coords {
+    transition: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-photo {
+    max-width: 280px;
+  }
+}
+
 .side-title {
   color: var(--home-ink);
   font-size: 15px;

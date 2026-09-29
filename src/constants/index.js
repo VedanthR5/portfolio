@@ -1,3 +1,5 @@
+import { regentsPark300, regentsPark600 } from "../assets";
+
 export const navLinks = [
   {
     id: "about",
@@ -24,6 +26,19 @@ export const profile = {
   // Set VITE_RESUME_URL at build time to link the résumé directly; otherwise
   // visitors are offered an email request instead.
   resumeUrl: import.meta.env.VITE_RESUME_URL || null,
+};
+
+// The About photo and where it was taken. Coordinates are Regent's Park's
+// (Wikipedia), shown when the location chip is hovered or focused.
+export const portrait = {
+  src: regentsPark300,
+  srcSet: `${regentsPark300} 300w, ${regentsPark600} 600w`,
+  width: 300,
+  height: 375,
+  alt: "Vedanth, smiling in sunglasses with his arms crossed, in the rose garden at Regent's Park.",
+  place: "Regent's Park, London",
+  coordinates: "51°31′56″N 0°09′24″W",
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=Regent%27s%20Park%2C%20London",
 };
 
 // What is true this term. Keep it short and dated; remove lines as they end.
