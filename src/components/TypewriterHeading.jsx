@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 import PropTypes from "prop-types";
 
 const TypewriterHeading = ({ as: Tag = "h2", text, className = "" }) => {

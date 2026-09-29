@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/build-blog.mjs",
-    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 50",
-    "lint:fix": "eslint src --ext js,jsx --fix",
-    "lint:ci": "eslint src --ext js,jsx --max-warnings 100",
+    "lint": "eslint src --report-unused-disable-directives --max-warnings 50",
+    "lint:fix": "eslint src --fix",
+    "lint:ci": "eslint src --max-warnings 100",
     "preview": "vite preview",
     "test": "npm run test:blog && npm run build",
     "audit:security": "npm audit --audit-level moderate",
@@ -17,28 +17,33 @@
     "test:blog": "node --test tests/blog.test.mjs"
   },
   "dependencies": {
-    "@emailjs/browser": "^3.12.1",
-    "@react-three/drei": "^9.70.1",
-    "@react-three/fiber": "^8.13.0",
-    "maath": "^0.6.0",
-    "motion": "^12.38.0",
+    "@emailjs/browser": "^4.4.1",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
+    "maath": "^0.10.8",
+    "motion": "^13.4.5",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2",
-    "three": "^0.153.0"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "three": "^0.186.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.37",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^4.0.0",
+    "@eslint/js": "^9.39.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.38.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.3.4",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
-    "vite": "^6.3.5"
+    "vite": "^8.3.1"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useReducedMotion } from 'motion/react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -49,9 +49,10 @@ const TypewriterText = ({ text, delay = 0 }) => {
   // Use intersection observer to start typing when in view
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || shouldReduceMotion) return;
 
     let currentIndex = 0;
     setDisplayText('');
@@ -73,9 +74,10 @@ const TypewriterText = ({ text, delay = 0 }) => {
         clearInterval(intervalId);
       }
     };
-  }, [text, delay, isInView]);
+  }, [text, delay, isInView, shouldReduceMotion]);
 
-  const visibleText = displayText.length > 0 ? displayText : '\u00A0';
+  // Reduced motion: show the full text immediately instead of typing it out.
+  const visibleText = shouldReduceMotion ? text : displayText.length > 0 ? displayText : '\u00A0';
 
   return (
     <span
