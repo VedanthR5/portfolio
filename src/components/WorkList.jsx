@@ -71,6 +71,8 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
   const reduceMotion = useReducedMotion();
   const detailId = `${entry.id}-detail`;
   const buttonId = `${entry.id}-toggle`;
+  // A row with nothing more to show has no toggle.
+  const expandable = Boolean(entry.detail?.length || entry.diagram || entry.image);
 
   // Escape anywhere in an open row (its toggle or its links) closes it.
   const closeOnEscape = (event) => {
@@ -84,7 +86,7 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
   // behavior and the toggle stays the keyboard and touch control, so a tap
   // that just misses a link doesn't open the row.
   const toggleFromHead = (event) => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    if (!expandable || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     if (event.target.closest("a, button") || window.getSelection()?.toString()) return;
     onToggle(entry.id);
   };
@@ -92,24 +94,31 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
   return (
     <li
       id={entry.id}
-      className={`work-item${isOpen ? " is-open" : ""}${hasArrived ? " is-arrived" : ""}`}
+      className={`work-item${isOpen ? " is-open" : ""}${hasArrived ? " is-arrived" : ""}${expandable ? "" : " is-static"}`}
       onKeyDown={closeOnEscape}
     >
       <div className="work-head" onClick={toggleFromHead}>
         <p className="work-when">{entry.when}</p>
         <div className="work-main">
           <h3 className="work-title">
-            <button
-              id={buttonId}
-              type="button"
-              aria-expanded={isOpen}
-              aria-controls={detailId}
-              onClick={() => onToggle(entry.id)}
-            >
-              <span className="work-org">{entry.org}</span>
-              <span className="work-role">{entry.role}</span>
-              <span className="work-toggle" aria-hidden="true" />
-            </button>
+            {expandable ? (
+              <button
+                id={buttonId}
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={detailId}
+                onClick={() => onToggle(entry.id)}
+              >
+                <span className="work-org">{entry.org}</span>
+                <span className="work-role">{entry.role}</span>
+                <span className="work-toggle" aria-hidden="true" />
+              </button>
+            ) : (
+              <span className="work-title-static">
+                <span className="work-org">{entry.org}</span>
+                <span className="work-role">{entry.role}</span>
+              </span>
+            )}
           </h3>
           <p className="work-line">{entry.line}</p>
           <EvidenceLinks entry={entry} />
@@ -117,7 +126,7 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
       </div>
 
       <AnimatePresence initial={false}>
-        {isOpen && (
+        {expandable && isOpen && (
           <motion.div
             id={detailId}
             role="region"
@@ -131,7 +140,7 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
             <div className={`work-detail-inner${entry.diagram || entry.image ? " has-artifact" : ""}`}>
               <div className="work-detail-copy">
                 {entry.place && <p className="work-place">{entry.place}</p>}
-                {entry.detail.map((paragraph) => (
+                {(entry.detail ?? []).map((paragraph) => (
                   <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                 ))}
               </div>

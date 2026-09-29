@@ -47,9 +47,9 @@ export default function Home() {
           <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat">
             <Hero />
           </div>
+          <About />
           <Experience />
           <Works />
-          <About />
           {/* The hero's contour lines return once to close the page. */}
           <div className="home-bookend">
             <Contact />

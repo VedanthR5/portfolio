@@ -1,15 +1,15 @@
 export const navLinks = [
   {
+    id: "about",
+    title: "About",
+  },
+  {
     id: "experience",
     title: "Experience",
   },
   {
     id: "projects",
     title: "Projects",
-  },
-  {
-    id: "about",
-    title: "About",
   },
   {
     id: "contact",
@@ -31,27 +31,80 @@ export const now = {
   label: "Fall 2026",
   items: [
     {
-      text: "Teaching assistant for Computer Vision (16-385).",
-      href: "https://16385.courses.cs.cmu.edu/fall2026/courseinfo",
+      text: "Quantitative research on earnings-call signals with Prof. Lars-Alexander Kuehn.",
+      href: "https://www.cmu.edu/ccf/",
     },
     {
-      text: "Working with the CivicDuty team on legislative tracking for Georgia.",
+      text: "COO at CivicDuty, tracking Georgia legislation one county at a time.",
       href: "https://civicduty.app",
+    },
+    {
+      text: "Teaching assistant for Computer Vision (16-385).",
+      href: "https://16385.courses.cs.cmu.edu/fall2026/courseinfo",
     },
   ],
 };
 
+// Grouped so the range reads at a glance. `note` is the context a reader needs.
 export const honors = [
-  "USACO Platinum",
-  "D. E. Shaw Vector Fellow",
-  "Top 3, CMU Citadel Quant Invitational",
-  "McGinnis Venture Competition finalist (CivicDuty, 2026)",
-  "ACM@CMU hackathon winner",
+  {
+    label: "Computing and security",
+    items: [
+      { name: "USACO Platinum" },
+      { name: "National Cyber Scholar with Honors", note: "National Cyber Scholarship Foundation, 2023" },
+      { name: "Congressional App Challenge winner", note: "Texas's 37th district, 2023, for FoodCycle" },
+      { name: "ACM@CMU hackathon winner" },
+    ],
+  },
+  {
+    label: "Markets and ventures",
+    items: [
+      { name: "D. E. Shaw Vector Fellow", note: "About 100 students selected, 2026" },
+      { name: "Top 3, CMU Citadel Quant Invitational" },
+      { name: "McGinnis Venture Competition finalist", note: "CivicDuty, 2026" },
+    ],
+  },
+  {
+    label: "Violin",
+    items: [
+      { name: "TMEA All-State violinist", note: "Texas, all four years of high school" },
+      { name: "YoungArts honorable mention" },
+      { name: "Concerto competition finalist", note: "PIMF and Skylight" },
+    ],
+  },
 ];
 
 // Each entry: `line` is what a skimmer needs; `detail` is for anyone who opens it.
 // Link labels say what the destination is (Paper, Code, Demo, Coverage…).
 export const experiences = [
+  {
+    id: "computational-finance",
+    org: "CMU Center for Computational Finance",
+    role: "Quantitative research",
+    when: "Current",
+    line: "Researching trading signals in company earnings calls with Professor Lars-Alexander Kuehn.",
+    links: [
+      { label: "Center", href: "https://www.cmu.edu/ccf/" },
+      { label: "Prof. Kuehn", href: "https://larskuehn.com/" },
+    ],
+  },
+  {
+    id: "civicduty",
+    org: "CivicDuty",
+    role: "Chief operating officer",
+    when: "Aug 2025 – now",
+    line: "A legislative-tracking platform for Georgia: bills, votes, meetings and representatives, expanding one county at a time.",
+    detail: [
+      "In beta through the 2026 Georgia legislative session, with county, school-board and city bodies next. The team was a finalist in CMU's 2026 McGinnis Venture Competition.",
+    ],
+    links: [
+      { label: "Product", href: "https://civicduty.app" },
+      {
+        label: "McGinnis finalists",
+        href: "https://www.cmu.edu/swartz-center-for-entrepreneurship/resources-funding-and-talent/mcginnis-venture-competition/2026-final-round-info.html",
+      },
+    ],
+  },
   {
     id: "project-zero",
     org: "Google Project Zero",
@@ -88,10 +141,10 @@ export const experiences = [
     role: "Software engineering intern",
     when: "May – Aug 2025",
     place: "Livermore, CA",
-    line: "Cut network-telemetry ingestion time by 30% and built machine-learning threat detection for security analysts.",
+    line: "Cut network-telemetry ingestion time by 30% and built machine-learning threat detection over aerospace network flows.",
     detail: [
       "The PostgreSQL ingestion pipeline streams DataFrames concurrently and tolerates schema drift in irregular telemetry.",
-      "For detection, I benchmarked models over more than 5,000 network flows and moved training and regression evaluation into CI/CD. I also built an AI-assisted toolkit that automates parts of incident investigation and triage.",
+      "For detection, I benchmarked models over more than 5,000 aerospace network flows and moved training and regression evaluation into CI/CD. I also built an AI-assisted incident-response toolkit for DOE security operations that automates parts of analyst investigation and threat triage.",
     ],
     links: [],
   },
@@ -99,7 +152,7 @@ export const experiences = [
     id: "georgia-tech",
     org: "Georgia Tech Institute for Information Security & Privacy",
     role: "Principal research assistant",
-    when: "2023 – 2025",
+    when: "May 2023 – Feb 2025",
     place: "Atlanta",
     line: "First author of a paper on a small CNN that detects DDoS traffic at the network edge.",
     detail: [

@@ -19,34 +19,38 @@ External.propTypes = {
 };
 
 const About = () => (
-  <div className="about-grid">
-    <div className="about-copy">
-      <h2 className="section-title">About</h2>
-      <p>
-        I study artificial intelligence at Carnegie Mellon, with a concentration in computer
-        systems, and graduate in 2028.
-      </p>
-      <p>
-        Most of what I build is security or machine-learning software, and the part I enjoy is
-        underneath it: how a decoder parses hostile input, or how a database keeps the right pages
-        in memory under load. I follow markets for a related reason. They reward the same habit of
-        distrusting a signal that looks too clean.
-      </p>
-      <p>
-        I sit on the School of Computer Science&apos;s{" "}
-        <External href="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html">
-          undergraduate advisory committee
-        </External>{" "}
-        and have written sports columns for{" "}
-        <External href="https://the-tartan.org/author/vedanth-ramanathan/">The Tartan</External>. In
-        high school I founded <External href="https://www.computely.org">Computely</External>, a
-        computing curriculum for K–12 students in Austin. Away from a keyboard, it&apos;s violin
-        and basketball.
-      </p>
-    </div>
+  <>
+    <div className="about-grid">
+      <div className="about-copy">
+  <h2 className="section-title">About</h2>
+  <p>
+    I study artificial intelligence at Carnegie Mellon, concentrating in computer
+    systems. I graduate in 2028.
+  </p>
+  <p>
+    My work sits around security, machine learning, and the systems beneath them.
+    I've built tools to find vulnerabilities in video decoders, worked on incident
+    response, and researched what language models may have seen during training.
+    I've also become interested in markets and how people make decisions with
+    incomplete information.
+  </p>
+  <p>
+    At CMU, I chair the{" "}
+    <External href="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html">
+      School of Computer Science Dean&apos;s Advisory Council
+    </External>{" "}
+    and have written sports columns for{" "}
+    <External href="https://the-tartan.org/author/vedanth-ramanathan/">
+      The Tartan
+    </External>
+    . In high school, I founded{" "}
+    <External href="https://www.computely.org">Computely</External> to teach
+    computing to students in Austin. I've played violin for 13 years and made
+    Texas All-State four times. I play basketball & football with less distinction.
+  </p>
+</div>
 
-    <aside className="about-side" aria-label="Now and recognition">
-      <section aria-labelledby="now-title">
+      <aside className="about-side" aria-labelledby="now-title">
         <h3 id="now-title" className="side-title">
           Now <span>{now.label}</span>
         </h3>
@@ -62,20 +66,30 @@ const About = () => (
             </li>
           )}
         </ul>
-      </section>
+      </aside>
+    </div>
 
-      <section aria-labelledby="recognition-title">
-        <h3 id="recognition-title" className="side-title">
-          Recognition
-        </h3>
-        <ul className="honors-list">
-          {honors.map((honor) => (
-            <li key={honor}>{honor}</li>
-          ))}
-        </ul>
-      </section>
-    </aside>
-  </div>
+    <section className="recognition" aria-labelledby="recognition-title">
+      <h3 id="recognition-title" className="recognition-title">
+        Recognition
+      </h3>
+      <div className="recognition-groups">
+        {honors.map((group) => (
+          <div key={group.label} className="recognition-group">
+            <p className="recognition-label">{group.label}</p>
+            <ul>
+              {group.items.map((honor) => (
+                <li key={honor.name}>
+                  <span className="recognition-name">{honor.name}</span>
+                  {honor.note && <span className="recognition-note">{honor.note}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  </>
 );
 
 const WrappedAbout = SectionWrapper(About, "about");
