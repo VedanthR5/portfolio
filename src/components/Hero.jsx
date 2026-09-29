@@ -114,7 +114,7 @@ const Hero = () => {
           animate="show"
           className="mt-4 max-w-xl text-lg font-normal leading-8 text-vr-text-primary/80 sm:text-xl"
         >
-          Security, systems and machine learning, mostly where they overlap.
+          Security, systems, and machine learning, often all at once.
         </motion.p>
 
         <motion.div
