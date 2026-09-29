@@ -1,28 +1,18 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
+// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
-    rollupOptions: {
-      onwarn: (warning, warn) => {
-        // Suppress specific warnings
-        if (
-          warning.code === "EVAL" &&
-          warning.message.includes("@chevrotain/utils")
-        ) {
-          return;
-        }
-        warn(warning);
+    rolldownOptions: {
+      output: {
+        // Strip console/debugger statements from production bundles.
+        minify: { compress: { dropConsole: true, dropDebugger: true } },
       },
-      // Let Rollup keep shared UI dependencies separate from the lazy home route.
-
     },
     // Chunk size optimization
     chunkSizeWarningLimit: 1000,
-    // Enable tree shaking and minification
-    minify: "esbuild",
     target: "esnext",
     sourcemap: false,
   },
@@ -39,8 +29,5 @@ export default defineConfig({
   // Performance optimizations
   define: {
     __DEV__: false,
-  },
-  esbuild: {
-    drop: ["console", "debugger"],
   },
 });
