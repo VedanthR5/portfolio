@@ -245,10 +245,14 @@ export const projects = [
     org: "Skin-lesion classifier",
     role: "Independent study",
     when: "2023 – 2024",
-    line: "Compared a custom CNN with Inception v3 on the HAM10000 dermatoscopy dataset, reporting accuracy per lesion class.",
+    line: "Compared a custom CNN with Inception v3 on the HAM10000 dermatoscopy dataset, reporting accuracy per lesion class. Presented at UT Austin's Oden Institute in May 2024.",
     links: [
       {
-        label: "Presentation",
+        label: "Talk at the Oden Institute",
+        href: "https://oden.utexas.edu/news-and-events/events/1928---LASA%20Computer%20Science%20Independent%20Study%20Students/",
+      },
+      {
+        label: "Slides",
         href: "https://docs.google.com/presentation/d/17k3rfrBu-ShUnvRCkQ0N9p9d9BurqgM_/edit?usp=sharing",
       },
     ],
