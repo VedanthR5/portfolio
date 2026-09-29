@@ -2,10 +2,19 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import { SectionWrapper } from "../hoc";
-import { honors, now } from "../constants";
+import { honors, now, portrait } from "../constants";
 import { posts } from "../blog/catalog";
 
 const latestPost = [...posts].sort((a, b) => b.date.localeCompare(a.date))[0];
+
+const PinIcon = () => (
+  <svg width={14} height={14} viewBox="0 0 24 24" aria-hidden="true" className="place-pin">
+    <path
+      fill="currentColor"
+      d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"
+    />
+  </svg>
+);
 
 const External = ({ href, children }) => (
   <a href={href} target="_blank" rel="noopener noreferrer">
@@ -50,23 +59,50 @@ const About = () => (
   </p>
 </div>
 
-      <aside className="about-side" aria-labelledby="now-title">
-        <h3 id="now-title" className="side-title">
-          Now <span>{now.label}</span>
-        </h3>
-        <ul className="now-list">
-          {now.items.map((item) => (
-            <li key={item.text}>
-              <External href={item.href}>{item.text}</External>
-            </li>
-          ))}
-          {latestPost && (
-            <li>
-              Latest essay: <Link to={`/blog/${latestPost.slug}`}>{latestPost.title}</Link>
-            </li>
-          )}
-        </ul>
-      </aside>
+      <div className="about-side">
+        <figure className="about-photo">
+          <img
+            src={portrait.src}
+            srcSet={portrait.srcSet}
+            sizes="(min-width: 1024px) 280px, 300px"
+            width={portrait.width}
+            height={portrait.height}
+            alt={portrait.alt}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <a className="place-chip" href={portrait.mapUrl} target="_blank" rel="noopener noreferrer">
+              <PinIcon />
+              <span className="place-text">
+                <span>{portrait.place}</span>
+                <span className="place-coords" aria-hidden="true">
+                  {portrait.coordinates}
+                </span>
+              </span>
+              <span className="sr-only"> (opens Google Maps in a new tab)</span>
+            </a>
+          </figcaption>
+        </figure>
+
+        <section aria-labelledby="now-title">
+          <h3 id="now-title" className="side-title">
+            Now <span>{now.label}</span>
+          </h3>
+          <ul className="now-list">
+            {now.items.map((item) => (
+              <li key={item.text}>
+                <External href={item.href}>{item.text}</External>
+              </li>
+            ))}
+            {latestPost && (
+              <li>
+                Latest essay: <Link to={`/blog/${latestPost.slug}`}>{latestPost.title}</Link>
+              </li>
+            )}
+          </ul>
+        </section>
+      </div>
     </div>
 
     <section className="recognition" aria-labelledby="recognition-title">
