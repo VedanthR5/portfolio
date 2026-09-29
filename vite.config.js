@@ -4,11 +4,6 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      "/api": "http://localhost:8787",
-    },
-  },
   build: {
     rollupOptions: {
       onwarn: (warning, warn) => {
@@ -37,7 +32,7 @@ export default defineConfig({
       "three",
       "@react-three/fiber",
       "@react-three/drei",
-      "framer-motion",
+      "motion/react",
     ],
     exclude: ["three/examples/jsm/loaders/GLTFLoader"],
   },

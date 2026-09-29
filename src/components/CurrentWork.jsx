@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useInView } from 'motion/react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 

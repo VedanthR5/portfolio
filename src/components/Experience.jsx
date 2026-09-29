@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "motion/react";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 

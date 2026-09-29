@@ -3,72 +3,38 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4f450702-348f-43c0-879d-3bf8b33edef9/deploy-status)](https://app.netlify.com/sites/vedanthramanathan/deploys)
 
 Website about my projects, activities, links (resume) and more!
-Live at [vedanthramanathan.com](vedanthramanathan.com)
+Live at [vedanthramanathan.com](https://vedanthramanathan.com)
 
 ## Development
 
+Requires Node 24 (see `.nvmrc`; run `nvm use`).
+
 - Install deps: `npm ci`
-- Run both client and chat server: `npm run dev:all`
-  - Vite dev: http://localhost:5173
-  - Chat server: http://localhost:8787 (proxy: /api)
+- Dev server: `npm run dev` (http://localhost:5173)
+- Lint: `npm run lint`
+- Tests + production build: `npm test`
 
-## Environment variables (server-only)
+## Environment variables
 
-Set these ONLY on the server/host, not in the client and not in git:
+Client-side Vite variables go in `.env.local` (ignored by git). They are embedded in the public bundle, so never put real secrets in them.
 
-- `OPENAI_API_KEY` (optional in dev; when not set, the server replies in demo mode using local `public/knowledge` snippets and optional `#url:` links in prompts)
+- `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`: contact form
+- `VITE_RESUME_URL`: resume link
 
-Client-side vars remain in `.env.local` (ignored by git) for local dev only.
+## Build & deploy
 
-## Build & Run (production)
+`npm run build` writes a static site to `dist/`. Netlify publishes `dist/` using that command. `public/_redirects` provides the SPA fallback for client-side routes. Other hosts must serve existing static files before falling back to `index.html`.
 
-1. Build client: `npm run build`
-2. Start server (also serves `dist/`): `npm start`
+## CI
 
-The Express server exposes:
-
-- `POST /api/chat` — chat proxy with context ingestion
-- `GET /api/health` — health probe
-- Serves static files from `dist/` (if present)
-
-## Deploy on Fly.io (server + static UI)
-
-Prereqs: install Fly CLI and log in.
-
-- One-time: create app and set secret
-  - `fly launch --no-deploy` (accept Dockerfile)
-  - `fly secrets set OPENAI_API_KEY=YOUR_KEY`
-- Build and deploy
-  - `fly deploy`
-
-The app listens on `PORT=8080` inside the VM, exposed via `[[services]]` in `fly.toml`. Health check is `/api/health`. Static client is served by the Node server from `dist/`.
-
-## What to commit vs ignore
-
-Commit:
-
-- `src/` application code
-- `server/` server code (no secrets)
-- `public/` assets and curated `public/knowledge/*.md|*.txt` docs (no secrets)
-- Config files, CI, README, etc.
-
-Ignore (already in .gitignore):
-
-- `node_modules/`, `dist/`
-- `.env`, `.env.*`, `.env.local`, and other env files
-- Temporary/OS files under `public/knowledge` (e.g., `.DS_Store`, `*.bak`, `*.tmp`)
-- Logs under `server/`
-
-## CI/CD notes
-
-The GitHub Actions workflow runs lint, builds the client, and validates the server entry exists. For deployment, run `npm run build` then `npm start` on your host. Ensure `OPENAI_API_KEY` is configured in the host environment if you want live model answers.
+GitHub Actions (`.github/workflows/ci-cd.yml`) runs lint, blog content tests, and the production build on pushes to `main`/`develop` and on PRs to `main`.
 
 ## Blog
 
 The notebook lives at `/blog`. See [the blog authoring guide](docs/blog.md) for adding essays and citations.
 
-- `npm run dev` — local Vite preview
-- `npm run test:blog` — validate content and filtering
-- `npm run build` — production bundle plus per-article metadata pages and sitemap
+- `npm run dev`: local Vite preview
+- `npm run test:blog`: validate content and filtering
+- `npm run build`: production bundle plus per-article metadata pages and sitemap
 
-Netlify should publish `dist/` using `npm run build`. `public/_redirects` supports client-side deep links; generated article HTML provides social/canonical metadata on direct requests. Other hosts must serve existing static files before falling back to `index.html`.
+Generated article HTML provides social/canonical metadata on direct requests.
