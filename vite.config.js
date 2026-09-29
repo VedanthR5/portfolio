@@ -17,16 +17,6 @@ export default defineConfig({
     target: "esnext",
     sourcemap: false,
   },
-  // Optimize dependency pre-bundling
-  optimizeDeps: {
-    include: [
-      "three",
-      "@react-three/fiber",
-      "@react-three/drei",
-      "motion/react",
-    ],
-    exclude: ["three/examples/jsm/loaders/GLTFLoader"],
-  },
   // Performance optimizations
   define: {
     __DEV__: false,

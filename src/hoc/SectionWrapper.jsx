@@ -1,24 +1,14 @@
-import { motion } from "motion/react";
-
 import { styles } from "../styles";
-import { staggerContainer } from "../utils/motion";
 
+// Content renders immediately: no section waits for an intersection observer
+// before it becomes visible, so fast scrolls and anchor jumps never land on
+// a blank section.
 const StarWrapper = (Component, idName) =>
   function HOC() {
     return (
-      <motion.section
-        variants={staggerContainer()}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15, margin: "100px" }}
-        className={`${styles.padding} mx-auto w-full max-w-7xl relative z-0`}
-      >
-        <span className="hash-span" id={idName}>
-          &nbsp;
-        </span>
-
+      <section id={idName} className={`${styles.padding} home-section mx-auto w-full max-w-6xl relative z-0`}>
         <Component />
-      </motion.section>
+      </section>
     );
   };
 

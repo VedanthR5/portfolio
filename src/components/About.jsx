@@ -1,110 +1,82 @@
-import { motion } from "motion/react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import { styles } from "../styles";
-import { services } from "../constants";
 import { SectionWrapper } from "../hoc";
-import { fadeIn, textVariant } from "../utils/motion";
-import AnnotatedText from "./AnnotatedText";
-import TypewriterHeading from "./TypewriterHeading";
+import { honors, now } from "../constants";
+import { posts } from "../blog/catalog";
 
-const ServiceCard = ({ index, title, icon }) => (
-  <div className="w-[220px] sm:w-[240px] lg:w-[260px] shrink-0">
-    <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className="w-full green-pink-gradient p-px rounded-[20px] shadow-card hover:shadow-2xl transition-shadow duration-300"
-    >
-      <div className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col hover:bg-[#151030] transition-colors duration-300">
-        <img
-          src={icon}
-          alt="web-development"
-          className="w-16 h-16 object-contain hover:scale-110 transition-transform duration-300"
-        />
+const latestPost = [...posts].sort((a, b) => b.date.localeCompare(a.date))[0];
 
-        <h3 className="text-white text-[20px] font-bold text-center hover:text-[#915EFF] transition-colors duration-300">
-          {title}
-        </h3>
-      </div>
-    </motion.div>
-  </div>
+const External = ({ href, children }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer">
+    {children}
+  </a>
 );
 
-ServiceCard.propTypes = {
-  index: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+External.propTypes = {
+  href: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-const About = () => {
-  return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <TypewriterHeading text="Overview." className={styles.sectionHeadText} />
-      </motion.div>
+const About = () => (
+  <div className="about-grid">
+    <div className="about-copy">
+      <h2 className="section-title">About</h2>
+      <p>
+        I study artificial intelligence at Carnegie Mellon, with a concentration in computer
+        systems, and graduate in 2028.
+      </p>
+      <p>
+        Most of what I build is security or machine-learning software, and the part I enjoy is
+        underneath it: how a decoder parses hostile input, or how a database keeps the right pages
+        in memory under load. I follow markets for a related reason. They reward the same habit of
+        distrusting a signal that looks too clean.
+      </p>
+      <p>
+        I sit on the School of Computer Science&apos;s{" "}
+        <External href="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html">
+          undergraduate advisory committee
+        </External>{" "}
+        and have written sports columns for{" "}
+        <External href="https://the-tartan.org/author/vedanth-ramanathan/">The Tartan</External>. In
+        high school I founded <External href="https://www.computely.org">Computely</External>, a
+        computing curriculum for K–12 students in Austin. Away from a keyboard, it&apos;s violin
+        and basketball.
+      </p>
+    </div>
 
-      <motion.p
-        variants={fadeIn("", "", 0.1, 1)}
-        className="mt-4 max-w-3xl text-[17px] leading-8 text-secondary sm:text-[20px] sm:leading-[30px]"
-      >
-        <span className="text-white">
-          Hey there! I&apos;m the founder of{" "}
-          <AnnotatedText
-            annotation="We're building adaptive learning tools that help students with dyslexia, ADHD, and other learning differences succeed in STEM"
-            citationNumber={4}
-            citationUrl="https://www.computely.org"
-          >
-            <a
-              href="https://www.computely.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#915EFF] underline font-bold hover:text-white transition-colors duration-300"
-            >
-              Computely
-            </a>
-          </AnnotatedText>
-          , a venture democratizing learning for students with learning
-          disabilities through adaptive technology. I&apos;m also a TA for{" "}
-          <AnnotatedText
-            annotation="16-385, or Computer Vision, is CMU's primary vision offering for undergraduates"
-            citationNumber={5}
-            citationUrl="https://16385.courses.cs.cmu.edu/"
-          >
-            Computer Vision (16-385)
-          </AnnotatedText>
-          .
-        </span>
-        <br />
-        <br />
-        Beyond coding, I&apos;m passionate about music (violin), basketball, and writing news for{" "}
-        <AnnotatedText
-          annotation="The Tartan is Carnegie Mellon's oldest and most widely read student publication, covering campus news, arts, and opinion pieces"
-          citationNumber={6}
-          citationUrl="https://the-tartan.org/"
-        >
-          The Tartan
-        </AnnotatedText>
-        . I&apos;m honored to serve on the{" "}
-        <AnnotatedText
-          annotation="One of 12 students chosen to advise the Dean on curriculum, student life, and the future of CS education"
-          citationNumber={7}
-          citationUrl="https://scsbusinessoffice.cs.cmu.edu/advisory-committees/index.html"
-        >
-          SCS Dean&apos;s Advisory Council
-        </AnnotatedText>
-        , working to shape the future of computer science education.
-        <br />
-        <br />
-      </motion.p>
+    <aside className="about-side" aria-label="Now and recognition">
+      <section aria-labelledby="now-title">
+        <h3 id="now-title" className="side-title">
+          Now <span>{now.label}</span>
+        </h3>
+        <ul className="now-list">
+          {now.items.map((item) => (
+            <li key={item.text}>
+              <External href={item.href}>{item.text}</External>
+            </li>
+          ))}
+          {latestPost && (
+            <li>
+              Latest essay: <Link to={`/blog/${latestPost.slug}`}>{latestPost.title}</Link>
+            </li>
+          )}
+        </ul>
+      </section>
 
-      <div className="custom-scroll mt-12 flex flex-nowrap gap-6 overflow-x-auto pb-4 sm:mt-20">
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
-        ))}
-      </div>
-    </>
-  );
-};
+      <section aria-labelledby="recognition-title">
+        <h3 id="recognition-title" className="side-title">
+          Recognition
+        </h3>
+        <ul className="honors-list">
+          {honors.map((honor) => (
+            <li key={honor}>{honor}</li>
+          ))}
+        </ul>
+      </section>
+    </aside>
+  </div>
+);
 
 const WrappedAbout = SectionWrapper(About, "about");
 WrappedAbout.displayName = "About";

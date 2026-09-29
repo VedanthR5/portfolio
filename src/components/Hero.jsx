@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
+  useInView,
   useScroll,
   useTransform,
   useReducedMotion,
@@ -31,19 +32,23 @@ const LinkedinIcon = () => (
   </svg>
 );
 
-const domains = ["systems", "ai", "trading", "security", "ml"];
+const domains = ["systems", "ai", "markets", "security", "ml"];
 const DOMAIN_HOLD_MS = 850;
 const TYPE_MS = 65;
 const DELETE_MS = 34;
 
-const useTypingCycle = (words) => {
+const useTypingCycle = (words, isVisible) => {
   const shouldReduceMotion = useReducedMotion();
   const [displayText, setDisplayText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  // One pass through the list, then the static line: an opening moment, not
+  // a loop that runs for as long as the page is open.
+  const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    if (shouldReduceMotion) return undefined;
+    // Stop typing while the hero is off screen; resume where it left off.
+    if (shouldReduceMotion || !isVisible || isDone) return undefined;
     const current = words[wordIndex];
 
     if (!isDeleting && displayText === current) {
@@ -51,6 +56,10 @@ const useTypingCycle = (words) => {
       return () => clearTimeout(timeout);
     }
     if (isDeleting && displayText === "") {
+      if (wordIndex === words.length - 1) {
+        setIsDone(true);
+        return undefined;
+      }
       setIsDeleting(false);
       setWordIndex((index) => (index + 1) % words.length);
       return undefined;
@@ -66,18 +75,20 @@ const useTypingCycle = (words) => {
       isDeleting ? DELETE_MS : TYPE_MS
     );
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, wordIndex, words, shouldReduceMotion]);
+  }, [displayText, isDeleting, wordIndex, words, shouldReduceMotion, isVisible, isDone]);
 
-  return shouldReduceMotion ? null : displayText;
+  return shouldReduceMotion || isDone ? null : displayText;
 };
 
 const Hero = () => {
+  const heroRef = useRef(null);
+  const heroInView = useInView(heroRef);
   const { scrollYProgress } = useScroll();
   const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const typingText = useTypingCycle(domains);
+  const typingText = useTypingCycle(domains, heroInView);
 
   return (
-    <section className="relative flex min-h-svh w-full items-center justify-center overflow-hidden">
+    <section ref={heroRef} className="relative flex min-h-svh w-full items-center justify-center overflow-hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -103,7 +114,7 @@ const Hero = () => {
           animate="show"
           className="mt-4 max-w-xl text-lg font-normal leading-8 text-vr-text-primary/80 sm:text-xl"
         >
-          Engineering resilient platforms - from finance to civic tech.
+          Security, systems and machine learning, mostly where they overlap.
         </motion.p>
 
         <motion.div
@@ -114,15 +125,18 @@ const Hero = () => {
         >
           {typingText !== null ? (
             <span className="flex items-center gap-0.5 font-mono text-vr-text-muted">
+              <span className="sr-only">Systems, AI, markets, security and machine learning at Carnegie Mellon</span>
+              <span aria-hidden="true" className="contents">
               <span className="text-vr-text-secondary">
                 {typingText} @ carnegie mellon
               </span>
               <span className="select-none text-vr-accent motion-safe:animate-pulse">
                 |
               </span>
+              </span>
             </span>
           ) : (
-            <span className="flex flex-wrap items-center gap-1 text-vr-text-muted">
+            <span className="flex flex-wrap items-center gap-1 font-mono text-vr-text-muted">
               {domains.map((domain, index) => (
                 <span key={domain} className="flex items-center gap-1">
                   {domain}
@@ -151,7 +165,7 @@ const Hero = () => {
             <GithubIcon />
           </a>
           <a
-            href="https://linkedin.com/in/vedanthramanathan"
+            href="https://www.linkedin.com/in/vedanthramanathan"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn profile"

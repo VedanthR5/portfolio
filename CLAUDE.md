@@ -4,7 +4,7 @@ Project-specific guidance for this repo. It supplements (does not replace) the g
 
 ## What this is
 
-Personal portfolio + blog for Vedanth Ramanathan, live at https://vedanthramanathan.com. A client-only React 19 SPA built with Vite 8 (Rolldown/Oxc), Tailwind 4 (`@tailwindcss/vite`; the JS `tailwind.config.js` is loaded through `@config` in `src/index.css`), React Router 7 (`react-router-dom`), Three.js (`@react-three/fiber`/`drei`) and Motion. Deployed as static files from `dist/` (Netlify).
+Personal portfolio + blog for Vedanth Ramanathan, live at https://vedanthramanathan.com. A client-only React 19 SPA built with Vite 8 (Rolldown/Oxc), Tailwind 4 (`@tailwindcss/vite`; the JS `tailwind.config.js` is loaded through `@config` in `src/index.css`), React Router 7 (`react-router-dom`) and Motion. Deployed as static files from `dist/` (Netlify).
 
 ## Commands
 
@@ -23,8 +23,8 @@ CI (`.github/workflows/ci-cd.yml`, Node 20) runs: `npm ci` → `lint` → `test:
 ## Architecture
 
 - `src/main.jsx` → `src/App.jsx`: `BrowserRouter` with three lazy routes. `/` is `components/Home`, `/blog` is `blog/Blog`, `/blog/:slug` is `blog/Post`. `Navbar` is shared and always loaded.
-- **Home (portfolio)**: `components/Home.jsx` composes `Hero`, `About`, `Experience`, `CurrentWork`, `Works`, `Contact`, and `canvas/Stars` (Three.js). Sections are wrapped with the `SectionWrapper` HOC (`src/hoc/`), which also sets the anchor `id` used by nav links (`#about`, etc.).
-- **Portfolio content** (nav links, services, experiences, projects) lives in `src/constants/index.js`. Edit it there, not in the components. Images are re-exported from `src/assets/index.js`.
+- **Home (portfolio)**: `components/Home.jsx` composes `Hero`, `About` (bio, a dated "Now" list, recognition), `Experience`, `Works` (projects) and `Contact`. Sections are wrapped with the `SectionWrapper` HOC (`src/hoc/`), which sets the anchor `id` used by nav links (`#about`, etc.) and never hides content until it scrolls into view. Experience and projects share `components/WorkList.jsx`: rows open in place, several can be open at once, and the open row is mirrored in the URL hash (`/#bustub`) so it can be linked. Home-only CSS lives in `src/home.css`; row diagrams are inline SVG in `components/Diagram.jsx`.
+- **Portfolio content** (nav links, profile links, the "Now" list, honors, experiences, projects) lives in `src/constants/index.js`. Edit it there, not in the components. Each entry has a one-line `line`, optional `detail` paragraphs, and `links` labeled by what they open (Paper, Code, Demo, Coverage…). Entry `id`s double as URL hashes, so keep them stable and distinct from section ids. Images are re-exported from `src/assets/index.js`; project screenshots live in `src/assets/work/`.
 - **Shared style strings** are in `src/styles.js`. Theme colors, fonts, and the `xs` breakpoint are in `tailwind.config.js`. Global CSS is in `src/index.css`, and blog-only CSS is in `src/blog/blog.css`.
 - **Blog**: `docs/blog.md` is the authoritative authoring guide. Read it before touching blog code or adding a post. Key points:
   - `src/blog/catalog.js` holds lightweight post metadata plus `selectPosts` / `formatDate`. Each post's body is dynamically imported from `src/blog/posts/<name>.js`.
@@ -36,10 +36,10 @@ CI (`.github/workflows/ci-cd.yml`, Node 20) runs: `npm ci` → `lint` → `test:
 
 ## Conventions and gotchas
 
-- **Keep the blog routes free of Three.js and other home-only imports.** The routes are split so that article visits don't download the canvas code.
-- **Animation imports come from `motion/react`**, not `framer-motion`, which is not a direct dependency.
+- **Keep the blog routes free of home-only imports.** The routes are split so that article visits don't download home code. (The home route no longer uses Three.js; don't reintroduce a WebGL canvas without pausing it offscreen and honoring reduced motion.)
+- **Animation imports come from `motion/react`**, not `framer-motion`, which is not a direct dependency. Animating `height: "auto"` makes Motion restore the scroll position after measuring, which cancels an in-progress anchor jump. That is why a deep-linked row renders already open (no height animation) and `Home` scrolls to it instantly on a fresh load only; Back/Forward is left to the browser's scroll restoration.
 - **Console output is stripped in builds** (Oxc `dropConsole`/`dropDebugger` under `build.rolldownOptions.output.minify` in `vite.config.js`). Don't rely on `console.*` for production diagnostics.
-- **ESLint 9** uses the flat config in `eslint.config.js`. It can't move to ESLint 10 yet because `eslint-plugin-react` only supports up to 9. `react/prop-types` is on, so blog components declare `propTypes`, even though React 19 no longer checks them at runtime. The React Compiler rules `react-hooks/refs` and `react-hooks/set-state-in-effect` are downgraded to warnings for existing effects in `Post`, `Hero`, `CurrentWork` and `TypewriterHeading`.
+- **ESLint 9** uses the flat config in `eslint.config.js`. It can't move to ESLint 10 yet because `eslint-plugin-react` only supports up to 9. `react/prop-types` is on, so blog components declare `propTypes`, even though React 19 no longer checks them at runtime. The React Compiler rules `react-hooks/refs` and `react-hooks/set-state-in-effect` are downgraded to warnings for existing effects in `Post` and `Hero`.
 - **Node/npm**: Node 24 is pinned in `.nvmrc`, and CI reads its version from that file. npm 12 blocks dependency install scripts unless they are listed under `allowScripts` in `package.json`. Only `fsevents` (via Vite) needs one. Entries are pinned to exact versions, so a version bump requires `npm install-scripts approve <pkg>` again.
 - **CSP** is a `<meta http-equiv>` in `index.html`. New third-party origins (scripts, fetch targets, fonts) must be added there or they will be blocked. Google Analytics (`gtag`) is loaded in `index.html`, and helpers are in `src/utils/analytics.js`.
 - **Env vars** (Vite, client-side, in `.env.local`, gitignored): `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` (Contact form) and `VITE_RESUME_URL` (`src/utils/secureUrl.js`). They end up in the bundle, so never put real secrets in `VITE_*`. `security-check.sh` greps `dist/` for leaked resume URLs.

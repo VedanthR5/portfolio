@@ -1,15 +1,4 @@
-import {
-  mobile,
-  backend,
-  creator,
-  web,
-} from "../assets";
-
 export const navLinks = [
-  {
-    id: "about",
-    title: "About",
-  },
   {
     id: "experience",
     title: "Experience",
@@ -19,239 +8,196 @@ export const navLinks = [
     title: "Projects",
   },
   {
+    id: "about",
+    title: "About",
+  },
+  {
     id: "contact",
     title: "Contact",
   },
-  // Removed the resume link
 ];
 
-const services = [
-  {
-    title: "Deep Learning Systems",
-    icon: web,
-  },
-  {
-    title: "Economics and Global Markets",
-    icon: mobile,
-  },
-  {
-    title: "Cybersecurity",
-    icon: backend,
-  },
-  {
-    title: "Algorithmic Programming",
-    icon: creator,
-  },
-];
-
-const companyLogos = {
-  google: "/google_logo_enhanced_upscaled.png",
-  civicduty: "/CD_Logo.png",
-  cmu: "/cmu_logo.png",
-  sandia: "/sandia.png",
+export const profile = {
+  email: "vedanth.ramanathan@gmail.com",
+  github: "https://github.com/VedanthR5",
+  linkedin: "https://www.linkedin.com/in/vedanthramanathan",
+  // Set VITE_RESUME_URL at build time to link the résumé directly; otherwise
+  // visitors are offered an email request instead.
+  resumeUrl: import.meta.env.VITE_RESUME_URL || null,
 };
 
-const experiences = [
+// What is true this term. Keep it short and dated; remove lines as they end.
+export const now = {
+  label: "Fall 2026",
+  items: [
+    {
+      text: "Teaching assistant for Computer Vision (16-385).",
+      href: "https://16385.courses.cs.cmu.edu/fall2026/courseinfo",
+    },
+    {
+      text: "Working with the CivicDuty team on legislative tracking for Georgia.",
+      href: "https://civicduty.app",
+    },
+  ],
+};
+
+export const honors = [
+  "USACO Platinum",
+  "D. E. Shaw Vector Fellow",
+  "Top 3, CMU Citadel Quant Invitational",
+  "McGinnis Venture Competition finalist (CivicDuty, 2026)",
+  "ACM@CMU hackathon winner",
+];
+
+// Each entry: `line` is what a skimmer needs; `detail` is for anyone who opens it.
+// Link labels say what the destination is (Paper, Code, Demo, Coverage…).
+export const experiences = [
   {
-    title: "Security Engineering Intern",
-    company_name: "Google",
-    date: "May 2026 - Aug 2026",
-    summary: "Incoming security engineering intern based in New York City.",
-    logo: companyLogos.google,
+    id: "project-zero",
+    org: "Google Project Zero",
+    role: "Software security engineering intern",
+    when: "May – Aug 2026",
+    place: "New York",
+    line: "Built a closed-loop fuzzing system for AV1 video decoders that autonomous agents can drive.",
+    detail: [
+      "Written in Python and Rust. The loop generates AV1 bitstreams, mutates them down to individual OBUs, runs them through decoder harnesses, and feeds sanitizer results back into the next round, with crash triage automated.",
+      "The difficult part was the encoder interface: it had to stay backward-compatible across more than 50,000 test cases so agents could drive the loop without breaking earlier work. I pushed for its use in continued agent-driven vulnerability research.",
+    ],
+    diagram: "fuzz",
+    links: [{ label: "Project Zero", href: "https://projectzero.google" }],
   },
   {
-    title: "Teaching Assistant - Computer Vision",
-    company_name: "Carnegie Mellon University",
-    website: "https://16385.courses.cs.cmu.edu/",
-    date: "Jan 2026 - Present",
-    summary:
-      "Supporting students in computer vision and deep learning through office hours, grading, and mentoring.",
-    logo: companyLogos.cmu,
+    id: "lei-li-lab",
+    org: "CMU Lei Li Lab",
+    role: "Undergraduate AI research assistant",
+    when: "May 2025 – Feb 2026",
+    place: "Pittsburgh",
+    line: "Extended DE-COP, a test for whether a language model was trained on specific copyrighted text.",
+    detail: [
+      "I benchmarked Mistral, Mixtral, LLaMA and GPT-family models using calibrated likelihood signals and AUC analysis, and built the PyTorch and Hugging Face pipeline for inference, calibration and evaluation. It reached 95% detection accuracy.",
+      "DE-COP itself is the lab's method (Duarte et al., ICML 2024); my work extended its evaluation across model families.",
+    ],
+    links: [
+      { label: "Lab", href: "https://leililab.github.io/" },
+      { label: "Original method (paper)", href: "https://arxiv.org/abs/2402.09910" },
+    ],
   },
   {
-    title: "Founding Engineer",
-    company_name: "CivicDuty",
-    website: "https://civicduty.app",
-    date: "Oct 2025 - Present",
-    summary:
-      "Building a legislative intelligence platform for tracking bills, votes, meetings, and local government activity.",
-    logo: companyLogos.civicduty,
+    id: "sandia",
+    org: "Sandia National Laboratories",
+    role: "Software engineering intern",
+    when: "May – Aug 2025",
+    place: "Livermore, CA",
+    line: "Cut network-telemetry ingestion time by 30% and built machine-learning threat detection for security analysts.",
+    detail: [
+      "The PostgreSQL ingestion pipeline streams DataFrames concurrently and tolerates schema drift in irregular telemetry.",
+      "For detection, I benchmarked models over more than 5,000 network flows and moved training and regression evaluation into CI/CD. I also built an AI-assisted toolkit that automates parts of incident investigation and triage.",
+    ],
+    links: [],
   },
   {
-    title: "LLM Security Research Assistant",
-    company_name: "Carnegie Mellon University",
-    website: "https://leililab.github.io/",
-    date: "May 2025 - Present",
-    summary:
-      "Researching applied AI systems with an emphasis on reliable models and anti jailbreaking in the Lei Li Lab.",
-    logo: companyLogos.cmu,
-  },
-  {
-    title: "Software Engineer Intern",
-    company_name: "Sandia National Laboratories",
-    date: "May 2025 - Aug 2025",
-    summary:
-      "Built security and AI tooling across incident response, threat-log retrieval, and DDoS detection workflows.",
-    logo: companyLogos.sandia,
+    id: "georgia-tech",
+    org: "Georgia Tech Institute for Information Security & Privacy",
+    role: "Principal research assistant",
+    when: "2023 – 2025",
+    place: "Atlanta",
+    line: "First author of a paper on a small CNN that detects DDoS traffic at the network edge.",
+    detail: [
+      "A PyShark pipeline turns raw CIC-DDoS2019 packet captures into normalized, fixed-length bidirectional flows. The compact CNN reached 98.83% accuracy and 0.982 F1 on held-out traffic and classified the whole test set in 0.28 seconds.",
+      "I also built honeypot pipelines that sustained more than 100,000 security events an hour.",
+    ],
+    diagram: "flow",
+    links: [
+      { label: "Paper", href: "https://arxiv.org/abs/2309.05646" },
+      {
+        label: "Code",
+        href: "https://github.com/VedanthR5/A-Novel-Deep-Learning-Solution-to-detect-DDoS-attacks-using-Neural-Networks",
+      },
+    ],
   },
 ];
 
-const projects = [
+export const projects = [
   {
-    name: "Neural Network for Skin Cancer Detection",
-    description:
-      "Deep learning pipeline for HAM10000 skin-lesion classification with augmentation, imbalance handling, and melanoma-focused evaluation.",
-    tags: [
-      {
-        name: "PyTorch",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Keras",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Deep Learning",
-        color: "pink-text-gradient",
-      },
+    id: "bustub",
+    featured: true,
+    org: "BusTub",
+    role: "Database engine in C++",
+    when: "2026",
+    line: "An ACID database engine for CMU's database systems course; 5th among 190+ implementations on the performance benchmark.",
+    detail: [
+      "Thread-safe buffer pool, B+ tree index, vectorized execution, concurrency control and custom query-optimizer rules.",
+      "Tuning for concurrent and OLAP workloads raised throughput by more than 50%. The implementation is private; the course's starter codebase is public.",
     ],
-    demo_link: "https://docs.google.com/presentation/d/17k3rfrBu-ShUnvRCkQ0N9p9d9BurqgM_/edit?usp=sharing&ouid=115317224396364574547&rtpof=true&sd=true",
-    source_code_link: "https://github.com/VedanthR5/C-NN-ancerDetect",
+    diagram: "db",
+    links: [{ label: "Course starter code", href: "https://github.com/cmu-db/bustub" }],
   },
   {
-    name: "v2v's zetamac",
-    description:
-      "Zero-dependency mental math trainer for quant prep with URL-shareable configs and post-game weakness analysis.",
-    tags: [
-      {
-        name: "JavaScript",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Analytics",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Education",
-        color: "pink-text-gradient",
-      },
+    id: "foodcycle",
+    featured: true,
+    org: "FoodCycle",
+    role: "Surplus-food distribution, team of four",
+    when: "2023 – 2026",
+    line: "Matched vendors' surplus food with partner hubs; won the 2023 Congressional App Challenge for Texas's 37th district.",
+    detail: [
+      "The contest entry was a React and AWS Amplify marketplace built with three classmates. For the later Flutter, Node.js and Google Cloud version, which coordinated pickups between vendors and partner hubs, I built the vendor dashboard and backend; it supported delivery of more than 3,000 meals across Central Texas.",
     ],
-    demo_link: "https://vedanthr5.github.io/v2v-Zetamac/",
-    source_code_link: "https://vedanthr5.github.io/v2v-Zetamac/",
+    links: [
+      { label: "Award", href: "https://www.congressionalappchallenge.us/23-tx37/" },
+      {
+        label: "Coverage (KXAN)",
+        href: "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
+      },
+      { label: "Demo video", href: "https://www.youtube.com/watch?v=ZtAP1khv5Nw" },
+      { label: "Code (2023)", href: "https://github.com/VedanthR5/FoodCycle" },
+    ],
   },
   {
-    name: "BusTub Relational Database",
-    description:
-      "CMU BusTub RDBMS implementation <b>ranked 5th out of 200 students</b> after performance-tuning storage, indexing, execution, and query-optimization paths.",
-    tags: [
-      {
-        name: "C++",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Database Systems",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Query Optimization",
-        color: "pink-text-gradient",
-      },
-      {
-        name: "Concurrency",
-        color: "blue-text-gradient",
-      },
+    id: "zetamac",
+    featured: true,
+    org: "v2v's zetamac",
+    role: "Mental-math trainer",
+    when: "2025",
+    line: "A dependency-free arithmetic drill for quant interview prep. After each round it finds your slowest operation and drills it.",
+    detail: [
+      "Plain HTML, CSS and JavaScript. Settings are encoded in the URL, so a drill can be shared as a link, and the post-game table times every problem, then switches to practice mode for the slowest category.",
     ],
-    source_code_link: "https://github.com/VedanthR5/bustub-private",
-    private: true,
+    image: "zetamac",
+    links: [
+      { label: "Demo", href: "https://vedanthr5.github.io/v2v-Zetamac/" },
+      { label: "Code", href: "https://github.com/VedanthR5/v2v-Zetamac" },
+    ],
   },
   {
-    name: "Quantfolio Trading Dashboard",
-    description:
-      "Interactive Streamlit quant toolkit for stock analysis, PyCaret model comparison, ARIMA/NeuralProphet forecasting, and Riskfolio-Lib portfolio optimization.",
-    tags: [
-      {
-        name: "Streamlit",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "PyCaret",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Riskfolio-Lib",
-        color: "pink-text-gradient",
-      },
-      {
-        name: "Plotly",
-        color: "blue-text-gradient",
-      },
+    id: "quantfolio",
+    org: "Quantfolio",
+    role: "Portfolio analysis toolkit",
+    when: "2026",
+    line: "A Streamlit app for comparing forecasting models and optimizing portfolios.",
+    links: [
+      { label: "Demo (may take a minute to wake)", href: "https://vrquantfolio.streamlit.app/" },
+      { label: "Code", href: "https://github.com/VedanthR5/Quantfolio-Optimization" },
     ],
-    demo_link: "https://vrquantfolio.streamlit.app/",
-    source_code_link: "https://github.com/VedanthR5/quantfolio",
   },
   {
-    name: "DDoS Attack Detection using Neural Networks",
-    description:
-      "Machine-learning system for detecting DDoS attacks from network-flow patterns using CNN-based classification.",
-    tags: [
-      {
-        name: "TensorFlow",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Research",
-        color: "pink-text-gradient",
-      },
-      {
-        name: "Cybersecurity",
-        color: "green-text-gradient",
-      },
-    ],
-    source_code_link: "https://arxiv.org/abs/2309.05646",
-  },
-
-  {
-    name: "FoodCycle App",
-    description:
-      "Congressional App Challenge-winning food waste marketplace connecting surplus inventory with community buyers.",
-    tags: [
-      {
-        name: "React Native",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "AWS Amplify",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Social Impact",
-        color: "pink-text-gradient",
-      },
-    ],
-    source_code_link:
-      "https://www.kxan.com/news/local/austin/four-teens-get-u-s-recognition-for-app-development-on-food-waste-and-insecurity/",
+    id: "portkey",
+    org: "portkey",
+    role: "Intent router",
+    when: "2025",
+    line: "Turns a typed intent into an action by routing it to the right tool.",
+    links: [{ label: "Code", href: "https://github.com/VedanthR5/portkey" }],
   },
   {
-    name: "Austin Divided: Road to Recovery",
-    hidden: true, // Temporarily hidden from the selected-work grid.
-    description:
-      "Investigative magazine analyzing Austin's urban planning history, gentrification, and community-level recovery through historical and economic lenses.",
-    tags: [
+    id: "skin-lesion",
+    org: "Skin-lesion classifier",
+    role: "Independent study",
+    when: "2023 – 2024",
+    line: "Compared a custom CNN with Inception v3 on the HAM10000 dermatoscopy dataset, reporting accuracy per lesion class.",
+    links: [
       {
-        name: "Journalism",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "Social Justice",
-        color: "green-text-gradient",
-      },
-      {
-        name: "Urban Planning",
-        color: "pink-text-gradient",
+        label: "Presentation",
+        href: "https://docs.google.com/presentation/d/17k3rfrBu-ShUnvRCkQ0N9p9d9BurqgM_/edit?usp=sharing",
       },
     ],
-    source_code_link: "https://issuu.com/lasaezine/docs/austin_divided",
   },
 ];
-
-export { services, experiences, projects };
