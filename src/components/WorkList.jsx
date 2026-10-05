@@ -50,6 +50,31 @@ const EvidenceLinks = ({ entry }) =>
     </ul>
   );
 
+// The organization's mark in the row's rail. If the file ever fails to load,
+// a monogram with the same accessible name takes its place.
+const OrgLogo = ({ logo }) => {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <span className="work-logo is-fallback" role="img" aria-label={logo.alt}>
+        {logo.monogram}
+      </span>
+    );
+  }
+  return (
+    <img
+      className="work-logo"
+      src={logo.src}
+      width={logo.width}
+      height={logo.height}
+      alt={logo.alt}
+      decoding="async"
+      style={logo.scale ? { "--logo-scale": logo.scale } : undefined}
+      onError={() => setFailed(true)}
+    />
+  );
+};
+
 const Artifact = ({ entry }) => {
   if (entry.diagram) {
     return (
@@ -98,7 +123,10 @@ const WorkItem = ({ entry, isOpen, hasArrived, onToggle }) => {
       onKeyDown={closeOnEscape}
     >
       <div className="work-head" onClick={toggleFromHead}>
-        <p className="work-when">{entry.when}</p>
+        <div className={`work-rail${entry.logo ? " has-logo" : ""}`}>
+          {entry.logo && <OrgLogo logo={entry.logo} />}
+          <p className="work-when">{entry.when}</p>
+        </div>
         <div className="work-main">
           <h3 className="work-title">
             {expandable ? (
@@ -167,9 +195,19 @@ const CompactItem = ({ entry }) => (
   </li>
 );
 
+const logoShape = PropTypes.shape({
+  src: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  alt: PropTypes.string.isRequired,
+  monogram: PropTypes.string.isRequired,
+  scale: PropTypes.number,
+});
+
 const entryShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
   org: PropTypes.string.isRequired,
+  logo: logoShape,
   role: PropTypes.string.isRequired,
   when: PropTypes.string.isRequired,
   place: PropTypes.string,
@@ -183,6 +221,7 @@ const entryShape = PropTypes.shape({
   ).isRequired,
 });
 
+OrgLogo.propTypes = { logo: logoShape.isRequired };
 EvidenceLinks.propTypes = { entry: entryShape.isRequired };
 Artifact.propTypes = { entry: entryShape.isRequired };
 CompactItem.propTypes = { entry: entryShape.isRequired };

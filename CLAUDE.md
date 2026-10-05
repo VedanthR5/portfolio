@@ -46,3 +46,4 @@ CI (`.github/workflows/ci-cd.yml`, Node 20) runs: `npm ci` → `lint` → `test:
 - **SPA fallback**: `public/_redirects` (`/* /index.html 200`). Generated static files under `dist/blog/` take precedence.
 - Site origin `https://vedanthramanathan.com` is hardcoded in `pageMeta.js` and `build-blog.mjs`.
 - `dist/` is build output and is gitignored. Don't commit it.
+- **Experience logos** are self-hosted in `src/assets/logos/` (exported from `src/assets/index.js`) and attached to entries as `logo` in `src/constants/index.js` with `alt`, intrinsic `width`/`height`, a `monogram` fallback, and an optional optical `scale`. `WorkList` renders them in the row's rail as one monochrome silhouette; prefer an organization's symbol over a long wordmark, with a transparent background (an opaque background turns into a white box under the filter).
