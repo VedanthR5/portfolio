@@ -1,4 +1,37 @@
-import { regentsPark300, regentsPark600 } from "../assets";
+import {
+  regentsPark300,
+  regentsPark600,
+  carnegieMellonLogo,
+  civicdutyLogo,
+  georgiaTechLogo,
+  googleLogo,
+  sandiaLogo,
+} from "../assets";
+
+// Organization marks for the Experience rail. Files are self-hosted (no
+// hotlinks); width and height are the intrinsic size so the box is reserved
+// before the image decodes, `monogram` stands in if a file ever fails, and the
+// optional `scale` evens out optical weight between marks and wordmarks.
+const logos = {
+  carnegieMellon: {
+    src: carnegieMellonLogo,
+    width: 576,
+    height: 101,
+    alt: "Carnegie Mellon University logo",
+    monogram: "CMU",
+  },
+  // Solid letterforms read heavier than the wordmarks, so this one sits smaller.
+  civicduty: { src: civicdutyLogo, width: 174, height: 96, alt: "CivicDuty logo", monogram: "CD", scale: 0.8 },
+  google: { src: googleLogo, width: 24, height: 24, alt: "Google logo", monogram: "G" },
+  sandia: {
+    src: sandiaLogo,
+    width: 96,
+    height: 96,
+    alt: "Sandia National Laboratories logo",
+    monogram: "SNL",
+  },
+  georgiaTech: { src: georgiaTechLogo, width: 176, height: 111, alt: "Georgia Tech logo", monogram: "GT" },
+};
 
 export const navLinks = [
   {
@@ -95,6 +128,7 @@ export const experiences = [
   {
     id: "computational-finance",
     org: "CMU Center for Computational Finance",
+    logo: logos.carnegieMellon,
     role: "Quantitative research",
     when: "Current",
     line: "Researching trading signals in company earnings calls with Professor Lars-Alexander Kuehn.",
@@ -106,6 +140,7 @@ export const experiences = [
   {
     id: "civicduty",
     org: "CivicDuty",
+    logo: logos.civicduty,
     role: "Chief operating officer",
     when: "Aug 2025 – now",
     line: "A legislative-tracking platform for Georgia: bills, votes, meetings and representatives, expanding one county at a time.",
@@ -123,6 +158,7 @@ export const experiences = [
   {
     id: "project-zero",
     org: "Google Project Zero",
+    logo: logos.google,
     role: "Software security engineering intern",
     when: "May – Aug 2026",
     place: "New York",
@@ -137,6 +173,7 @@ export const experiences = [
   {
     id: "lei-li-lab",
     org: "CMU Lei Li Lab",
+    logo: logos.carnegieMellon,
     role: "Undergraduate AI research assistant",
     when: "May 2025 – Feb 2026",
     place: "Pittsburgh",
@@ -153,6 +190,7 @@ export const experiences = [
   {
     id: "sandia",
     org: "Sandia National Laboratories",
+    logo: logos.sandia,
     role: "Software engineering intern",
     when: "May – Aug 2025",
     place: "Livermore, CA",
@@ -166,6 +204,7 @@ export const experiences = [
   {
     id: "georgia-tech",
     org: "Georgia Tech Institute for Information Security & Privacy",
+    logo: logos.georgiaTech,
     role: "Principal research assistant",
     when: "May 2023 – Feb 2025",
     place: "Atlanta",

@@ -323,6 +323,65 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The rail: an organization's mark sits with its dates. Marks share one
+   height and a width cap, and render as a single soft silhouette so mixed
+   brand colors read as one set against the page; a row that is hovered or
+   open shows its mark at full strength. */
+.work-rail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.work-logo {
+  display: block;
+  flex: none;
+  width: auto;
+  height: calc(18px * var(--logo-scale, 1));
+  max-width: 96px;
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(0) invert(1);
+  opacity: 0.68;
+  transition: opacity 0.2s ease-out;
+}
+
+.work-item:hover .work-logo,
+.work-item.is-open .work-logo {
+  opacity: 1;
+}
+
+.work-logo.is-fallback {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  border: 1px solid var(--home-line);
+  border-radius: 6px;
+  color: var(--home-ink);
+  font-family: "Space Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-logo {
+    transition: none;
+  }
+}
+
+/* High-contrast modes ignore the silhouette filter; give marks a light plate
+   so dark logos stay visible on a forced dark background. */
+@media (forced-colors: active) {
+  .work-logo {
+    filter: none;
+    opacity: 1;
+    padding: 2px;
+    background: #fff;
+    border-radius: 4px;
+  }
+}
+
 .work-title button {
   display: flex;
   flex-wrap: wrap;
@@ -500,6 +559,26 @@
 
   .work-when {
     padding-top: 6px;
+  }
+
+  .work-rail {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Mark first, aligned with the title; dates sit beneath it. */
+  .work-rail.has-logo {
+    padding-top: 6px;
+  }
+
+  .work-rail.has-logo .work-when {
+    padding-top: 0;
+  }
+
+  .work-logo {
+    height: calc(22px * var(--logo-scale, 1));
+    max-width: 120px;
   }
 
   .work-detail-inner {
