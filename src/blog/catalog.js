@@ -7,6 +7,12 @@ export const posts = [
     description: "On learning the fundamentals, questioning the uses of AI, and keeping public decisions open to scrutiny.",
     date: "2026-10-22",
     tags: ["AI", "Society"],
+    cover: {
+      src: "/blog/ai-information-apertures.webp",
+      alt: "Cobalt architectural planes with coral and ivory openings onto a distant landscape.",
+      width: 1672, height: 941,
+      accent: "coral",
+    },
     load: () => import("./posts/hassabis.js"),
   },
   {
@@ -16,6 +22,12 @@ export const posts = [
     description: "How Warsh’s Jackson Hole speech set up September’s rate increase.",
     date: "2026-09-20",
     tags: ["Economics", "Institutions"],
+    cover: {
+      src: "/blog/jackson-hole-dawn.webp",
+      alt: "Slate-blue Tetons above Jackson Lake, lit by a muted gold dawn.",
+      width: 1672, height: 941,
+      accent: "gold",
+    },
     load: () => import("./posts/warsh.js"),
   },
 ];

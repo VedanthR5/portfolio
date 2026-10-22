@@ -1,6 +1,6 @@
 # Writing and maintaining the blog
 
-The blog lives at `/blog`; articles live at `/blog/:slug`. It uses the existing React, React Router, and Motion stack. The palette and typography follow the portfolio, with CSS artwork and restrained scroll reveals.
+The blog lives at `/blog`; articles live at `/blog/:slug`. It uses the existing React, React Router, and Motion stack. A dark frame and purple links connect it to the portfolio. Source Serif 4 carries headlines and reading text; Poppins remains the interface face. Each story has its own editorial cover and a restrained accent color.
 
 ## Architecture
 
@@ -17,6 +17,7 @@ The home, index, and article routes are lazy-loaded independently. Keep Three.js
 
 1. Create a module such as `src/blog/posts/example.js` that exports an article object as its default export.
 2. Add an entry to `posts` in `catalog.js` with a unique lowercase hyphenated `slug`, `title`, `subtitle`, `description`, ISO `date` (`YYYY-MM-DD`), `tags`, and `load: () => import("./posts/example.js")`. `status` is optional: omit it for a finished essay without a badge.
+   Include `cover: { src, alt, width, height, accent }`. Store a WebP at the local `/blog/` path, describe its subject in `alt`, and use its intrinsic dimensions. Supported accents are `coral` and `gold`. Add new accents to the scoped CSS and content validation together. Record cover provenance in `public/blog/README.md`.
 3. Include `lede`, `sources`, and `sections` in the article object; `note` is optional. Each section needs a unique lowercase hyphenated `id`, a `title`, and a `paragraphs` array. Reserve the IDs `sources` and `content` for the page itself.
 4. Add citations next to the claims they support. Run the content tests and build, then check the article on desktop and mobile.
 
@@ -60,7 +61,9 @@ For a continuous essay, set `layout: "essay"` on the article. Section headings r
 
 Hovering or focusing a citation link opens its preview. The original link still opens the source in a new tab. Use ArrowDown or activate the adjacent preview button to enter the preview with the keyboard; Escape closes it and returns focus. The explicit button also makes previews available on touchscreens. Verify that the pointer can move from the citation into the card without dismissing it.
 
-Sections have stable fragment links and fixed-navbar offsets. Contents navigation becomes a disclosure on narrow screens. Focus mode hides the decorative article artwork. Readers who request reduced motion receive static artwork and no animated scrolling or reveal motion. Print styles remove navigation and artwork and expose source URLs.
+Sections have stable fragment links and fixed-navbar offsets. Contents navigation becomes a disclosure on narrow screens. Focus mode hides the article cover. Readers who request reduced motion receive no animated scrolling, cover zoom, or reveal motion. Print styles remove navigation and artwork and expose source URLs.
+
+The first result is featured; remaining results become compact archive rows. Filtering and sorting change that ordering without changing each story's cover or accent. The first cover loads eagerly; other covers load lazily. Covers declare dimensions, use object-fit cropping, and never contain the article title. The self-hosted Source Serif 4 assets and license live under `public/fonts/source-serif-4/`; their CSS loads with the blog routes only.
 
 Article text remains visible throughout scrolling; reveals apply only to the header and artwork. Preview focus changes must use `preventScroll`, and toggling focus mode preserves the reading position. Canonical URLs, social page types, and Blog navigation matching share `pageMeta.js`; test both slash and non-slash routes.
 
