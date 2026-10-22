@@ -16,7 +16,6 @@ export const posts = [
     description: "How Warsh’s Jackson Hole speech set up September’s rate increase.",
     date: "2026-09-20",
     tags: ["Economics", "Institutions"],
-    status: "Working draft",
     load: () => import("./posts/warsh.js"),
   },
 ];
