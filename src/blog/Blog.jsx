@@ -37,7 +37,7 @@ export default function Blog() {
       {results.map((post, i) => <Reveal key={post.slug} delay={i * 0.06}>
         <Link className="essay-card" to={`/blog/${post.slug}`} state={{ from: `/blog${params.size ? `?${params}` : ""}` }}>
           <div className="essay-copy">
-            <div className="eyebrow"><span>{post.tags.join(" / ")}</span><span className="draft-pill">{post.status}</span></div>
+            <div className="eyebrow"><span>{post.tags.join(" / ")}</span>{post.status && <span className="draft-pill">{post.status}</span>}</div>
             <h2>{post.title}</h2><p className="essay-subtitle">{post.subtitle}</p>
             <p className="essay-description">{post.description}</p>
             <div className="essay-meta"><time dateTime={post.date}>{formatDate(post.date)}</time><span className="read-link">Read the essay <span aria-hidden="true">↗</span></span></div>

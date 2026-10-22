@@ -80,6 +80,14 @@
 .article-body blockquote { margin: 35px 0; padding: 28px 0 28px 27px; border-left: 2px solid #9e79de; }
 .article-body blockquote > p { font-family: "Poppins", sans-serif; font-size: 23px; line-height: 1.55; color: #e5d8ff; margin-bottom: 18px; }
 .article-body blockquote footer { font-size: 11px; color: var(--muted); }
+/* Continuous essays keep their section anchors without adding visible headings. */
+.journal-essay .article-body section:not(.source-list) { margin-bottom: 0; }
+.journal-essay .article-body > p,
+.journal-essay .article-body section:not(.source-list) > p { font-size: 17px; line-height: 1.85; }
+.journal-essay .article-body .article-lede { font-size: 20px; line-height: 1.65; }
+.journal-essay .article-pullquote { margin: 42px 0; padding: 10px 0 10px 26px; }
+.journal-essay .article-pullquote > p { font-size: clamp(21px,2.2vw,26px); line-height: 1.6; letter-spacing: -.02em; text-wrap: pretty; }
+.journal-essay .article-pullquote footer { font-size: 12px; line-height: 1.8; }
 .citation > a { color: #ccb4ff; text-decoration: underline; text-decoration-color: #b197df66; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .citation > a:hover { color: #e9ddff; text-decoration-color: #e9ddff; }
 .citation-toggle { color: #bfa2f0; font-size: 11px; vertical-align: baseline; padding: 0 5px; border-radius: 3px; min-height: 26px; min-width: 24px; }
