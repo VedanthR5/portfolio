@@ -16,8 +16,8 @@ The home, index, and article routes are lazy-loaded independently. Keep Three.js
 ## Add an article
 
 1. Create a module such as `src/blog/posts/example.js` that exports an article object as its default export.
-2. Add an entry to `posts` in `catalog.js` with a unique lowercase hyphenated `slug`, `title`, `subtitle`, `description`, ISO `date` (`YYYY-MM-DD`), `tags`, `status`, and `load: () => import("./posts/example.js")`.
-3. Include `note`, `lede`, `sources`, and `sections` in the article object. Each section needs a unique lowercase hyphenated `id`, a `title`, and a `paragraphs` array. Reserve the IDs `sources` and `content` for the page itself.
+2. Add an entry to `posts` in `catalog.js` with a unique lowercase hyphenated `slug`, `title`, `subtitle`, `description`, ISO `date` (`YYYY-MM-DD`), `tags`, and `load: () => import("./posts/example.js")`. `status` is optional: omit it for a finished essay without a badge.
+3. Include `lede`, `sources`, and `sections` in the article object; `note` is optional. Each section needs a unique lowercase hyphenated `id`, a `title`, and a `paragraphs` array. Reserve the IDs `sources` and `content` for the page itself.
 4. Add citations next to the claims they support. Run the content tests and build, then check the article on desktop and mobile.
 
 Tags automatically become filter choices. Search covers metadata and tags, keeping article bodies out of the initial index payload. Supported sort values are `newest`, `oldest`, and `title`.
@@ -48,11 +48,13 @@ export default {
 };
 ```
 
-Citation markup is `[[sourceKey|visible label]]`. The key must exist in the same article's `sources` map. Use HTTPS URLs and concise summaries written in your own words. Identify reporting, opinion, and primary sources through `kind`; mention subscription requirements when appropriate. Preview summaries are not live extracts or substitutes for reading the source.
+Citation markup is `[[sourceKey|visible label]]`, supported in both the lede and paragraphs. The key must exist in the same article's `sources` map. Use HTTPS URLs and concise summaries written in your own words. Identify reporting, opinion, and primary sources through `kind`; mention subscription requirements when appropriate. Preview summaries are not live extracts or substitutes for reading the source.
 
 Source dates are optional when the publication date is unknown. Omit the date rather than guessing; known dates use `YYYY-MM-DD`. Article publication dates remain required.
 
 A section can include `quote`, `quoteSource`, and `quoteAttribution` (for example, `Speaker · event`). Verify quotations against the cited document. The sources heading is numbered automatically after the article sections.
+
+For a continuous essay, set `layout: "essay"` on the article. Section headings remain available to assistive technology and the contents navigation, but do not interrupt the visible prose. This layout uses a comfortable body size and a larger pullout quote, retaining the site's existing typeface and palette. Put a quote at the end of the section where it belongs in the reading flow.
 
 ## Interaction and accessibility checks
 

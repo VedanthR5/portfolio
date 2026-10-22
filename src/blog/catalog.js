@@ -1,13 +1,21 @@
 // Metadata stays small; article bodies load only when a reader opens a post.
 export const posts = [
   {
+    slug: "who-gets-to-decide-what-ai-is-for",
+    title: "Who gets to decide what AI is for?",
+    subtitle: "Demis Hassabis’s optimism, the dissent within DeepMind, and why learning how AI works cannot wait.",
+    description: "On learning the fundamentals, questioning the uses of AI, and keeping public decisions open to scrutiny.",
+    date: "2026-10-22",
+    tags: ["AI", "Society"],
+    load: () => import("./posts/hassabis.js"),
+  },
+  {
     slug: "warsh-and-the-independent-fed",
     title: "The skeptic inherits the Fed.",
     subtitle: "Kevin Warsh, Jackson Hole, and the lonely work of saying no.",
     description: "How Warsh’s Jackson Hole speech set up September’s rate increase.",
     date: "2026-09-20",
     tags: ["Economics", "Institutions"],
-    status: "Working draft",
     load: () => import("./posts/warsh.js"),
   },
 ];

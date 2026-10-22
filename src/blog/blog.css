@@ -22,6 +22,7 @@
 .search-field input::placeholder { color: #918aa9; }
 .search-sort select { font-size: 11px; background: #050816; color: var(--muted); max-width: 116px; padding: 8px 3px; }
 .essay-card { display: grid; grid-template-columns: 1.12fr 1fr; min-height: 390px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(120deg,rgba(28,21,51,.6),rgba(9,10,28,.9)); overflow: hidden; transition: border-color .3s,background .3s; }
+.essay-entry + .essay-entry { margin-top: 24px; }
 .essay-card:hover { border-color: rgba(182,154,255,.45); }
 .essay-copy { padding: 38px; position: relative; z-index: 1; }
 .draft-pill { display: inline-block; border: 1px solid #54426d; border-radius: 4px; padding: 3px 7px; font-size: 11px !important; color: #c8b4e4; letter-spacing: .035em !important; font-weight: 400; }
@@ -80,6 +81,14 @@
 .article-body blockquote { margin: 35px 0; padding: 28px 0 28px 27px; border-left: 2px solid #9e79de; }
 .article-body blockquote > p { font-family: "Poppins", sans-serif; font-size: 23px; line-height: 1.55; color: #e5d8ff; margin-bottom: 18px; }
 .article-body blockquote footer { font-size: 11px; color: var(--muted); }
+/* Continuous essays keep their section anchors without adding visible headings. */
+.journal-essay .article-body section:not(.source-list) { margin-bottom: 0; }
+.journal-essay .article-body > p,
+.journal-essay .article-body section:not(.source-list) > p { font-size: 17px; line-height: 1.85; }
+.journal-essay .article-body .article-lede { font-size: 20px; line-height: 1.65; }
+.journal-essay .article-pullquote { margin: 42px 0; padding: 10px 0 10px 26px; }
+.journal-essay .article-pullquote > p { font-size: clamp(21px,2.2vw,26px); line-height: 1.6; letter-spacing: -.02em; text-wrap: pretty; }
+.journal-essay .article-pullquote footer { font-size: 12px; line-height: 1.8; }
 .citation > a { color: #ccb4ff; text-decoration: underline; text-decoration-color: #b197df66; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .citation > a:hover { color: #e9ddff; text-decoration-color: #e9ddff; }
 .citation-toggle { color: #bfa2f0; font-size: 11px; vertical-align: baseline; padding: 0 5px; border-radius: 3px; min-height: 26px; min-width: 24px; }

@@ -62,32 +62,39 @@ test("every lazy article has valid metadata, sections, and source references", a
     assert.match(post.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
     assert.ok(!slugs.has(post.slug), `Duplicate slug: ${post.slug}`);
     slugs.add(post.slug);
-    for (const field of ["title", "subtitle", "description", "status"]) {
+    for (const field of ["title", "subtitle", "description"]) {
       assert.ok(typeof post[field] === "string" && post[field].trim(), `${post.slug}: missing ${field}`);
     }
+    if (post.status !== undefined) assert.ok(typeof post.status === "string" && post.status.trim());
     assert.match(post.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(`${post.date}T00:00:00Z`).toISOString().slice(0, 10), post.date);
     assert.ok(post.tags.length && post.tags.every((tag) => typeof tag === "string" && tag.trim()));
     assert.equal(new Set(post.tags).size, post.tags.length, "No duplicate tags");
     assert.equal(typeof post.load, "function");
     const { default: article } = await post.load();
-    assert.ok(article.lede && article.note && article.sections.length);
+    assert.ok(article.lede && article.sections.length);
+    if (article.note !== undefined) assert.ok(typeof article.note === "string" && article.note.trim());
+    if (article.layout !== undefined) assert.equal(article.layout, "essay");
     const ids = new Set(["sources", "content"]);
     const references = new Set();
+    const validateCitations = (text) => {
+      assert.equal(typeof text, "string");
+      const citation = /\[\[([^|\]]+)\|([^\]]+)\]\]/g;
+      for (const match of text.matchAll(citation)) {
+        assert.ok(article.sources[match[1]], `Missing citation: ${match[1]}`);
+        assert.ok(match[2].trim(), "Citation labels must not be empty");
+        references.add(match[1]);
+      }
+      assert.ok(!text.replace(citation, "").includes("[["), "Malformed citation");
+    };
+    validateCitations(article.lede);
     for (const section of article.sections) {
       assert.match(section.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
       assert.ok(!ids.has(section.id), `Duplicate or reserved section ID: ${section.id}`);
       ids.add(section.id);
       assert.ok(section.title && section.paragraphs.length);
       for (const paragraph of section.paragraphs) {
-        assert.equal(typeof paragraph, "string");
-        const citation = /\[\[([^|\]]+)\|([^\]]+)\]\]/g;
-        for (const match of paragraph.matchAll(citation)) {
-          assert.ok(article.sources[match[1]], `Missing citation: ${match[1]}`);
-          assert.ok(match[2].trim(), "Citation labels must not be empty");
-          references.add(match[1]);
-        }
-        assert.ok(!paragraph.replace(citation, "").includes("[["), `Malformed citation in ${section.id}`);
+        validateCitations(paragraph);
       }
       if (section.quote) {
         assert.ok(article.sources[section.quoteSource], `Missing quote source: ${section.quoteSource}`);

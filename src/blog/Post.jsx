@@ -72,11 +72,11 @@ function Article({ post, article }) {
   const sourcesLabel = `${String(article.sections.length + 1).padStart(2, "0")} / Sources & further reading`;
   const contents = <>{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} aria-current={active === section.id ? "location" : undefined}>{section.title}</a>)}<a href="#sources" aria-current={active === "sources" ? "location" : undefined}>{sourcesLabel}</a></>;
 
-  return <article ref={articleRef} className={`journal journal-post ${focusMode ? "focus-reading" : ""}`}>
+  return <article ref={articleRef} className={`journal journal-post ${article.layout === "essay" ? "journal-essay" : ""} ${focusMode ? "focus-reading" : ""}`}>
     <motion.div className="reading-progress" aria-hidden="true" style={{ scaleX: scrollYProgress }} />
     <Reveal><div className="post-topline"><Link to={returnTo}>← All writing</Link><span className="eyebrow">{post.tags.join(" / ")}</span></div></Reveal>
     <Reveal className="post-header" delay={0.04}>
-      <span className="draft-pill">{post.status}</span>
+      {post.status && <span className="draft-pill">{post.status}</span>}
       <h1>{post.title}</h1><p className="post-subtitle">{post.subtitle}</p>
       <div className="post-byline"><span>Vedanth Ramanathan</span><time dateTime={post.date}>{formatDate(post.date)}</time><span>{Math.max(1, Math.ceil(wordCount / 220))} min read</span></div>
     </Reveal>
@@ -87,12 +87,12 @@ function Article({ post, article }) {
       </aside>
       <div className="article-body">
         <details className="mobile-contents"><summary>In this essay</summary><nav aria-label="Article contents on mobile">{contents}</nav></details>
-        <p className="editor-note">{article.note}</p>
-        <p className="article-lede">{article.lede}</p>
+        {article.note && <p className="editor-note">{article.note}</p>}
+        <p className="article-lede"><InlineText text={article.lede} sources={article.sources} /></p>
         {article.sections.map((section) => <section key={section.id} id={section.id}>
-          <h2><a href={`#${section.id}`}>{section.title}</a></h2>
+          <h2 className={article.layout === "essay" ? "sr-only" : undefined}>{article.layout === "essay" ? section.title : <a href={`#${section.id}`}>{section.title}</a>}</h2>
           {section.paragraphs.map((paragraph, index) => <p key={index}><InlineText text={paragraph} sources={article.sources} /></p>)}
-          {section.quote && <blockquote><p>“{section.quote}”</p><footer><Citation source={article.sources[section.quoteSource]}>{section.quoteAttribution || article.sources[section.quoteSource].publisher}</Citation></footer></blockquote>}
+          {section.quote && <blockquote className="article-pullquote"><p>“{section.quote}”</p><footer><Citation source={article.sources[section.quoteSource]}>{section.quoteAttribution || article.sources[section.quoteSource].publisher}</Citation></footer></blockquote>}
         </section>)}
         <section id="sources" className="source-list"><h2>{sourcesLabel}</h2><p>Primary documents and reporting behind this essay. Previews are editorial summaries, not live extracts.</p>
           <ol>{Object.entries(article.sources).map(([id, source], index) => <li key={id}><span className="source-number">{String(index + 1).padStart(2, "0")}</span><div><Citation source={source}>{source.title}</Citation><p>{source.publisher}{source.date && ` · ${formatDate(source.date)}`}</p></div></li>)}</ol>
