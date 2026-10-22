@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { posts, topics, selectPosts, formatDate } from "../src/blog/catalog.js";
 import { getRouteMeta } from "../src/blog/pageMeta.js";
 
@@ -66,6 +67,13 @@ test("every lazy article has valid metadata, sections, and source references", a
       assert.ok(typeof post[field] === "string" && post[field].trim(), `${post.slug}: missing ${field}`);
     }
     if (post.status !== undefined) assert.ok(typeof post.status === "string" && post.status.trim());
+    assert.match(post.cover.src, /^\/blog\/[a-z0-9-]+\.webp$/);
+    assert.ok(post.cover.alt.trim(), `${post.slug}: describe the cover`);
+    assert.ok(post.cover.width > 0 && post.cover.height > 0, "Cover dimensions prevent layout shifts");
+    assert.ok(["coral", "gold"].includes(post.cover.accent));
+    const coverBytes = await readFile(new URL(`../public${post.cover.src}`, import.meta.url));
+    assert.equal(coverBytes.toString("ascii", 0, 4), "RIFF", "Cover must be a served WebP asset");
+    assert.equal(coverBytes.toString("ascii", 8, 12), "WEBP");
     assert.match(post.date, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(`${post.date}T00:00:00Z`).toISOString().slice(0, 10), post.date);
     assert.ok(post.tags.length && post.tags.every((tag) => typeof tag === "string" && tag.trim()));

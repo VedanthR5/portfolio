@@ -3,7 +3,7 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { motion, useScroll } from "motion/react";
 import PropTypes from "prop-types";
 import { posts, formatDate } from "./catalog";
-import { FieldArt, Reveal } from "./Shared";
+import { ArticleCover, Reveal } from "./Shared";
 import Citation from "./Citation";
 import { usePageMeta } from "./usePageMeta";
 import "./blog.css";
@@ -18,7 +18,7 @@ InlineText.propTypes = { text: PropTypes.string.isRequired, sources: PropTypes.o
 
 function Article({ post, article }) {
   const { hash, state } = useLocation();
-  const returnTo = useRef(state?.from?.startsWith("/blog?") ? state.from : "/blog").current;
+  const [returnTo] = useState(() => state?.from?.startsWith("/blog?") ? state.from : "/blog");
   const articleRef = useRef(null);
   const [active, setActive] = useState(article.sections[0]?.id);
   const [copied, setCopied] = useState("");
@@ -72,7 +72,7 @@ function Article({ post, article }) {
   const sourcesLabel = `${String(article.sections.length + 1).padStart(2, "0")} / Sources & further reading`;
   const contents = <>{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} aria-current={active === section.id ? "location" : undefined}>{section.title}</a>)}<a href="#sources" aria-current={active === "sources" ? "location" : undefined}>{sourcesLabel}</a></>;
 
-  return <article ref={articleRef} className={`journal journal-post ${article.layout === "essay" ? "journal-essay" : ""} ${focusMode ? "focus-reading" : ""}`}>
+  return <article ref={articleRef} data-accent={post.cover.accent} className={`journal journal-post ${article.layout === "essay" ? "journal-essay" : ""} ${focusMode ? "focus-reading" : ""}`}>
     <motion.div className="reading-progress" aria-hidden="true" style={{ scaleX: scrollYProgress }} />
     <Reveal><div className="post-topline"><Link to={returnTo}>← All writing</Link><span className="eyebrow">{post.tags.join(" / ")}</span></div></Reveal>
     <Reveal className="post-header" delay={0.04}>
@@ -80,7 +80,7 @@ function Article({ post, article }) {
       <h1>{post.title}</h1><p className="post-subtitle">{post.subtitle}</p>
       <div className="post-byline"><span>Vedanth Ramanathan</span><time dateTime={post.date}>{formatDate(post.date)}</time><span>{Math.max(1, Math.ceil(wordCount / 220))} min read</span></div>
     </Reveal>
-    <Reveal className="post-art"><FieldArt /></Reveal>
+    <Reveal className="post-art"><ArticleCover cover={post.cover} priority /></Reveal>
     <div ref={readingLayout} className="reading-layout">
       <aside className="reading-rail"><nav aria-label="Article contents"><span className="eyebrow">ON THIS PAGE</span>{contents}</nav>
         <div className="reading-tools"><button onClick={toggleFocusMode} aria-pressed={focusMode}>{focusMode ? "Show artwork" : "Focus mode"} <span aria-hidden="true">◉</span></button><button onClick={copyLink}>Copy link ↗</button><span role="status">{copied}</span></div>
@@ -97,7 +97,7 @@ function Article({ post, article }) {
         <section id="sources" className="source-list"><h2>{sourcesLabel}</h2><p>Primary documents and reporting behind this essay. Previews are editorial summaries, not live extracts.</p>
           <ol>{Object.entries(article.sources).map(([id, source], index) => <li key={id}><span className="source-number">{String(index + 1).padStart(2, "0")}</span><div><Citation source={source}>{source.title}</Citation><p>{source.publisher}{source.date && ` · ${formatDate(source.date)}`}</p></div></li>)}</ol>
         </section>
-        <footer className="post-end"><span>Thanks for reading.</span><Link to={returnTo}>All articles ↗</Link></footer>
+        <footer className="post-end"><span>Vedanth Ramanathan</span><Link to={returnTo}>All articles ↗</Link></footer>
       </div>
     </div>
   </article>;

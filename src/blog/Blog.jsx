@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { posts, topics, selectPosts, formatDate } from "./catalog";
-import { FieldArt, Reveal } from "./Shared";
+import { ArticleCover, Reveal } from "./Shared";
 import { usePageMeta } from "./usePageMeta";
 import "./blog.css";
 
@@ -20,9 +20,9 @@ export default function Blog() {
   }
   return <div className="journal journal-index">
     <Reveal className="journal-intro">
-      <h1>Thinking out loud.<br /><span>Looking ahead.</span></h1>
+      <span className="eyebrow">By Vedanth Ramanathan</span>
+      <h1>Writing</h1>
       <p>Essays on technology, economics, and public policy.</p>
-      <div className="intro-rule"><span>By Vedanth Ramanathan</span></div>
     </Reveal>
     <section aria-label="Browse articles">
       <Reveal className="journal-controls" delay={0.08}>
@@ -34,17 +34,16 @@ export default function Blog() {
         </div>
       </Reveal>
       <p className="sr-only" role="status">{results.length} {results.length === 1 ? "article" : "articles"} found</p>
-      {results.map((post, i) => <Reveal className="essay-entry" key={post.slug} delay={i * 0.06}>
-        <Link className="essay-card" to={`/blog/${post.slug}`} state={{ from: `/blog${params.size ? `?${params}` : ""}` }}>
+      <div className="essay-list">{results.map((post, i) => <Reveal className={`essay-entry ${i === 0 ? "essay-featured" : ""}`} key={post.slug} delay={i * 0.06}>
+        <Link className="essay-card" data-accent={post.cover.accent} to={`/blog/${post.slug}`} state={{ from: `/blog${params.size ? `?${params}` : ""}` }}>
+          <ArticleCover cover={post.cover} priority={i === 0} decorative />
           <div className="essay-copy">
             <div className="eyebrow"><span>{post.tags.join(" / ")}</span>{post.status && <span className="draft-pill">{post.status}</span>}</div>
             <h2>{post.title}</h2><p className="essay-subtitle">{post.subtitle}</p>
-            <p className="essay-description">{post.description}</p>
             <div className="essay-meta"><time dateTime={post.date}>{formatDate(post.date)}</time><span className="read-link">Read the essay <span aria-hidden="true">↗</span></span></div>
           </div>
-          <FieldArt />
         </Link>
-      </Reveal>)}
+      </Reveal>)}</div>
       {!results.length && <div className="empty-state"><h2>No articles found.</h2><p>Try another phrase or reset your filters.</p><button onClick={() => setParams({})}>Clear filters ↗</button></div>}
     </section>
     <footer className="journal-footer"><Link to="/">Back to portfolio ↗</Link></footer>

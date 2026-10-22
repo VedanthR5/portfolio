@@ -9,11 +9,11 @@ export function Reveal({ children, className = "", delay = 0 }) {
 }
 Reveal.propTypes = { children: PropTypes.node, className: PropTypes.string, delay: PropTypes.number };
 
-export function FieldArt() {
-  return <div className="field-art" aria-hidden="true">
-    <div className="field-glow" />
-    <div className="field-rings">{Array.from({ length: 12 }, (_, i) => <i key={i} style={{ "--i": i }} />)}</div>
-    <span className="field-axis axis-one" /><span className="field-axis axis-two" />
+export function ArticleCover({ cover, priority = false, decorative = false }) {
+  return <div className="article-cover" data-accent={cover.accent}>
+    <img src={cover.src} alt={decorative ? "" : cover.alt} width={cover.width} height={cover.height}
+      loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : "auto"} decoding="async" />
   </div>;
 }
+ArticleCover.propTypes = { cover: PropTypes.shape({ src: PropTypes.string.isRequired, alt: PropTypes.string.isRequired, width: PropTypes.number.isRequired, height: PropTypes.number.isRequired, accent: PropTypes.string }).isRequired, priority: PropTypes.bool, decorative: PropTypes.bool };
 
