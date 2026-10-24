@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/build-blog.mjs",
+    "build": "vite build && node scripts/build-blog.mjs && node --test tests/built-blog.test.mjs",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 50",
     "lint:fix": "eslint src --fix",
     "lint:ci": "eslint src --max-warnings 100",
