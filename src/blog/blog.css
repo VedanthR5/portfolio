@@ -163,7 +163,8 @@
   .reading-layout { display: block; }
   .reading-rail { position: static; margin-bottom: 24px; }
   .reading-rail nav { display: none; }
-  .reading-tools { margin: 0; padding: 0; border: 0; flex-direction: row; gap: 24px; flex-wrap: wrap; }
+  .reading-tools { position: relative; margin: 0; padding: 0; border: 0; flex-direction: row; gap: 24px; flex-wrap: wrap; }
+  .share-disclosure { position: static; }
   .mobile-contents { display: block; margin-bottom: 28px; border-block: 1px solid var(--line); padding: 15px 0; font: 11px/1.7 "Poppins",sans-serif; color: var(--muted); }
   .mobile-contents summary { cursor: pointer; }
   .mobile-contents nav { display: flex; flex-direction: column; gap: 15px; padding-top: 20px; }
