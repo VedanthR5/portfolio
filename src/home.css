@@ -20,6 +20,18 @@
 #experience { --home-story: #d4b678; }
 #projects { --home-story: #93b5cb; }
 
+.hero-byline {
+  font-family: var(--editorial-font);
+  font-optical-sizing: auto;
+  font-size: clamp(20px, 2vw, 25px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+  .hero-byline { white-space: nowrap; }
+}
+
 .section-title {
   color: var(--home-ink);
   font-family: var(--editorial-font);

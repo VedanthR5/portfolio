@@ -25,12 +25,16 @@ export default function Home() {
       const restore = () => window.scrollTo({ top: saved, behavior: "instant" });
       restore();
       // Again after the route's scroll reset and the browser's fragment jump.
-      requestAnimationFrame(() => requestAnimationFrame(restore));
-      return;
+      let secondFrame;
+      const firstFrame = requestAnimationFrame(() => { secondFrame = requestAnimationFrame(restore); });
+      return () => { cancelAnimationFrame(firstFrame); cancelAnimationFrame(secondFrame); };
     }
     // A fresh load or a new visit with a hash: go straight to the target.
     const id = decodeURIComponent(window.location.hash.slice(1));
-    if (id) requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
+    if (id) {
+      const frame = requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }));
+      return () => cancelAnimationFrame(frame);
+    }
   }, [key, navigationType]);
 
   useEffect(() => {

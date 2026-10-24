@@ -33,8 +33,8 @@ const About = () => (
       <div className="about-copy">
   <h2 className="section-title">About</h2>
   <p>
-    I study artificial intelligence at Carnegie Mellon, concentrating in computer
-    systems. I graduate in 2028.
+    I study artificial intelligence &amp; computer science at Carnegie Mellon,
+    concentrating in computer systems.
   </p>
   <p>
     My work sits around security, machine learning, and the systems beneath them.

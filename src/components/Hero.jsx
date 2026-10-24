@@ -94,7 +94,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="relative w-full max-w-2xl px-5 sm:px-10 lg:px-16">
+      <div className="hero-copy relative w-full max-w-3xl px-5 sm:px-10 lg:px-16">
         <motion.h1
           variants={fadeVariants({ delay: 0.1 })}
           initial="hidden"
@@ -108,7 +108,7 @@ const Hero = () => {
           variants={fadeVariants({ delay: 0.2 })}
           initial="hidden"
           animate="show"
-          className="mt-4 max-w-xl text-lg font-normal leading-8 text-vr-text-primary/80 sm:text-xl"
+          className="hero-byline mt-4 text-vr-text-primary/80"
         >
           Security, systems, and machine learning, often all at once.
         </motion.p>
