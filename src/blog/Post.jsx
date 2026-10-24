@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { posts, formatDate } from "./catalog";
 import { ArticleCover, Reveal } from "./Shared";
 import Citation from "./Citation";
+import ShareArticle from "./ShareArticle";
 import { usePageMeta } from "./usePageMeta";
 import "./blog.css";
 
@@ -21,9 +22,7 @@ function Article({ post, article }) {
   const [returnTo] = useState(() => state?.from?.startsWith("/blog?") ? state.from : "/blog");
   const articleRef = useRef(null);
   const [active, setActive] = useState(article.sections[0]?.id);
-  const [copied, setCopied] = useState("");
   const [focusMode, setFocusMode] = useState(false);
-  const copyTimer = useRef(null);
   const readingLayout = useRef(null);
   const readingPosition = useRef(null);
   const { scrollYProgress } = useScroll({ target: articleRef, offset: ["start start", "end end"] });
@@ -51,7 +50,6 @@ function Article({ post, article }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(frame); };
   }, [article]);
-  useEffect(() => () => clearTimeout(copyTimer.current), []);
   useLayoutEffect(() => {
     if (readingPosition.current === null || !readingLayout.current) return;
     // Collapsing the artwork must not move the paragraph the reader is viewing.
@@ -62,12 +60,6 @@ function Article({ post, article }) {
   function toggleFocusMode() {
     readingPosition.current = readingLayout.current?.getBoundingClientRect().top ?? null;
     setFocusMode((value) => !value);
-  }
-  async function copyLink() {
-    try { await navigator.clipboard.writeText(window.location.href); setCopied("Link copied"); }
-    catch { setCopied("Copy the address from your browser"); }
-    clearTimeout(copyTimer.current);
-    copyTimer.current = setTimeout(() => setCopied(""), 3000);
   }
   const sourcesLabel = `${String(article.sections.length + 1).padStart(2, "0")} / Sources & further reading`;
   const contents = <>{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} aria-current={active === section.id ? "location" : undefined}>{section.title}</a>)}<a href="#sources" aria-current={active === "sources" ? "location" : undefined}>{sourcesLabel}</a></>;
@@ -83,7 +75,7 @@ function Article({ post, article }) {
     <Reveal className="post-art"><ArticleCover cover={post.cover} priority /></Reveal>
     <div ref={readingLayout} className="reading-layout">
       <aside className="reading-rail"><nav aria-label="Article contents"><span className="eyebrow">ON THIS PAGE</span>{contents}</nav>
-        <div className="reading-tools"><button onClick={toggleFocusMode} aria-pressed={focusMode}>{focusMode ? "Show artwork" : "Focus mode"} <span aria-hidden="true">◉</span></button><button onClick={copyLink}>Copy link ↗</button><span role="status">{copied}</span></div>
+        <div className="reading-tools"><button onClick={toggleFocusMode} aria-pressed={focusMode}>{focusMode ? "Show artwork" : "Focus mode"} <span aria-hidden="true">◉</span></button><ShareArticle post={post} /></div>
       </aside>
       <div className="article-body">
         <details className="mobile-contents"><summary>In this essay</summary><nav aria-label="Article contents on mobile">{contents}</nav></details>

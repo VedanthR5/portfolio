@@ -3,6 +3,22 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { posts, topics, selectPosts, formatDate } from "../src/blog/catalog.js";
 import { getRouteMeta } from "../src/blog/pageMeta.js";
+import { getShareLinks } from "../src/blog/shareLinks.js";
+
+test("share destinations preserve titles and use the production article URL", () => {
+  const post = { slug: "example", title: "AI & people: who decides?", description: "A question + an answer." };
+  const { url, message, destinations } = getShareLinks(post);
+  assert.equal(url, "https://vedanthramanathan.com/blog/example");
+  assert.equal(message, `${post.title}\n${url}`);
+  const links = Object.fromEntries(destinations.map((entry) => [entry.label, new URL(entry.href)]));
+  assert.equal(links.LinkedIn.searchParams.get("url"), url);
+  assert.equal(links["X / Twitter"].searchParams.get("text"), post.title);
+  assert.equal(links["X / Twitter"].searchParams.get("url"), url);
+  assert.equal(links.WhatsApp.searchParams.get("text"), message);
+  assert.equal(links.Email.searchParams.get("subject"), post.title);
+  assert.equal(links.Email.searchParams.get("body"), `${post.description}\n\n${url}`);
+  assert.ok(!links.Email.href.includes("+"), "Mail clients need percent-encoded spaces");
+});
 
 test("canonical and social metadata agree for slash and non-slash routes", () => {
   for (const path of ["/blog", "/blog/", "/blog///"]) {
