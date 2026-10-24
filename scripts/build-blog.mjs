@@ -2,6 +2,8 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { posts } from "../src/blog/catalog.js";
+import { getSocialMeta } from "../src/blog/socialMeta.js";
+import { renderArticle } from "./static-blog.js";
 import { getRouteMeta } from "../src/blog/pageMeta.js";
 
 // Give static hosts and link-preview crawlers route-specific metadata without
@@ -29,6 +31,7 @@ function setMeta(html, attribute, name, value) {
 
 async function writePage(pathname, title, description, post) {
   const { url, type } = getRouteMeta(pathname);
+  const social = getSocialMeta(pathname);
   const fullTitle = `${title} · Vedanth Ramanathan`;
   let html = template.replace(/<title\b[^>]*>[\s\S]*?<\/title>/i,
     () => `<title>${escapeHtml(fullTitle)}</title>`);
@@ -44,9 +47,20 @@ async function writePage(pathname, title, description, post) {
     ["name", "twitter:title", fullTitle],
     ["name", "twitter:description", description],
     ["name", "twitter:url", url],
+    ["property", "og:image", social.image],
+    ["property", "og:image:secure_url", social.image],
+    ["property", "og:image:type", "image/jpeg"],
+    ["property", "og:image:width", social.width],
+    ["property", "og:image:height", social.height],
+    ["property", "og:image:alt", social.alt],
+    ["name", "twitter:card", "summary_large_image"],
+    ["name", "twitter:image", social.image],
+    ["name", "twitter:image:alt", social.alt],
   ]) html = setMeta(html, attribute, name, value);
 
   if (post) {
+    html = setMeta(html, "property", "article:published_time", post.date);
+    html = setMeta(html, "property", "article:author", `${origin}/`);
     const schema = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -56,7 +70,8 @@ async function writePage(pathname, title, description, post) {
       url,
       mainEntityOfPage: url,
       datePublished: post.date,
-      author: { "@id": `${origin}/#person` },
+      author: { "@type": "Person", "@id": `${origin}/#person`, name: "Vedanth Ramanathan", url: `${origin}/` },
+      image: { "@type": "ImageObject", url: social.image, width: social.width, height: social.height },
       isPartOf: { "@id": `${origin}/#website` },
       keywords: post.tags.join(", "),
       inLanguage: "en-US",
@@ -65,6 +80,11 @@ async function writePage(pathname, title, description, post) {
     html = html.replace(/<\/head>/i,
       () => `    <script type="application/ld+json">${schema}</script>\n  </head>`);
   }
+  // Same visible article data for every visitor, including non-JS crawlers.
+  // React's createRoot replaces this fallback with the interactive reader.
+  const content = post ? renderArticle(post, (await post.load()).default) :
+    `<h1>Writing</h1>${posts.map((entry) => `<article><h2><a href="/blog/${entry.slug}">${escapeHtml(entry.title)}</a></h2><p>${escapeHtml(entry.description)}</p></article>`).join("")}`;
+  html = html.replace('<div id="root"></div>', () => `<div id="root"><main style="max-width:48rem;margin:6rem auto;padding:1.5rem;line-height:1.7"><nav><a href="/">Vedanth Ramanathan</a> · <a href="/blog">Writing</a></nav>${content}</main></div>`);
   const directory = resolve(dist, `.${pathname}`);
   await mkdir(directory, { recursive: true });
   await writeFile(resolve(directory, "index.html"), html);

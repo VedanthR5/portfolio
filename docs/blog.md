@@ -71,6 +71,18 @@ Useful manual checks: direct article refresh, an unknown slug, filtered index re
 
 ## Hosting and verification
 
+### Sharing and search
+
+The reading tools include Copy link and a compact Share disclosure with LinkedIn, X/Twitter, WhatsApp and email. On browsers with Web Share, “Messages & more” opens the device's native share sheet; the available apps depend on the device. Other browsers get an SMS composer link (requires a configured messaging app). Sharing always uses the production canonical article URL, including from previews, without query strings or reading-position fragments. Links open a composer for the reader to finish; nothing is posted automatically. No social SDKs load. Escape returns focus to Share, and clicking outside closes the disclosure. Clipboard failures expose a selectable link.
+
+Each article's `title` and `description` in the catalog control its search and social text. `socialMeta.js` derives a unique JPEG URL from its cover: `/blog/<cover-name>-share.jpg`. Export a 1200 × 675 RGB JPEG alongside every WebP cover (quality 90 is suitable). These social assets use JPEG for broad crawler compatibility; the reader still loads the smaller WebP. The writing index uses the newest catalog entry's cover. Keep the catalog in newest-first order.
+
+The build writes Open Graph image URL, type, dimensions and alt text; a large-image Twitter card; publication metadata; and BlogPosting JSON-LD with author and image. All of this appears in the initial HTML, without executing JavaScript. It also includes the complete visible article, citations, quotations and sources, or crawlable article links on the index. React replaces this static fallback with the interactive reader when it starts. It is generated from the same article objects, not a separately maintained copy. `tests/built-blog.test.mjs` runs after the build to prevent missing thumbnails, duplicate tags and empty crawler pages.
+
+After deployment, inspect the **production article URL** in [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) to refresh its cached preview before adding a new Featured link or post. LinkedIn controls the final layout and may omit the description in some placements; existing posts may retain their old cards. Use [Google Rich Results Test](https://search.google.com/test/rich-results) to check structured data, and submit the existing `/sitemap.xml` in Search Console if not already submitted. Metadata helps discovery and presentation but does not guarantee indexing or rankings.
+
+When replacing artwork, give it a new filename and export the matching JPEG so cached cards can fetch a new URL. Validate deployed page and image responses before sharing; Netlify preview URLs intentionally canonicalize to production.
+
 `public/_redirects` provides Netlify's SPA fallback (`/* /index.html 200`) for paths without a generated static file. Deploy the complete build output; existing static files take precedence over this fallback. Other hosts need an equivalent fallback so refreshing `/blog/:slug` works.
 
 Run the focused content suite with:

@@ -68,6 +68,17 @@
 .reading-tools button { color: var(--muted); font-size: 10px; }
 .reading-tools button[aria-pressed=true] { color: var(--accent); }
 .reading-tools [role=status] { font-size: 10px; color: var(--accent); }
+.article-share { min-width: 0; max-width: 100%; }
+.share-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.share-actions > button,.share-disclosure > summary { min-height: 44px; display: flex; align-items: center; gap: 6px; font: 12px/1.5 "Poppins",sans-serif; color: var(--muted); cursor: pointer; }
+.share-disclosure { position: relative; }
+.share-disclosure > summary { list-style: none; }
+.share-disclosure > summary::-webkit-details-marker { display: none; }
+.share-disclosure[open] > summary { color: var(--ink); }
+.share-options { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; width: min(230px,calc(100vw - 48px)); padding: 6px; border: 1px solid var(--line); border-radius: 5px; background: #11131e; box-shadow: 0 16px 40px #0006; }
+.share-options a,.reading-tools .share-options button { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: 10px 12px; font: 12px/1.5 "Poppins",sans-serif; color: var(--ink); text-align: left; border-radius: 3px; }
+.share-options a:hover,.share-options button:hover { background: #ffffff0a; }
+.share-copy-field { display: block; width: 100%; margin-top: 8px; padding: 8px; color: var(--ink); background: #11131e; border: 1px solid var(--line); font: 11px/1.5 "Poppins",sans-serif; }
 .article-body { min-width: 0; font-family: var(--reading-font); }
 .article-body .editor-note { font: 10px/1.8 "Poppins",sans-serif; color: var(--muted); border-left: 2px solid var(--story); padding: 4px 0 4px 15px; margin-bottom: 28px; }
 .article-body p { font-size: 21px; color: #d4d4cf; line-height: 1.7; margin-bottom: 26px; }
@@ -152,7 +163,8 @@
   .reading-layout { display: block; }
   .reading-rail { position: static; margin-bottom: 24px; }
   .reading-rail nav { display: none; }
-  .reading-tools { margin: 0; padding: 0; border: 0; flex-direction: row; gap: 24px; flex-wrap: wrap; }
+  .reading-tools { position: relative; margin: 0; padding: 0; border: 0; flex-direction: row; gap: 24px; flex-wrap: wrap; }
+  .share-disclosure { position: static; }
   .mobile-contents { display: block; margin-bottom: 28px; border-block: 1px solid var(--line); padding: 15px 0; font: 11px/1.7 "Poppins",sans-serif; color: var(--muted); }
   .mobile-contents summary { cursor: pointer; }
   .mobile-contents nav { display: flex; flex-direction: column; gap: 15px; padding-top: 20px; }
