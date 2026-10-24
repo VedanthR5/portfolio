@@ -1,0 +1,16 @@
+/* One editorial face for portfolio copy and essays; navigation stays Poppins. */
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4/SourceSerif4Variable-Roman.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4/SourceSerif4Variable-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+}
+:root { --editorial-font: "Source Serif 4", Georgia, serif; }

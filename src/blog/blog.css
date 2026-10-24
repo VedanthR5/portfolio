@@ -1,17 +1,4 @@
-@font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/source-serif-4/SourceSerif4Variable-Roman.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 200 900;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/source-serif-4/SourceSerif4Variable-Italic.woff2") format("woff2");
-  font-style: italic;
-  font-weight: 200 900;
-  font-display: swap;
-}
+@import "../editorial.css";
 
 .journal { --ink: #efede6; --muted: #a1a5b3; --accent: #c1b2ee; --line: #b6bac323; --story: #d9a58c; --reading-font: "Source Serif 4", Georgia, serif; color: var(--ink); max-width: 1240px; margin: auto; padding: 154px 48px 48px; font-optical-sizing: auto; }
 .journal-post { overflow-anchor: none; }

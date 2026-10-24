@@ -63,7 +63,7 @@ Hovering or focusing a citation link opens its preview. The original link still 
 
 Sections have stable fragment links and fixed-navbar offsets. Contents navigation becomes a disclosure on narrow screens. Focus mode hides the article cover. Readers who request reduced motion receive no animated scrolling, cover zoom, or reveal motion. Print styles remove navigation and artwork and expose source URLs.
 
-The first result is featured; remaining results become compact archive rows. Filtering and sorting change that ordering without changing each story's cover or accent. The first cover loads eagerly; other covers load lazily. Covers declare dimensions, use object-fit cropping, and never contain the article title. The self-hosted Source Serif 4 assets and license live under `public/fonts/source-serif-4/`; their CSS loads with the blog routes only.
+The first result is featured; remaining results become compact archive rows. Filtering and sorting change that ordering without changing each story's cover or accent. The first cover loads eagerly; other covers load lazily. Covers declare dimensions, use object-fit cropping, and never contain the article title. The self-hosted Source Serif 4 assets and license live under `public/fonts/source-serif-4/`. Font declarations are shared by the home and blog stylesheets through `src/editorial.css`; neither route imports the other's component styles.
 
 Article text remains visible throughout scrolling; reveals apply only to the header and artwork. Preview focus changes must use `preventScroll`, and toggling focus mode preserves the reading position. Canonical URLs, social page types, and Blog navigation matching share `pageMeta.js`; test both slash and non-slash routes.
 

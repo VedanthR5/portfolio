@@ -95,13 +95,15 @@ const About = () => (
                 <External href={item.href}>{item.text}</External>
               </li>
             ))}
-            {latestPost && (
-              <li>
-                Latest essay: <Link to={`/blog/${latestPost.slug}`}>{latestPost.title}</Link>
-              </li>
-            )}
           </ul>
         </section>
+        {latestPost && (
+          <Link className="home-latest-essay" to={`/blog/${latestPost.slug}`}>
+            <img src={latestPost.cover.src} width={latestPost.cover.width} height={latestPost.cover.height} alt="" loading="lazy" decoding="async" />
+            <span><span className="home-latest-label">Latest essay</span><span className="home-latest-title">{latestPost.title}</span></span>
+            <span className="home-latest-arrow" aria-hidden="true">↗</span>
+          </Link>
+        )}
       </div>
     </div>
 

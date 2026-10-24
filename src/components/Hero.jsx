@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import {
   motion,
   useInView,
-  useScroll,
-  useTransform,
   useReducedMotion,
 } from "motion/react";
 import { fadeVariants } from "../utils/motion";
@@ -83,8 +81,6 @@ const useTypingCycle = (words, isVisible) => {
 const Hero = () => {
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef);
-  const { scrollYProgress } = useScroll();
-  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const typingText = useTypingCycle(domains, heroInView);
 
   return (
@@ -130,9 +126,6 @@ const Hero = () => {
               <span className="text-vr-text-secondary">
                 {typingText} @ carnegie mellon
               </span>
-              <span className="select-none text-vr-accent motion-safe:animate-pulse">
-                |
-              </span>
               </span>
             </span>
           ) : (
@@ -176,11 +169,6 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        aria-hidden="true"
-        style={{ opacity: indicatorOpacity }}
-        className="absolute bottom-8 left-1/2 h-10 w-px -translate-x-1/2 bg-vr-accent"
-      />
     </section>
   );
 };
