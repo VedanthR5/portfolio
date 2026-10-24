@@ -12,8 +12,7 @@ const emailConfig = {
   publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
 };
 
-const fieldClass =
-  "rounded-xl border border-white/10 bg-[#080a1a] px-4 py-3 text-[15px] text-white outline-hidden transition-colors duration-200 placeholder:text-[#77728f] focus:border-[#c9b8ff]/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9b8ff]";
+const fieldClass = "contact-input";
 
 const Contact = () => {
   const reduceMotion = useReducedMotion();

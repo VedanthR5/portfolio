@@ -95,7 +95,7 @@ const Navbar = () => {
         <ul className="list-none hidden lg:flex flex-row items-center gap-8 text-[15px]">
           {navLinks.map((nav) => (
             <li key={nav.id}>
-              <a href={sectionHref(nav.id)} className={linkClass}>{nav.title}</a>
+              <Link to={sectionHref(nav.id)} className={linkClass}>{nav.title}</Link>
             </li>
           ))}
           <li>
@@ -144,9 +144,9 @@ const Navbar = () => {
             <ul className="list-none flex flex-col text-[16px]">
               {navLinks.map((nav) => (
                 <li key={nav.id}>
-                  <a href={sectionHref(nav.id)} onClick={closeMenu} className="block rounded-xl px-4 py-3 text-[#d9d6e8] hover:bg-white/5">
+                  <Link to={sectionHref(nav.id)} onClick={closeMenu} className="block rounded-xl px-4 py-3 text-[#d9d6e8] hover:bg-white/5">
                     {nav.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li>

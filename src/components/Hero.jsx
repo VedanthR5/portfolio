@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import {
   motion,
   useInView,
-  useScroll,
-  useTransform,
   useReducedMotion,
 } from "motion/react";
 import { fadeVariants } from "../utils/motion";
@@ -83,8 +81,6 @@ const useTypingCycle = (words, isVisible) => {
 const Hero = () => {
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef);
-  const { scrollYProgress } = useScroll();
-  const indicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const typingText = useTypingCycle(domains, heroInView);
 
   return (
@@ -98,7 +94,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="relative w-full max-w-2xl px-5 sm:px-10 lg:px-16">
+      <div className="hero-copy relative w-full max-w-3xl px-5 sm:px-10 lg:px-16">
         <motion.h1
           variants={fadeVariants({ delay: 0.1 })}
           initial="hidden"
@@ -112,7 +108,7 @@ const Hero = () => {
           variants={fadeVariants({ delay: 0.2 })}
           initial="hidden"
           animate="show"
-          className="mt-4 max-w-xl text-lg font-normal leading-8 text-vr-text-primary/80 sm:text-xl"
+          className="hero-byline mt-4 text-vr-text-primary/80"
         >
           Security, systems, and machine learning, often all at once.
         </motion.p>
@@ -129,9 +125,6 @@ const Hero = () => {
               <span aria-hidden="true" className="contents">
               <span className="text-vr-text-secondary">
                 {typingText} @ carnegie mellon
-              </span>
-              <span className="select-none text-vr-accent motion-safe:animate-pulse">
-                |
               </span>
               </span>
             </span>
@@ -176,11 +169,6 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        aria-hidden="true"
-        style={{ opacity: indicatorOpacity }}
-        className="absolute bottom-8 left-1/2 h-10 w-px -translate-x-1/2 bg-vr-accent"
-      />
     </section>
   );
 };
